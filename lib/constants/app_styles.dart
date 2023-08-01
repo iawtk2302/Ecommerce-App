@@ -18,4 +18,13 @@ class AppStyles {
       fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.primaryColor);
   static const TextStyle bodyMedium = TextStyle(
       fontSize: 11, fontWeight: FontWeight.w400, color: AppColors.greyColor);
+  static const TextStyle onboardingTitle = TextStyle(
+    fontSize: 30,
+    fontWeight: FontWeight.bold,
+  );
+  static const TextStyle onboardingDescription = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: AppColors.greyTextColor,
+  );
 }
