@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppRouter {
-  Route? getRoute(RouteSettings settings) {
+  Route? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       default:
         return MaterialPageRoute(
