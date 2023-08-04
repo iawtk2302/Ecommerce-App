@@ -1,6 +1,6 @@
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
-import 'package:ecommerce_app/screens/home_screen/widgets/product_item.dart';
+import 'package:ecommerce_app/screens/home_screen/widgets/grid_view_product.dart';
 import 'package:flutter/material.dart';
 
 class NewArrivalsHome extends StatelessWidget {
@@ -19,7 +19,7 @@ class NewArrivalsHome extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     "New Arrivals",
                     style: AppStyles.titleMedium,
                   ),
@@ -30,20 +30,7 @@ class NewArrivalsHome extends StatelessWidget {
                   )
                 ]),
           ),
-          GridView.builder(
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 200,
-                childAspectRatio: 2 / 3.3,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 20),
-            itemCount: 10,
-            // scrollDirection: Axis.vertical,
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return ProductItem();
-            },
-          ),
+          const GridViewProduct()
         ],
       ),
     );

@@ -9,6 +9,7 @@ class PromotionItem extends StatelessWidget {
   final double width;
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
       margin: const EdgeInsets.only(right: 12),
       padding: const EdgeInsets.all(12),
@@ -41,8 +42,8 @@ class PromotionItem extends StatelessWidget {
             ),
           ),
           MyButton(
-            width: 100,
-            height: 35,
+            width: size.width * 0.25,
+            height: size.width * 0.1,
             onTap: () {},
             child: const Text(
               "Get now",
