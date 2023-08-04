@@ -1,5 +1,4 @@
 import 'package:ecommerce_app/common_widgets/my_button.dart';
-import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -41,9 +40,9 @@ class PromotionItem extends StatelessWidget {
             ),
           ),
           MyButton(
-            width: 100,
-            height: 35,
-            onTap: () {},
+            // width: 100,
+            // height: 35,
+            onPressed: () {},
             child: const Text(
               "Get now",
               style:
