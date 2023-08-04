@@ -1,9 +1,8 @@
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:flutter/material.dart';
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar(
-      {super.key, required this.height, required this.isScrolled});
+class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const HomeAppBar({super.key, required this.height, required this.isScrolled});
   final double height;
   final bool isScrolled;
   @override

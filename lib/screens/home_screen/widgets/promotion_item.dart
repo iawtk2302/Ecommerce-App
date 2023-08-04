@@ -44,7 +44,7 @@ class PromotionItem extends StatelessWidget {
             width: 100,
             height: 35,
             onTap: () {},
-            child: Text(
+            child: const Text(
               "Get now",
               style:
                   TextStyle(fontWeight: FontWeight.w600, color: Colors.white),

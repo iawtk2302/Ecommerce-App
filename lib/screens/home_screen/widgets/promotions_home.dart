@@ -2,8 +2,8 @@ import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/screens/home_screen/widgets/promotion_item.dart';
 import 'package:flutter/material.dart';
 
-class ListPromotion extends StatelessWidget {
-  const ListPromotion({super.key});
+class PromotionsHome extends StatelessWidget {
+  const PromotionsHome({super.key});
 
   @override
   Widget build(BuildContext context) {
