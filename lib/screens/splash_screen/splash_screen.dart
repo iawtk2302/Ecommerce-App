@@ -1,9 +1,9 @@
 import 'package:ecommerce_app/blocs/auth_bloc/auth_bloc.dart';
 import 'package:ecommerce_app/blocs/user_bloc/user_bloc.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
+import 'package:ecommerce_app/screens/main_screen/main_screen.dart';
 import 'package:ecommerce_app/screens/onboarding_screen/onboarding_screen.dart';
 import 'package:ecommerce_app/screens/sign_in_screen/sign_in_screen.dart';
-import 'package:ecommerce_app/screens/test_screen.dart';
 import 'package:ecommerce_app/ultils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen> {
         return BlocConsumer<UserBloc, UserState>(
           listener: (context, state) {
             if (state is UserLoaded) {
-              Navigator.pushNamed(context, TestScreen.routeName);
+              Navigator.pushNamed(context, MainScreen.routeName);
             } else if (state is UserError) {
               Utils.showSnackBar(
                   context: context,

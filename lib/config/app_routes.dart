@@ -3,7 +3,6 @@ import 'package:ecommerce_app/screens/onboarding_screen/onboarding_screen.dart';
 import 'package:ecommerce_app/screens/sign_in_screen/sign_in_screen.dart';
 import 'package:ecommerce_app/screens/sign_up_screen/sign_up_screen.dart';
 import 'package:ecommerce_app/screens/sign_up_screen/sign_up_success_screen.dart';
-import 'package:ecommerce_app/screens/test_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -24,10 +23,6 @@ class AppRouter {
       case SignUpSuccessScreen.routeName:
         return MaterialPageRoute(
           builder: (context) => const SignUpSuccessScreen(),
-        );
-      case TestScreen.routeName:
-        return MaterialPageRoute(
-          builder: (context) => const TestScreen(),
         );
       case MainScreen.routeName:
         return MaterialPageRoute(
