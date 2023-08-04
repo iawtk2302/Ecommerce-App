@@ -83,6 +83,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       count: onboardingItems.length),
                   MyIconButton(
                       onPressed: _onNextButtonPressed,
+                      color: AppColors.primaryColor,
                       icon: SvgPicture.asset(AppAssets.icArrowRight),
                       size: 40)
                 ],
