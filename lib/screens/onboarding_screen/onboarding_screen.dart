@@ -6,6 +6,7 @@ import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/repositories/onboarding_repository.dart';
 import 'package:ecommerce_app/screens/onboarding_screen/widgets/onboarding_clipper.dart';
 import 'package:ecommerce_app/screens/sign_in_screen/sign_in_screen.dart';
+import 'package:ecommerce_app/ultils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -96,6 +97,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   void _onNextButtonPressed() {
     if (controller.page == onboardingItems.length - 1) {
+      Utils().markAlreadyUsedOnboarding();
       Navigator.pushNamed(context, SignInScreen.routeName);
       return;
     }
