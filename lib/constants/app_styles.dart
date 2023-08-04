@@ -5,7 +5,9 @@ class AppStyles {
   static const TextStyle displayLarge = TextStyle(
       fontSize: 25, fontWeight: FontWeight.bold, color: AppColors.primaryColor);
   static const TextStyle displayMedium = TextStyle(
-      fontSize: 20, fontWeight: FontWeight.w600, color: AppColors.greyColor);
+      fontSize: 20,
+      fontWeight: FontWeight.w600,
+      color: AppColors.greyTextColor);
   static const TextStyle displaySmall = TextStyle(
       fontSize: 16, fontWeight: FontWeight.w400, color: AppColors.primaryColor);
   static const TextStyle headlineLarge = TextStyle(
