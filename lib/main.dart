@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/config/app_routes.dart';
+import 'package:ecommerce_app/screens/main_screen/main_screen.dart';
 import 'package:ecommerce_app/screens/onboarding_screen/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const OnboardingScreen(),
+      home: const MainScreen(),
     );
   }
 }

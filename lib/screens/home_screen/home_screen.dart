@@ -3,6 +3,7 @@ import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/screens/home_screen/widgets/home_app_bar.dart';
 import 'package:ecommerce_app/screens/home_screen/widgets/header_home.dart';
+import 'package:ecommerce_app/screens/home_screen/widgets/popular_home.dart';
 import 'package:ecommerce_app/screens/home_screen/widgets/promotions_home.dart';
 import 'package:ecommerce_app/screens/home_screen/widgets/new_arrivals_home.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,8 @@ class _HomeScreenState extends State<HomeScreen> {
     List<Widget> ui = [
       const HeaderHome(),
       const PromotionsHome(),
-      const NewArrivalsHome()
+      const NewArrivalsHome(),
+      const PopularHome()
     ];
     Size size = MediaQuery.of(context).size;
     return SafeArea(
