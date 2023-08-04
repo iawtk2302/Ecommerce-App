@@ -1,3 +1,5 @@
+import 'package:ecommerce_app/common_widgets/my_icon.dart';
+import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +25,7 @@ class NavBarItem extends StatelessWidget {
                 iconName: iconName,
                 label: label,
               )
-            : SvgPicture.asset("assets/icons/ic_${iconName}_black.svg"));
+            : MyIcon(icon: "${AppAssets.iconPath}/ic_${iconName}_black.svg"));
   }
 }
 
@@ -53,8 +55,8 @@ class IconWithText extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   color: AppColors.primaryColor),
               child: Center(
-                  child: SvgPicture.asset(
-                      "assets/icons/ic_${iconName}_white.svg"))),
+                  child: MyIcon(
+                      icon: "${AppAssets.iconPath}/ic_${iconName}_white.svg"))),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Text(

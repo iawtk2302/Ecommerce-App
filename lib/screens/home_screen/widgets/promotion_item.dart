@@ -40,9 +40,10 @@ class PromotionItem extends StatelessWidget {
               style: AppStyles.displayMedium.copyWith(fontSize: 12),
             ),
           ),
-          const MyButton(
+          MyButton(
             width: 100,
             height: 35,
+            onTap: () {},
             child: Text(
               "Get now",
               style:

@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/common_widgets/my_icon.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
@@ -39,26 +40,24 @@ class HeaderHome extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: AppColors.greyColor,
                       borderRadius: BorderRadius.circular(40)),
-                  child: TextField(
+                  child: const TextField(
                     decoration: InputDecoration(
                         prefixIcon: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: SvgPicture.asset(
-                            AppAssets.icSearch,
-                            height: 24,
-                            width: 24,
-                          ),
-                        ),
-                        hintStyle:
-                            const TextStyle(color: AppColors.primaryHintColor),
+                            padding: EdgeInsets.all(10.0),
+                            child: MyIcon(
+                              icon: AppAssets.icSearch,
+                            )),
+                        hintStyle: TextStyle(color: AppColors.primaryHintColor),
                         hintText: "Search...",
                         border: InputBorder.none),
                   ),
                 ),
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 25,
                   backgroundColor: AppColors.primaryColor,
-                  child: SvgPicture.asset(AppAssets.icFilter),
+                  child: MyIcon(
+                    icon: AppAssets.icFilter,
+                  ),
                 )
               ],
             ),

@@ -17,7 +17,9 @@ class ListPromotion extends StatelessWidget {
         itemCount: 5,
         itemBuilder: (context, index) {
           return PromotionItem(
-              height: size.height * 0.25, width: size.width * 0.7);
+            height: size.height * 0.25,
+            width: size.width * 0.7,
+          );
         },
       ),
     );

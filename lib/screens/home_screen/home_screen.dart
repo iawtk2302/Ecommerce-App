@@ -46,14 +46,16 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     List<Widget> ui = [const HeaderHome(), const ListPromotion()];
+    Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
           backgroundColor: AppColors.backgroundColor,
           appBar: CustomAppBar(
-            height: 60,
+            height: size.height * 0.09,
             isScrolled: _isScrolled,
           ),
           body: ListView.builder(
+            controller: _scrollController,
             itemCount: ui.length,
             itemBuilder: (context, index) {
               return ui[index];
