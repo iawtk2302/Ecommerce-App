@@ -9,8 +9,8 @@ class NewArrivalsHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          const EdgeInsets.symmetric(horizontal: AppDimensions.defaultPadding),
+      padding: const EdgeInsets.symmetric(
+          horizontal: AppDimensions.defaultPadding, vertical: 8),
       child: Column(
         children: [
           Padding(

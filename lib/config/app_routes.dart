@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/screens/category_screen/category_screen.dart';
 import 'package:ecommerce_app/screens/main_screen/main_screen.dart';
 import 'package:ecommerce_app/screens/onboarding_screen/onboarding_screen.dart';
 import 'package:ecommerce_app/screens/sign_in_screen/sign_in_screen.dart';
@@ -27,6 +28,10 @@ class AppRouter {
       case MainScreen.routeName:
         return MaterialPageRoute(
           builder: (context) => const MainScreen(),
+        );
+      case CategoryScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => const CategoryScreen(),
         );
 
       default:

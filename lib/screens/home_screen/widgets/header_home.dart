@@ -13,8 +13,8 @@ class HeaderHome extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Padding(
-      padding:
-          const EdgeInsets.symmetric(horizontal: AppDimensions.defaultPadding),
+      padding: const EdgeInsets.symmetric(
+          horizontal: AppDimensions.defaultPadding, vertical: 8),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
