@@ -6,6 +6,7 @@ class MyButton extends StatelessWidget {
   final Color backgroundColor;
   final VoidCallback onPressed;
   final EdgeInsetsGeometry? margin;
+  final EdgeInsets padding;
 
   const MyButton({
     super.key,
@@ -13,6 +14,7 @@ class MyButton extends StatelessWidget {
     required this.onPressed,
     this.margin,
     this.backgroundColor = AppColors.primaryColor,
+    this.padding = const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
   });
 
   @override
@@ -22,7 +24,7 @@ class MyButton extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           elevation: 0,
-          padding: const EdgeInsets.symmetric(vertical: 12),
+          padding: padding,
           backgroundColor: backgroundColor,
         ),
         onPressed: onPressed,
