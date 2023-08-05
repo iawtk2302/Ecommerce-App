@@ -11,13 +11,19 @@ class AppStyles {
   static const TextStyle displaySmall = TextStyle(
       fontSize: 16, fontWeight: FontWeight.w400, color: AppColors.primaryColor);
   static const TextStyle headlineLarge = TextStyle(
-      fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.primaryColor);
+      fontSize: 18, fontWeight: FontWeight.w700, color: AppColors.primaryColor);
   static const TextStyle headlineMedium = TextStyle(
-      fontSize: 16, fontWeight: FontWeight.w400, color: AppColors.primaryColor);
+      fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.primaryColor);
   static const TextStyle titleMedium = TextStyle(
       fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.primaryColor);
   static const TextStyle labelLarge = TextStyle(
+      fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.primaryColor);
+  static const TextStyle labelMedium = TextStyle(
       fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.primaryColor);
+  static const TextStyle bodyLarge = TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      color: AppColors.greyTextColor);
   static const TextStyle bodyMedium = TextStyle(
       fontSize: 11,
       fontWeight: FontWeight.w400,

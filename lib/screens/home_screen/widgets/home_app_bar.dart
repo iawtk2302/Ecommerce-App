@@ -18,7 +18,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             children: [
               const CircleAvatar(
                 backgroundColor: Colors.black,
-                radius: 24,
+                radius: 22,
                 child: Icon(
                   Icons.menu,
                   color: Colors.white,
@@ -28,7 +28,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ? const CircleAvatar(
                       backgroundImage: NetworkImage(
                           "https://nld.mediacdn.vn/291774122806476800/2023/5/17/3471044557860853628333446226731026240094406n-16842998525331526811843.jpg"),
-                      radius: 24,
+                      radius: 22,
                     )
                   : const Icon(
                       Icons.search,

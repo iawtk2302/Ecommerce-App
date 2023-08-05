@@ -1,5 +1,5 @@
 import 'package:ecommerce_app/common_widgets/my_button.dart';
-import 'package:ecommerce_app/constants/app_colors.dart';
+import 'package:ecommerce_app/common_widgets/my_ink_well.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -41,10 +41,10 @@ class PromotionItem extends StatelessWidget {
               style: AppStyles.displayMedium.copyWith(fontSize: 12),
             ),
           ),
-          MyButton(
-            width: size.width * 0.25,
-            height: size.width * 0.1,
+          MyInkWell(
             onTap: () {},
+            width: size.width * 0.25,
+            height: size.height * 0.04,
             child: const Text(
               "Get now",
               style:
