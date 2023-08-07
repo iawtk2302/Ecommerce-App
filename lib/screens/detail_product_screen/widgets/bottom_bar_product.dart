@@ -40,6 +40,9 @@ class BottomBarProduct extends StatelessWidget {
               child: Row(
                 children: [
                   const MyIcon(icon: AppAssets.icBag),
+                  const SizedBox(
+                    width: 10,
+                  ),
                   Text(
                     "Add to cart",
                     style:
