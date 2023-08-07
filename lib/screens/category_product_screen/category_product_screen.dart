@@ -12,6 +12,7 @@ class CategoryProductScreen extends StatelessWidget {
         appBar: MyAppBar(),
         body: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ScreenNameSection(
                 label: "Clothes",
