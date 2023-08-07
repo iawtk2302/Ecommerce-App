@@ -8,8 +8,8 @@ class GridViewCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          const EdgeInsets.symmetric(horizontal: AppDimensions.defaultPadding),
+      padding: const EdgeInsets.symmetric(
+          horizontal: AppDimensions.defaultPadding, vertical: 15),
       child: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: 1 / 1.2,

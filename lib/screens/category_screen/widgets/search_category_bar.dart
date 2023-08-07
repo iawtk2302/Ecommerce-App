@@ -11,13 +11,17 @@ class SearchCategoryBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: AppDimensions.defaultPadding),
+      margin: const EdgeInsets.only(
+          left: AppDimensions.defaultPadding,
+          right: AppDimensions.defaultPadding,
+          top: AppDimensions.defaultPadding,
+          bottom: 10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30), color: AppColors.greyColor),
-      child: Row(
+      child: const Row(
         children: [
           Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: EdgeInsets.all(15.0),
             child: MyIcon(icon: AppAssets.icSearch),
           ),
           Expanded(

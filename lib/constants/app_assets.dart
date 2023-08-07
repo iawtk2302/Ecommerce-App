@@ -8,6 +8,7 @@ class AppAssets {
   static const String icFilter = "$iconPath/ic_filter.svg";
   static const String icHeartBold = "$iconPath/ic_heart_bold.svg";
   static const String icHeartOutline = "$iconPath/ic_heart_outline.svg";
+  static const String icBag = "$iconPath/ic_bag.svg";
   // Icons
   static const String icArrowLeft = "$iconPath/ic_arrow_left.svg";
   static const String icArrowRight = "$iconPath/ic_arrow_right.svg";

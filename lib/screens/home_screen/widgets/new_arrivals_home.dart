@@ -9,12 +9,12 @@ class NewArrivalsHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-          horizontal: AppDimensions.defaultPadding, vertical: 8),
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
+            padding: const EdgeInsets.symmetric(
+                horizontal: AppDimensions.defaultPadding, vertical: 8),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,

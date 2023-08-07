@@ -19,7 +19,7 @@ class PopularProductItem extends StatelessWidget {
             boxShadow: [
               BoxShadow(
                   color: AppColors.primaryColor.withOpacity(0.2),
-                  offset: Offset(0, 6),
+                  offset: const Offset(0, 6),
                   spreadRadius: 1,
                   blurRadius: 5)
             ]),
@@ -28,7 +28,7 @@ class PopularProductItem extends StatelessWidget {
             Container(
               height: size.height * 0.13,
               width: size.height * 0.13,
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Image.network(
@@ -37,7 +37,7 @@ class PopularProductItem extends StatelessWidget {
                 ),
               ),
             ),
-            Expanded(
+            const Expanded(
                 child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,7 +74,7 @@ class PopularProductItem extends StatelessWidget {
                 )
               ],
             )),
-            SizedBox(
+            const SizedBox(
               width: 10,
             )
           ],

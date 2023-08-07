@@ -36,7 +36,7 @@ class PopularHome extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             scrollDirection: Axis.vertical,
             itemBuilder: (context, index) {
-              return PopularProductItem();
+              return const PopularProductItem();
             },
           ),
         ],

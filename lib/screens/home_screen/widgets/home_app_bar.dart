@@ -1,5 +1,3 @@
-import 'package:ecommerce_app/common_widgets/my_icon_button.dart';
-import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/screens/category_screen/category_screen.dart';
 import 'package:flutter/material.dart';

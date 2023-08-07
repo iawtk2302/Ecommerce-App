@@ -1,13 +1,19 @@
-import 'package:ecommerce_app/common_widgets/my_icon.dart';
-import 'package:ecommerce_app/common_widgets/my_ink_well_icon_button.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const MyAppBar({super.key, this.actions});
   final List<Widget>? actions;
+  final bool hideDefaultLeadingButton;
+
+  const MyAppBar({
+    super.key,
+    this.actions,
+    this.hideDefaultLeadingButton = false,
+  });
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -15,14 +21,24 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         margin: const EdgeInsets.symmetric(
             horizontal: AppDimensions.defaultPadding, vertical: 10),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            MyInkWellIconButton(
-                onTap: () => _navigatePreviousScreen(context),
-                radius: 35 / 2,
-                icon: const MyIcon(
-                  icon: AppAssets.icArrowLeft,
+            if (!hideDefaultLeadingButton)
+              SizedBox(
+                height: 35,
+                width: 35,
+                child: ElevatedButton(
+                  onPressed: () => _popToPreviousScreen(context),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.all(0),
+                    backgroundColor: AppColors.primaryColor,
+                  ),
+                  child: SvgPicture.asset(
+                    AppAssets.icArrowLeft,
+                    width: 20,
+                  ),
                 ),
-                color: AppColors.primaryColor),
+              ),
             const Spacer(),
             if (actions != null) ...actions!,
           ],
@@ -31,11 +47,10 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
-  _navigatePreviousScreen(BuildContext context) {
+  _popToPreviousScreen(BuildContext context) {
     Navigator.pop(context);
   }
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

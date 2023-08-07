@@ -4,7 +4,7 @@ import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/screens/main_screen/main_screen.dart';
 import 'package:ecommerce_app/screens/onboarding_screen/onboarding_screen.dart';
 import 'package:ecommerce_app/screens/sign_in_screen/sign_in_screen.dart';
-import 'package:ecommerce_app/ultils/utils.dart';
+import 'package:ecommerce_app/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

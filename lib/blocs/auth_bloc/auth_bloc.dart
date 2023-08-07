@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:ecommerce_app/repositories/auth_repository.dart';
-import 'package:ecommerce_app/ultils/firebase_constants.dart';
-import 'package:ecommerce_app/ultils/utils.dart';
+import 'package:ecommerce_app/utils/firebase_constants.dart';
+import 'package:ecommerce_app/utils/utils.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

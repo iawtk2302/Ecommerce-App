@@ -4,7 +4,6 @@ import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class HeaderHome extends StatelessWidget {
   const HeaderHome({super.key});
