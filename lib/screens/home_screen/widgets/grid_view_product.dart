@@ -1,10 +1,13 @@
 import 'package:ecommerce_app/constants/app_dimensions.dart';
+import 'package:ecommerce_app/models/product.dart';
 import 'package:ecommerce_app/screens/home_screen/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 
 class GridViewProduct extends StatelessWidget {
-  const GridViewProduct({super.key});
-
+  const GridViewProduct(
+      {super.key, required this.products, required this.productCount});
+  final List<Product> products;
+  final int productCount;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -16,11 +19,13 @@ class GridViewProduct extends StatelessWidget {
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
             crossAxisCount: 2),
-        itemCount: 2,
+        itemCount: productCount,
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (context, index) {
-          return const ProductItem();
+          return ProductItem(
+            product: products[index],
+          );
         },
       ),
     );

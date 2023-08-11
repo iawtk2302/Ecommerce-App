@@ -10,49 +10,52 @@ class BottomBarProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            height: size.height * 0.07,
-            width: size.height * 0.07,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: AppColors.greyColor),
-            child: const Center(
-              child: MyIcon(
-                icon: AppAssets.icHeartOutline,
-                colorFilter:
-                    ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn),
-              ),
-            ),
-          ),
-          InkWell(
-            child: Container(
+    return Container(
+      color: AppColors.whiteColor,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
               height: size.height * 0.07,
-              padding: const EdgeInsets.symmetric(horizontal: 15),
+              width: size.height * 0.07,
               decoration: BoxDecoration(
-                  color: AppColors.primaryColor,
-                  borderRadius: BorderRadius.circular(20)),
-              child: Row(
-                children: [
-                  const MyIcon(icon: AppAssets.icBag),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    "Add to cart",
-                    style:
-                        AppStyles.headlineMedium.copyWith(color: Colors.white),
-                  )
-                ],
+                  borderRadius: BorderRadius.circular(20),
+                  color: AppColors.greyColor),
+              child: const Center(
+                child: MyIcon(
+                  icon: AppAssets.icHeartOutline,
+                  colorFilter:
+                      ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn),
+                ),
               ),
             ),
-          )
-        ],
+            InkWell(
+              child: Container(
+                height: size.height * 0.07,
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                decoration: BoxDecoration(
+                    color: AppColors.primaryColor,
+                    borderRadius: BorderRadius.circular(20)),
+                child: Row(
+                  children: [
+                    const MyIcon(icon: AppAssets.icBag),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "Add to cart",
+                      style: AppStyles.headlineMedium
+                          .copyWith(color: Colors.white),
+                    )
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -22,7 +22,11 @@ class SizeItem extends StatelessWidget {
             border: Border.all(
                 width: isSelected ? 0 : 1, color: AppColors.greyColor)),
         child: Center(
-          child: Text(value),
+          child: Text(
+            value,
+            style: TextStyle(
+                color: !isSelected ? AppColors.primaryColor : Colors.white),
+          ),
         ),
       ),
     );

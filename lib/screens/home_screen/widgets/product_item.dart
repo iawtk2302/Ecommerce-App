@@ -1,15 +1,19 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_app/common_widgets/my_icon.dart';
 import 'package:ecommerce_app/common_widgets/my_icon_button.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
+import 'package:ecommerce_app/extensions/screen_extensions.dart';
+import 'package:ecommerce_app/models/product.dart';
 import 'package:ecommerce_app/screens/detail_product_screen/detail_product_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ProductItem extends StatelessWidget {
-  const ProductItem({super.key});
-
+  const ProductItem({super.key, required this.product});
+  final Product product;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -17,46 +21,72 @@ class ProductItem extends StatelessWidget {
         (size.width - 2 * AppDimensions.defaultPadding - 10) / 2 * 1.6 * 7 / 10;
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, DetailProductScreen.routeName);
+        Navigator.pushNamed(context, DetailProductScreen.routeName,
+            arguments: product);
       },
       child: Column(
         children: [
-          Container(
+          SizedBox(
             height: heightItem,
-            alignment: Alignment.topRight,
-            decoration: BoxDecoration(
-                image: const DecorationImage(
-                    image: NetworkImage(
-                        "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/5b0981ff-45f8-40c3-9372-32430a62aaea/dunk-high-womens-shoes-PXHcGT.png"),
-                    fit: BoxFit.cover),
-                borderRadius: BorderRadius.circular(15)),
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: MyIconButton(
-                size: 30,
-                color: AppColors.primaryColor,
-                onPressed: () {},
-                icon: const MyIcon(
-                  icon: AppAssets.icHeartOutline,
+            child: Stack(
+              alignment: Alignment.topRight,
+              children: [
+                CachedNetworkImage(
+                  imageUrl: product.imgUrl,
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  placeholder: (context, url) => Shimmer.fromColors(
+                    baseColor: const Color(0xFFE0E0E0),
+                    highlightColor: const Color(0xFFF5F5F5),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.white,
+                      ),
+                    ),
+                  ), // Loading placeholder
+                  errorWidget: (context, url, error) =>
+                      const Center(child: Icon(Icons.error)), // Error widget
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: MyIconButton(
+                    size: 30,
+                    color: AppColors.primaryColor,
+                    onPressed: () {},
+                    icon: const MyIcon(
+                      icon: AppAssets.icHeartOutline,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-          const Expanded(
+          Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "Roll Rabbit",
+                  product.brand,
                   style: AppStyles.labelLarge,
+                  textAlign: TextAlign.center,
                 ),
                 Text(
-                  "Vado Odelle Dress",
+                  product.name,
                   style: AppStyles.bodyMedium,
+                  maxLines: 1,
+                  textAlign: TextAlign.center,
                 ),
                 Text(
-                  "\$198.00",
+                  product.price.toPriceString(),
                   style: AppStyles.labelLarge,
                 ),
               ],

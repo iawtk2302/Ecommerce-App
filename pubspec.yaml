@@ -45,6 +45,8 @@ dependencies:
   shared_preferences: ^2.2.0
   google_sign_in: ^6.1.4
   flutter_facebook_auth: ^6.0.0
+  cached_network_image: ^3.2.3
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +75,7 @@ flutter:
     - assets/fonts/
     - assets/icons/
     - assets/lotties/
+    - assets/data/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

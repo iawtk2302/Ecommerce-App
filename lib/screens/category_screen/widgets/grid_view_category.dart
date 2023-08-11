@@ -1,10 +1,11 @@
 import 'package:ecommerce_app/constants/app_dimensions.dart';
+import 'package:ecommerce_app/models/category.dart';
 import 'package:ecommerce_app/screens/category_screen/widgets/category_item.dart';
 import 'package:flutter/material.dart';
 
 class GridViewCategory extends StatelessWidget {
-  const GridViewCategory({super.key});
-
+  const GridViewCategory({super.key, required this.categories});
+  final List<Category> categories;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -16,11 +17,13 @@ class GridViewCategory extends StatelessWidget {
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
             crossAxisCount: 2),
-        itemCount: 8,
+        itemCount: categories.length,
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (context, index) {
-          return const CategoryItem();
+          return CategoryItem(
+            category: categories[index],
+          );
         },
       ),
     );

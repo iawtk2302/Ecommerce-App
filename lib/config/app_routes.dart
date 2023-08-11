@@ -1,3 +1,5 @@
+import 'package:ecommerce_app/models/category.dart';
+import 'package:ecommerce_app/models/product.dart';
 import 'package:ecommerce_app/screens/category_product_screen/category_product_screen.dart';
 import 'package:ecommerce_app/screens/category_screen/category_screen.dart';
 import 'package:ecommerce_app/screens/detail_product_screen/detail_product_screen.dart';
@@ -36,13 +38,31 @@ class AppRouter {
           builder: (context) => const CategoryScreen(),
         );
       case CategoryProductScreen.routeName:
-        return MaterialPageRoute(
-          builder: (context) => const CategoryProductScreen(),
-        );
+        {
+          try {
+            final Category category = settings.arguments as Category;
+            return MaterialPageRoute(
+              builder: (context) => CategoryProductScreen(
+                category: category,
+              ),
+            );
+          } catch (e) {
+            print(e.toString());
+          }
+        }
       case DetailProductScreen.routeName:
-        return MaterialPageRoute(
-          builder: (context) => const DetailProductScreen(),
-        );
+        {
+          try {
+            final Product product = settings.arguments as Product;
+            return MaterialPageRoute(
+              builder: (context) => DetailProductScreen(
+                product: product,
+              ),
+            );
+          } catch (e) {
+            print(e.toString());
+          }
+        }
 
       default:
         return MaterialPageRoute(

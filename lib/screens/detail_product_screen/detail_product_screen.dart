@@ -1,31 +1,86 @@
+import 'package:ecommerce_app/blocs/product_bloc/product_bloc.dart';
 import 'package:ecommerce_app/common_widgets/my_app_bar.dart';
+import 'package:ecommerce_app/constants/app_colors.dart';
+import 'package:ecommerce_app/models/product.dart';
 import 'package:ecommerce_app/screens/detail_product_screen/widgets/bottom_bar_product.dart';
 import 'package:ecommerce_app/screens/detail_product_screen/widgets/product_description.dart';
 import 'package:ecommerce_app/screens/detail_product_screen/widgets/product_image.dart';
 import 'package:ecommerce_app/screens/detail_product_screen/widgets/product_size.dart';
 import 'package:ecommerce_app/screens/detail_product_screen/widgets/product_title.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DetailProductScreen extends StatelessWidget {
-  const DetailProductScreen({super.key});
+class DetailProductScreen extends StatefulWidget {
+  const DetailProductScreen({super.key, required this.product});
+
+  final Product product;
   static const String routeName = '/detail-product-screen';
+
+  @override
+  State<DetailProductScreen> createState() => _DetailProductScreenState();
+}
+
+class _DetailProductScreenState extends State<DetailProductScreen> {
+  @override
+  void initState() {
+    context
+        .read<ProductBloc>()
+        .add(LoadProductDetails(product: widget.product));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: MyAppBar(),
-      body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 25),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                ProductImage(),
-                ProductTile(),
-                ProductDescription(),
-                ProductSize(),
-                BottomBarProduct()
-              ],
-            ),
-          )),
+    Size size = MediaQuery.of(context).size;
+    return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
+      appBar: const MyAppBar(),
+      body: BlocBuilder<ProductBloc, ProductState>(
+        builder: (context, state) {
+          if (state is ProductLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is ProductLoaded) {
+            return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: SizedBox(
+                  height: double.infinity,
+                  child: Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            ProductImage(
+                              product: widget.product,
+                            ),
+                            ProductTile(
+                              product: widget.product,
+                            ),
+                            ProductDescription(
+                              description: widget.product.description,
+                            ),
+                            const ProductSize(),
+                            SizedBox(
+                              height: size.height * 0.07 + 40,
+                            )
+                          ],
+                        ),
+                      ),
+                      const BottomBarProduct()
+                    ],
+                  ),
+                ));
+          } else if (state is ProductError) {
+            return Center(
+              child: Text(state.message),
+            );
+          } else {
+            return Container();
+          }
+        },
+      ),
     );
   }
 }

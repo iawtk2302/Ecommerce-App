@@ -10,7 +10,6 @@ class HeaderHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.symmetric(
           horizontal: AppDimensions.defaultPadding, vertical: 8),
@@ -28,37 +27,25 @@ class HeaderHome extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: size.width * 0.7,
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  height: 50,
-                  decoration: BoxDecoration(
-                      color: AppColors.greyColor,
-                      borderRadius: BorderRadius.circular(40)),
-                  child: const TextField(
-                    decoration: InputDecoration(
-                        prefixIcon: Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: MyIcon(
-                              icon: AppAssets.icSearch,
-                            )),
-                        hintStyle: TextStyle(color: AppColors.primaryHintColor),
-                        hintText: "Search...",
-                        border: InputBorder.none),
-                  ),
-                ),
-                const CircleAvatar(
-                  radius: 25,
-                  backgroundColor: AppColors.primaryColor,
-                  child: MyIcon(
-                    icon: AppAssets.icFilter,
-                  ),
-                )
-              ],
+            child: Container(
+              // width: size.width * 0.7,
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              height: 50,
+              decoration: BoxDecoration(
+                  color: AppColors.greyColor,
+                  borderRadius: BorderRadius.circular(40)),
+              child: const TextField(
+                decoration: InputDecoration(
+                    prefixIcon: Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: MyIcon(
+                          icon: AppAssets.icSearch,
+                        )),
+                    hintStyle: TextStyle(color: AppColors.primaryHintColor),
+                    hintText: "Search...",
+                    border: InputBorder.none),
+              ),
             ),
           )
         ],
