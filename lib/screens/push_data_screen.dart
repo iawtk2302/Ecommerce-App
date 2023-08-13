@@ -1,9 +1,7 @@
-import 'dart:convert';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class PushDataScreen extends StatelessWidget {
   PushDataScreen({super.key});
@@ -16,7 +14,11 @@ class PushDataScreen extends StatelessWidget {
           children: [
             ElevatedButton(
                 onPressed: () async {
-                  await pushJsonDataToFirestore();
+                  await firestore
+                      .collection("users")
+                      .doc("uNZvuh8pXCWmTYgakZJYIKWyQ1B3")
+                      .collection("payment_cards ")
+                      .add({"test": "test"});
                 },
                 child: Text("Push"))
           ],

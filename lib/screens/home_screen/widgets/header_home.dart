@@ -3,6 +3,7 @@ import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
+import 'package:ecommerce_app/screens/search_screen/custom_search_delegate.dart';
 import 'package:flutter/material.dart';
 
 class HeaderHome extends StatelessWidget {
@@ -27,24 +28,28 @@ class HeaderHome extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),
-            child: Container(
-              // width: size.width * 0.7,
-              alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              height: 50,
-              decoration: BoxDecoration(
-                  color: AppColors.greyColor,
-                  borderRadius: BorderRadius.circular(40)),
-              child: const TextField(
-                decoration: InputDecoration(
-                    prefixIcon: Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: MyIcon(
-                          icon: AppAssets.icSearch,
-                        )),
-                    hintStyle: TextStyle(color: AppColors.primaryHintColor),
-                    hintText: "Search...",
-                    border: InputBorder.none),
+            child: GestureDetector(
+              onTap: () => showSearch(
+                  context: context, delegate: CustomSearchDelegate()),
+              child: Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                height: 50,
+                decoration: BoxDecoration(
+                    color: AppColors.greyColor,
+                    borderRadius: BorderRadius.circular(40)),
+                child: const TextField(
+                  enabled: false,
+                  decoration: InputDecoration(
+                      prefixIcon: Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: MyIcon(
+                            icon: AppAssets.icSearch,
+                          )),
+                      hintStyle: TextStyle(color: AppColors.primaryHintColor),
+                      hintText: "Search...",
+                      border: InputBorder.none),
+                ),
               ),
             ),
           )

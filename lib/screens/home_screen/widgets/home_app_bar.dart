@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/screens/category_screen/category_screen.dart';
+import 'package:ecommerce_app/screens/search_screen/custom_search_delegate.dart';
 import 'package:flutter/material.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -34,10 +35,15 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                         "https://nld.mediacdn.vn/291774122806476800/2023/5/17/3471044557860853628333446226731026240094406n-16842998525331526811843.jpg"),
                     radius: 22,
                   )
-                : const Icon(
-                    Icons.search,
-                    size: 30,
-                  ),
+                : IconButton(
+                    onPressed: () {
+                      showSearch(
+                          context: context, delegate: CustomSearchDelegate());
+                    },
+                    icon: Icon(
+                      Icons.search,
+                      size: 30,
+                    )),
           ],
         ),
       ),

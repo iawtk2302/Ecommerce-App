@@ -1,4 +1,6 @@
-class Product {
+import 'package:equatable/equatable.dart';
+
+class Product extends Equatable {
   final String id;
   final String categoryId;
   final String name;
@@ -36,4 +38,8 @@ class Product {
       createdAt: json['createdAt'].toDate(),
     );
   }
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id, name, price, brand];
 }

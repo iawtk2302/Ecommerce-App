@@ -10,7 +10,7 @@ class PromotionRepository {
             .map((e) => Promotion.fromJson(e.data() as Map<String, dynamic>)));
       });
       return promotions
-          .where((element) => element.endDate.isBefore(DateTime.now()))
+          .where((element) => element.endTime.isAfter(DateTime.now()))
           .toList();
     } catch (e) {
       throw Exception(e);

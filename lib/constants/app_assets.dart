@@ -24,7 +24,7 @@ class AppAssets {
   static const String imgOnboarding1 = "$imagePath/img_onboarding_1.jpg";
   static const String imgOnboarding2 = "$imagePath/img_onboarding_2.jpg";
   static const String imgOnboarding3 = "$imagePath/img_onboarding_3.jpg";
-
+  static const String imgNotFound = "$imagePath/img_not_found.svg";
   // Lottie
   static const String lottieSuccess = "$lottiePath/lottie_success.json";
 }

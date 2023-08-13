@@ -84,4 +84,17 @@ class ProductRepository {
       throw Exception(e);
     }
   }
+
+  Future<List<Product>> fetchAllProducts() async {
+    try {
+      List<Product> products = [];
+      await productsRef.get().then((value) {
+        products.addAll(value.docs
+            .map((e) => Product.fromMap(e.data() as Map<String, dynamic>)));
+      });
+      return products;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }

@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:ecommerce_app/models/product.dart';
 import 'package:ecommerce_app/models/product_detail.dart';
 import 'package:ecommerce_app/repositories/product_repository.dart';

@@ -6,8 +6,8 @@ class Promotion {
   final String type;
   final double minimumOrderValue;
   final double maximumDiscount;
-  final DateTime startDate;
-  final DateTime endDate;
+  final DateTime startTime;
+  final DateTime endTime;
   Promotion({
     required this.code,
     required this.content,
@@ -16,8 +16,8 @@ class Promotion {
     required this.type,
     required this.minimumOrderValue,
     required this.maximumDiscount,
-    required this.startDate,
-    required this.endDate,
+    required this.startTime,
+    required this.endTime,
   });
 
   factory Promotion.fromJson(Map<String, dynamic> json) {
@@ -29,8 +29,8 @@ class Promotion {
       type: json['type'],
       minimumOrderValue: json['minimumOrderValue']?.toDouble() ?? -1.0,
       maximumDiscount: json['maximumDiscount']?.toDouble() ?? -1.0,
-      startDate: json['startDate'].toDate(),
-      endDate: json['endDate'].toDate(),
+      startTime: json['startTime'].toDate(),
+      endTime: json['endTime'].toDate(),
     );
   }
 }

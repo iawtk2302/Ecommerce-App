@@ -1,5 +1,4 @@
 import 'package:ecommerce_app/models/category.dart';
-import 'package:ecommerce_app/models/product.dart';
 import 'package:ecommerce_app/utils/firebase_constants.dart';
 
 class CategoryRepository {

@@ -2,6 +2,7 @@ import 'package:ecommerce_app/blocs/home_bloc/home_bloc.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/screens/home_screen/widgets/popular_product_item.dart';
+import 'package:ecommerce_app/screens/product_screen/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,10 +29,19 @@ class PopularHome extends StatelessWidget {
                         "Popular",
                         style: AppStyles.titleMedium,
                       ),
-                      Text(
-                        "View All",
-                        style: AppStyles.bodyMedium
-                            .copyWith(fontWeight: FontWeight.w600),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, ProductScreen.routeName,
+                              arguments: {
+                                'sectionName': "Popular",
+                                'products': state.popular
+                              });
+                        },
+                        child: Text(
+                          "View All",
+                          style: AppStyles.bodyMedium
+                              .copyWith(fontWeight: FontWeight.w600),
+                        ),
                       )
                     ]),
               ),
