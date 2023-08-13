@@ -4,7 +4,6 @@ import 'package:ecommerce_app/common_widgets/my_icon.dart';
 import 'package:ecommerce_app/common_widgets/screen_name_section.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/models/product.dart';
-import 'package:ecommerce_app/screens/category_product_screen/category_product_search.dart';
 import 'package:ecommerce_app/screens/home_screen/widgets/grid_view_product.dart';
 import 'package:ecommerce_app/screens/product_screen/product_screen_search.dart';
 import 'package:ecommerce_app/screens/search_screen/not_found.dart';
