@@ -52,10 +52,12 @@ class _SearchScreenState extends State<SearchScreen> {
                                   right: AppDimensions.defaultPadding),
                               child: InkWell(
                                 onTap: () {
-                                  Navigator.pushNamed(
-                                      context, FilterScreen.routeName);
+                                  state.resultProducts.length > 1
+                                      ? Navigator.pushNamed(
+                                          context, FilterScreen.routeName)
+                                      : null;
                                 },
-                                child: Icon(Icons.tune),
+                                child: const Icon(Icons.tune),
                               ),
                             )
                           ],
