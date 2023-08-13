@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce_app/models/shipping_address.dart';
 import 'package:ecommerce_app/models/user_profile.dart';
-import 'package:ecommerce_app/ultils/firebase_constants.dart';
+import 'package:ecommerce_app/utils/firebase_constants.dart';
 
 class UserRepository {
   Future<UserProfile> fetchUser() async {
@@ -34,6 +35,34 @@ class UserRepository {
         email: email);
     try {
       await usersRef.doc(id).set(userProfile.toMap());
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<void> addNewAddress({
+    required ShippingAddress newAddress,
+    required bool setAsDefaultAddress,
+  }) async {
+    try {
+      await usersRef.doc(firebaseAuth.currentUser!.uid).update({
+        "shippingAddresses": FieldValue.arrayUnion([newAddress.toMap()])
+      });
+
+      if (setAsDefaultAddress) {
+        await updateDefaultShippingAddress(newDefaultAddress: newAddress);
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<void> updateDefaultShippingAddress(
+      {required ShippingAddress newDefaultAddress}) async {
+    try {
+      await usersRef
+          .doc(firebaseAuth.currentUser!.uid)
+          .update({"defaultShippingAddress": newDefaultAddress.toMap()});
     } catch (e) {
       throw Exception(e);
     }

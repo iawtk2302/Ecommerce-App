@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'user_bloc.dart';
 
 abstract class UserState extends Equatable {
@@ -17,6 +18,14 @@ class UserLoaded extends UserState {
 
   @override
   List<Object> get props => [user];
+
+  UserLoaded copyWith({
+    UserProfile? user,
+  }) {
+    return UserLoaded(
+      user: user ?? this.user,
+    );
+  }
 }
 
 class UserError extends UserState {

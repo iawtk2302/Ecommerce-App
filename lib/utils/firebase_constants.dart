@@ -6,3 +6,5 @@ final FirebaseFirestore firestore = FirebaseFirestore.instance;
 final CollectionReference usersRef = firestore.collection("users");
 final DocumentReference currentUserRef =
     usersRef.doc(firebaseAuth.currentUser!.uid);
+final CollectionReference productsRef = firestore.collection("products");
+final CollectionReference promotionsRef = firestore.collection("promotions");

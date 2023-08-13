@@ -16,6 +16,8 @@ class AppStyles {
       fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.primaryColor);
   static const TextStyle titleMedium = TextStyle(
       fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.primaryColor);
+  static const TextStyle titleSmall = TextStyle(
+      fontSize: 14, fontWeight: FontWeight.w400, color: AppColors.primaryColor);
   static const TextStyle labelLarge = TextStyle(
       fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.primaryColor);
   static const TextStyle labelMedium = TextStyle(

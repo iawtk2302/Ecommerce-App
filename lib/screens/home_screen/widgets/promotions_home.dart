@@ -16,10 +16,11 @@ class PromotionsHome extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: 5,
         itemBuilder: (context, index) {
-          return PromotionItem(
-            height: size.height * 0.25,
-            width: size.width * 0.7,
-          );
+          return Container();
+          // return PromotionItem(
+          //   height: size.height * 0.25,
+          //   width: size.width * 0.7,
+          // );
         },
       ),
     );

@@ -1,4 +1,6 @@
 import 'package:ecommerce_app/blocs/auth_bloc/auth_bloc.dart';
+import 'package:ecommerce_app/blocs/payment_methods_bloc/payment_methods_bloc.dart';
+import 'package:ecommerce_app/blocs/place_order_bloc/place_order_bloc.dart';
 import 'package:ecommerce_app/blocs/user_bloc/user_bloc.dart';
 import 'package:ecommerce_app/config/app_routes.dart';
 import 'package:ecommerce_app/screens/splash_screen/splash_screen.dart';
@@ -25,6 +27,8 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => AuthBloc()..add(CheckAuthentication())),
         BlocProvider(create: (_) => UserBloc()),
+        BlocProvider(create: (_) => PlaceOrderBloc()),
+        BlocProvider(create: (_) => PaymentMethodsBloc()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

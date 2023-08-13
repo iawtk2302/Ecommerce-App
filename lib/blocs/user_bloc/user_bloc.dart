@@ -9,6 +9,7 @@ part 'user_state.dart';
 class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc() : super(UserInitial()) {
     on<LoadUser>(_onLoadUser);
+    on<ReloadUser>(_onReloadUser);
   }
 
   _onLoadUser(event, emit) async {
@@ -18,6 +19,17 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       emit(UserLoaded(user: user));
     } catch (e) {
       emit(UserError(message: e.toString()));
+      print("Load user error: $e");
+    }
+  }
+
+  _onReloadUser(event, emit) async {
+    try {
+      final UserProfile user = await UserRepository().fetchUser();
+      if (state is UserLoaded) {
+        emit((state as UserLoaded).copyWith(user: user));
+      }
+    } catch (e) {
       print("Load user error: $e");
     }
   }

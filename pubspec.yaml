@@ -45,6 +45,14 @@ dependencies:
   shared_preferences: ^2.2.0
   google_sign_in: ^6.1.4
   flutter_facebook_auth: ^6.0.0
+  badges: ^3.1.1
+  dotted_border: ^2.0.0+3
+  geolocator: ^9.0.2
+  geocoding: ^2.1.0
+  flutter_credit_card: ^3.0.7
+  flutter_secure_storage: ^8.0.0
+  pinput: ^3.0.0
+  credit_card_scanner: ^1.0.5
 
 dev_dependencies:
   flutter_test:

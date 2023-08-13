@@ -1,10 +1,11 @@
 import 'package:ecommerce_app/blocs/auth_bloc/auth_bloc.dart';
+import 'package:ecommerce_app/blocs/place_order_bloc/place_order_bloc.dart';
 import 'package:ecommerce_app/blocs/user_bloc/user_bloc.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/screens/main_screen/main_screen.dart';
 import 'package:ecommerce_app/screens/onboarding_screen/onboarding_screen.dart';
 import 'package:ecommerce_app/screens/sign_in_screen/sign_in_screen.dart';
-import 'package:ecommerce_app/ultils/utils.dart';
+import 'package:ecommerce_app/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,6 +17,9 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  bool firstTime =
+      false; // It is used for marking this is the first time load user for whole app.
+
   @override
   void initState() {
     super.initState();
@@ -33,9 +37,11 @@ class _SplashScreenState extends State<SplashScreen> {
         if (state is Unauthenticated) {
           Utils().isAlreadyUsedOnboarding().then((value) {
             if (value) {
-              Navigator.pushNamed(context, SignInScreen.routeName);
+              Navigator.pushNamedAndRemoveUntil(
+                  context, SignInScreen.routeName, (route) => false);
             } else {
-              Navigator.pushNamed(context, OnboardingScreen.routeName);
+              Navigator.pushNamedAndRemoveUntil(
+                  context, OnboardingScreen.routeName, (route) => false);
             }
           });
         } else if (state is Authenticated) {
@@ -47,13 +53,19 @@ class _SplashScreenState extends State<SplashScreen> {
       builder: (context, state) {
         return BlocConsumer<UserBloc, UserState>(
           listener: (context, state) {
-            if (state is UserLoaded) {
-              Navigator.pushNamed(context, MainScreen.routeName);
+            if (state is UserLoaded && !firstTime) {
+              firstTime = true;
+              Navigator.pushNamedAndRemoveUntil(
+                  context, MainScreen.routeName, (route) => false);
+              context
+                  .read<PlaceOrderBloc>()
+                  .add(UpdateAddress(state.user.defaultShippingAddress));
             } else if (state is UserError) {
               Utils.showSnackBar(
                   context: context,
                   message: "Some error occurred. Please sign in again!");
-              Navigator.pushNamed(context, SignInScreen.routeName);
+              Navigator.pushNamedAndRemoveUntil(
+                  context, SignInScreen.routeName, (route) => false);
             }
           },
           builder: (context, state) {
