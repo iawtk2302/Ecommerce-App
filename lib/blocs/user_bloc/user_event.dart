@@ -8,3 +8,5 @@ abstract class UserEvent extends Equatable {
 }
 
 class LoadUser extends UserEvent {}
+
+class ReloadUser extends UserEvent {}

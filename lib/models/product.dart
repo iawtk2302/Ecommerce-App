@@ -1,3 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 
 class Product extends Equatable {
@@ -12,7 +15,7 @@ class Product extends Equatable {
   final String imgUrl;
   final DateTime createdAt;
 
-  Product(
+  const Product(
       {required this.id,
       required this.categoryId,
       required this.name,
@@ -42,4 +45,24 @@ class Product extends Equatable {
   @override
   // TODO: implement props
   List<Object?> get props => [id, name, price, brand];
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'id': id,
+      'categoryId': categoryId,
+      'name': name,
+      'brand': brand,
+      'description': description,
+      'price': price,
+      'averageRating': averageRating,
+      'reviewCount': reviewCount,
+      'imgUrl': imgUrl,
+      'createdAt': createdAt.millisecondsSinceEpoch,
+    };
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory Product.fromJson(String source) =>
+      Product.fromMap(json.decode(source) as Map<String, dynamic>);
 }

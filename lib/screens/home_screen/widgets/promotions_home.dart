@@ -24,6 +24,7 @@ class PromotionsHome extends StatelessWidget {
                             height: size.height * 0.2,
                             width: size.width * 0.7,
                             promotion: currentState.promotions[index],
+                            onGetPromotion: () {},
                           )))),
         );
       },

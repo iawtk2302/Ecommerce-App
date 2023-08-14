@@ -17,6 +17,13 @@ class AppAssets {
   static const String icGoogle = "$iconPath/ic_google.svg";
   static const String icVisible = "$iconPath/ic_visible.svg";
   static const String icInvisible = "$iconPath/ic_invisible.svg";
+  static const String icShoppingBag = "$iconPath/ic_shopping_bag.svg";
+  static const String icPromotion = "$iconPath/ic_discount.svg";
+  static const String icAddAddress = "$iconPath/ic_add_item.svg";
+  static const String icScan = "$iconPath/ic_scan.svg";
+  static const String icEdit = "$iconPath/ic_edit.svg";
+  static const String icAddRound = "$iconPath/ic_add_round.svg";
+  static const String icNumber = "$iconPath/ic_number.svg";
 
   // Images
   static const String imgSplashBackground =
@@ -24,7 +31,13 @@ class AppAssets {
   static const String imgOnboarding1 = "$imagePath/img_onboarding_1.jpg";
   static const String imgOnboarding2 = "$imagePath/img_onboarding_2.jpg";
   static const String imgOnboarding3 = "$imagePath/img_onboarding_3.jpg";
+  static const String imgCreditCard = "$imagePath/img_credit_card.jpg";
+  static const String imgPaypal = "$imagePath/img_paypal.png";
+  static const String imgVisa = "$imagePath/img_visa.png";
+  static const String imgGooglePay = "$imagePath/img_google.png";
+  static const String imgCashOnDelivery = "$imagePath/img_cash_on_delivery.png";
   static const String imgNotFound = "$imagePath/img_not_found.svg";
+
   // Lottie
   static const String lottieSuccess = "$lottiePath/lottie_success.json";
 }

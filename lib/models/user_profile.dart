@@ -14,7 +14,7 @@ class UserProfile {
   final String imageUrl;
   final Gender? gender;
   final int? age;
-  final String? defaultShippingAddress;
+  final ShippingAddress? defaultShippingAddress;
   final List<ShippingAddress> shippingAddresses;
   final List<PaymentCard> paymentCards;
   final List<CartItem> cart;
@@ -43,8 +43,7 @@ class UserProfile {
       'gender': gender?.name,
       'age': age,
       'defaultShippingAddress': defaultShippingAddress,
-      'shippingAddresses': [],
-      // shippingAddresses.map((x) => x.toMap()).toList(),
+      'shippingAddresses': shippingAddresses.map((x) => x.toMap()).toList(),
       'paymentCards': [],
       // paymentCards.map((x) => x.toMap()).toList(),
       'cart': [],
@@ -69,14 +68,14 @@ class UserProfile {
             : null,
         age: map['age'] != null ? map['age'] as int : null,
         defaultShippingAddress: map['defaultShippingAddress'] != null
-            ? map['defaultShippingAddress'] as String
+            ? ShippingAddress.fromMap(
+                map['defaultShippingAddress'] as Map<String, dynamic>)
             : null,
-        shippingAddresses: [],
-        // List<ShippingAddress>.from(
-        //   (map['shippingAddresses'] as List<int>).map<ShippingAddress>(
-        //     (x) => ShippingAddress.fromMap(x as Map<String, dynamic>),
-        //   ),
-        // ),
+        shippingAddresses: List<ShippingAddress>.from(
+          (map['shippingAddresses']).map<ShippingAddress>(
+            (x) => ShippingAddress.fromMap(x as Map<String, dynamic>),
+          ),
+        ),
         paymentCards: [],
         // List<PaymentCard>.from(
         //   (map['paymentCards'] as List<int>).map<PaymentCard>(
