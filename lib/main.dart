@@ -1,4 +1,7 @@
 import 'package:ecommerce_app/blocs/auth_bloc/auth_bloc.dart';
+import 'package:ecommerce_app/blocs/cart_bloc/cart_bloc.dart';
+import 'package:ecommerce_app/blocs/payment_methods_bloc/payment_methods_bloc.dart';
+import 'package:ecommerce_app/blocs/place_order_bloc/place_order_bloc.dart';
 import 'package:ecommerce_app/blocs/category_bloc/category_bloc.dart';
 import 'package:ecommerce_app/blocs/category_product_bloc/category_product_bloc.dart';
 import 'package:ecommerce_app/blocs/home_bloc/home_bloc.dart';
@@ -31,12 +34,15 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => AuthBloc()..add(CheckAuthentication())),
         BlocProvider(create: (_) => UserBloc()),
+        BlocProvider(create: (_) => PlaceOrderBloc()),
+        BlocProvider(create: (_) => PaymentMethodsBloc()),
         BlocProvider(create: (_) => HomeBloc()),
         BlocProvider(create: (_) => SearchFilterBloc()),
         BlocProvider(create: (_) => CategoryBloc()),
         BlocProvider(create: (_) => CategoryProductBloc()),
         BlocProvider(create: (_) => ProductBloc()),
         BlocProvider(create: (_) => ProductScreenBloc()),
+        BlocProvider(create: (_) => CartBloc()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

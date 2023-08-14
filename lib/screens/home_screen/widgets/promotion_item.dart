@@ -6,16 +6,28 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PromotionItem extends StatelessWidget {
-  const PromotionItem(
-      {super.key,
-      required this.height,
-      required this.width,
-      required this.promotion});
+  const PromotionItem({
+    super.key,
+    required this.promotion,
+    required this.height,
+    required this.width,
+    required this.onGetPromotion,
+  });
+  final Promotion promotion;
   final double height;
   final double width;
-  final Promotion promotion;
+  final VoidCallback onGetPromotion;
+
   @override
   Widget build(BuildContext context) {
+    final String name = switch (promotion.type) {
+      PromotionType.freeShipping => "Free Shipping",
+      PromotionType.percentage =>
+        "${(promotion as PercentagePromotion).percentage}% Off",
+      PromotionType.fixedAmount =>
+        "${(promotion as FixedAmountPromotion).amount}\$ Off",
+    };
+
     Size size = MediaQuery.of(context).size;
     return Stack(
       alignment: Alignment.centerLeft,
@@ -58,8 +70,8 @@ class PromotionItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "50% Off",
+              Text(
+                name,
                 style: AppStyles.displayLarge,
               ),
               Text(
@@ -75,7 +87,7 @@ class PromotionItem extends StatelessWidget {
                 ),
               ),
               MyInkWell(
-                onTap: () {},
+                onTap: onGetPromotion,
                 width: size.width * 0.25,
                 height: size.height * 0.04,
                 child: const Text(

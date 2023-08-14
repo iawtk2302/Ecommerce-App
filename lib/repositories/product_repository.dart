@@ -97,4 +97,14 @@ class ProductRepository {
       throw Exception(e);
     }
   }
+
+  Future<Product> fetchProductById(String id) async {
+    try {
+      final doc = await productsRef.doc(id).get();
+      return Product.fromMap(doc.data() as Map<String, dynamic>);
+    } catch (e) {
+      print("Fetch product error: $e");
+      throw Exception(e);
+    }
+  }
 }
