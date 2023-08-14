@@ -8,7 +8,7 @@ class PromotionRepository {
 
     try {
       final QuerySnapshot snaps = await promotionsRef
-          // .where("endDate", isGreaterThan: DateTime.now())
+          .where("endTime", isGreaterThan: Timestamp.fromDate(DateTime.now()))
           .get();
 
       result = snaps.docs
@@ -29,7 +29,7 @@ class PromotionRepository {
             .map((e) => Promotion.fromMap(e.data() as Map<String, dynamic>)));
       });
       return promotions
-          // .where((element) => element.endTime.isAfter(DateTime.now()))
+          .where((element) => element.endTime.isAfter(DateTime.now()))
           .toList();
     } catch (e) {
       throw Exception(e);

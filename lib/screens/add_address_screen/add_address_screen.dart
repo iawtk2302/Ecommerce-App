@@ -55,11 +55,11 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const MyAppBar(),
-      body: LoadingManager(
-        isLoading: isLoading,
-        child: Column(
+    return LoadingManager(
+      isLoading: isLoading,
+      child: Scaffold(
+        appBar: const MyAppBar(),
+        body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const ScreenNameSection(label: "Add New Address"),

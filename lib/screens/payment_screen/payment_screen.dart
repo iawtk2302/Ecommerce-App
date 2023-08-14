@@ -63,7 +63,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           paymentMethod: paymentMethods[index],
                           paymentCard: thisCard,
                           onTap: () {
-                            if (thisCard != null) {
+                            if (thisCard != null ||
+                                paymentMethods[index].code ==
+                                    "cash_on_delivery") {
                               setState(() {
                                 selectedMethod = paymentMethods[index].code;
                               });

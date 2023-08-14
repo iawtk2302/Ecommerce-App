@@ -4,6 +4,7 @@
     "Geolocator",
     "Passcode",
     "Placemark",
-    "placemarks"
+    "placemarks",
+    "syncfusion"
   ]
 }

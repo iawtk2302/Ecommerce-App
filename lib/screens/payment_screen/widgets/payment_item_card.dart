@@ -63,7 +63,8 @@ class PaymentItemCard extends StatelessWidget {
                 ],
               ),
               const Spacer(),
-              if (paymentCard == null)
+              if (paymentCard == null &&
+                  paymentMethod.code != "cash_on_delivery")
                 TextButton(
                     onPressed: () => _navigateToAddPaymentCardScreen(context),
                     child: const Text("Add"))

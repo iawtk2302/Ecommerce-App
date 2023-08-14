@@ -1,9 +1,12 @@
+import 'package:ecommerce_app/blocs/cart_bloc/cart_bloc.dart';
+import 'package:ecommerce_app/blocs/place_order_bloc/place_order_bloc.dart';
 import 'package:ecommerce_app/common_widgets/my_icon.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/screens/place_order_screen/place_order_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SummarySection extends StatelessWidget {
   final EdgeInsets? margin;
@@ -27,9 +30,16 @@ class SummarySection extends StatelessWidget {
                 style: AppStyles.labelLarge
                     .copyWith(color: AppColors.greyTextColor),
               ),
-              const Text(
-                "\$120.00",
-                style: AppStyles.headlineLarge,
+              BlocBuilder<CartBloc, CartState>(
+                builder: (context, state) {
+                  if (state is CartLoaded) {
+                    return Text(
+                      "${state.cart.totalPrice}",
+                      style: AppStyles.headlineLarge,
+                    );
+                  }
+                  return const SizedBox();
+                },
               )
             ],
           ),
@@ -74,6 +84,12 @@ class SummarySection extends StatelessWidget {
   }
 
   _navigateToPlaceOrderScreen(BuildContext context) {
-    Navigator.pushNamed(context, PlaceOrderScreen.routeName);
+    final cartState = context.read<CartBloc>().state;
+    if (cartState is CartLoaded) {
+      context
+          .read<PlaceOrderBloc>()
+          .add(UpdatePrice(cartState.cart.totalPrice));
+      Navigator.pushNamed(context, PlaceOrderScreen.routeName);
+    }
   }
 }

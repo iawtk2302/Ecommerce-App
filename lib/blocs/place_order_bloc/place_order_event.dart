@@ -24,3 +24,21 @@ class UpdatePromotion extends PlaceOrderEvent {
   @override
   List<Object?> get props => [promotion];
 }
+
+class UpdatePrice extends PlaceOrderEvent {
+  final double totalPrice;
+  const UpdatePrice(this.totalPrice);
+
+  @override
+  List<Object?> get props => [totalPrice];
+}
+
+class GetBill extends PlaceOrderEvent {
+  final Cart cart;
+  const GetBill({required this.cart});
+
+  @override
+  List<Object?> get props => [cart];
+}
+
+class ReloadBill extends PlaceOrderEvent {}

@@ -1,8 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:ecommerce_app/extensions/promotion_type_extensions.dart';
 import 'package:ecommerce_app/extensions/string_extensions.dart';
 
@@ -14,8 +12,8 @@ class Promotion {
   final PromotionType type;
   final double? minimumOrderValue;
   final double? maximumDiscountValue;
-  final Timestamp startTime;
-  final Timestamp endTime;
+  final DateTime startTime;
+  final DateTime endTime;
 
   Promotion({
     required this.id,
@@ -83,8 +81,8 @@ class FreeShippingPromotion extends Promotion {
       type: (map['type'] as String).toPromotion(),
       minimumOrderValue: map['minimumOrderValue']?.toDouble(),
       maximumDiscountValue: map['maximumDiscountValue']?.toDouble(),
-      startTime: map['startTime'],
-      endTime: map['endTime'],
+      startTime: map['startTime'].toDate(),
+      endTime: map['endTime'].toDate(),
     );
   }
 
@@ -133,8 +131,8 @@ class PercentagePromotion extends Promotion {
       type: (map['type'] as String).toPromotion(),
       minimumOrderValue: map['minimumOrderValue']?.toDouble(),
       maximumDiscountValue: map['maximumDiscountValue']?.toDouble(),
-      startTime: map['startTime'],
-      endTime: map['endTime'],
+      startTime: map['startTime'].toDate(),
+      endTime: map['endTime'].toDate(),
       percentage: map['percentage'] as int,
     );
   }
@@ -186,8 +184,8 @@ class FixedAmountPromotion extends Promotion {
       type: (map['type'] as String).toPromotion(),
       minimumOrderValue: map['minimumOrderValue']?.toDouble(),
       maximumDiscountValue: map['maximumDiscountValue']?.toDouble(),
-      startTime: map['startTime'],
-      endTime: map['endTime'],
+      startTime: map['startTime'].toDate(),
+      endTime: map['endTime'].toDate(),
       amount: map['amount'].toDouble(),
     );
   }

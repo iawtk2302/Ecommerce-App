@@ -32,24 +32,6 @@ class _AddPaymentCardScreenState extends State<AddPaymentCardScreen> {
   String cardType = CardType.otherBrand.name;
   bool isLoading = false;
 
-  final OutlineInputBorder enabledBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.circular(10),
-    borderSide: const BorderSide(color: Colors.grey),
-  );
-  final OutlineInputBorder focusedBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.circular(10),
-    borderSide: const BorderSide(color: Colors.blue),
-  );
-  final OutlineInputBorder errorBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.circular(10),
-    borderSide: const BorderSide(color: Colors.red),
-  );
-  final OutlineInputBorder focusedErrorBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.circular(10),
-    borderSide:
-        const BorderSide(color: Color.fromARGB(255, 195, 35, 35), width: 1.5),
-  );
-
   @override
   Widget build(BuildContext context) {
     return LoadingManager(
@@ -97,34 +79,34 @@ class _AddPaymentCardScreenState extends State<AddPaymentCardScreen> {
                 border: const OutlineInputBorder(),
                 labelText: 'Number',
                 hintText: '**** **** **** ****',
-                enabledBorder: enabledBorder,
-                focusedBorder: focusedBorder,
-                errorBorder: errorBorder,
-                focusedErrorBorder: focusedErrorBorder,
+                enabledBorder: AppStyles.paymentEnabledBorder,
+                focusedBorder: AppStyles.paymentFocusedBorder,
+                errorBorder: AppStyles.paymentErrorBorder,
+                focusedErrorBorder: AppStyles.paymentFocusedErrorBorder,
               ),
               expiryDateDecoration: InputDecoration(
                 border: const OutlineInputBorder(),
                 labelText: 'Expired Date',
                 hintText: '**/**',
-                enabledBorder: enabledBorder,
-                focusedBorder: focusedBorder,
-                errorBorder: errorBorder,
-                focusedErrorBorder: focusedErrorBorder,
+                enabledBorder: AppStyles.paymentEnabledBorder,
+                focusedBorder: AppStyles.paymentFocusedBorder,
+                errorBorder: AppStyles.paymentErrorBorder,
+                focusedErrorBorder: AppStyles.paymentFocusedErrorBorder,
               ),
               cvvCodeDecoration: InputDecoration(
                 border: const OutlineInputBorder(),
                 labelText: 'CVV',
                 hintText: '***',
-                enabledBorder: enabledBorder,
-                focusedBorder: focusedBorder,
-                errorBorder: errorBorder,
-                focusedErrorBorder: focusedErrorBorder,
+                enabledBorder: AppStyles.paymentEnabledBorder,
+                focusedBorder: AppStyles.paymentFocusedBorder,
+                errorBorder: AppStyles.paymentErrorBorder,
+                focusedErrorBorder: AppStyles.paymentFocusedErrorBorder,
               ),
               cardHolderDecoration: InputDecoration(
                 border: const OutlineInputBorder(),
                 labelText: 'Card Holder Name',
-                enabledBorder: enabledBorder,
-                focusedBorder: focusedBorder,
+                enabledBorder: AppStyles.paymentEnabledBorder,
+                focusedBorder: AppStyles.paymentFocusedBorder,
               ),
             ),
             const SizedBox(height: 40),
