@@ -3,11 +3,12 @@ class AppAssets {
   static const String iconPath = "assets/icons";
   static const String lottiePath = "assets/lotties";
 
-  static const String icArrowBack = "assets/icons/ic_arrow_back.svg";
-  static const String icSearch = "assets/icons/ic_search.svg";
-  static const String icFilter = "assets/icons/ic_filter.svg";
-  static const String icHeartBold = "assets/icons/ic_heart_bold.svg";
-  static const String icHeartOutline = "assets/icons/ic_heart_outline.svg";
+  static const String icArrowBack = "$iconPath/ic_arrow_back.svg";
+  static const String icSearch = "$iconPath/ic_search.svg";
+  static const String icFilter = "$iconPath/ic_filter.svg";
+  static const String icHeartBold = "$iconPath/ic_heart_bold.svg";
+  static const String icHeartOutline = "$iconPath/ic_heart_outline.svg";
+  static const String icBag = "$iconPath/ic_bag.svg";
   // Icons
   static const String icArrowLeft = "$iconPath/ic_arrow_left.svg";
   static const String icArrowRight = "$iconPath/ic_arrow_right.svg";
@@ -35,6 +36,7 @@ class AppAssets {
   static const String imgVisa = "$imagePath/img_visa.png";
   static const String imgGooglePay = "$imagePath/img_google.png";
   static const String imgCashOnDelivery = "$imagePath/img_cash_on_delivery.png";
+  static const String imgNotFound = "$imagePath/img_not_found.svg";
 
   // Lottie
   static const String lottieSuccess = "$lottiePath/lottie_success.json";

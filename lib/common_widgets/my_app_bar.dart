@@ -28,7 +28,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                 height: 35,
                 width: 35,
                 child: ElevatedButton(
-                  onPressed: () => _popToPreviousScree(context),
+                  onPressed: () => _popToPreviousScreen(context),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(0),
                     backgroundColor: AppColors.primaryColor,
@@ -47,7 +47,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
-  _popToPreviousScree(BuildContext context) {
+  _popToPreviousScreen(BuildContext context) {
     Navigator.pop(context);
   }
 

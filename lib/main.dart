@@ -1,6 +1,12 @@
 import 'package:ecommerce_app/blocs/auth_bloc/auth_bloc.dart';
 import 'package:ecommerce_app/blocs/payment_methods_bloc/payment_methods_bloc.dart';
 import 'package:ecommerce_app/blocs/place_order_bloc/place_order_bloc.dart';
+import 'package:ecommerce_app/blocs/category_bloc/category_bloc.dart';
+import 'package:ecommerce_app/blocs/category_product_bloc/category_product_bloc.dart';
+import 'package:ecommerce_app/blocs/home_bloc/home_bloc.dart';
+import 'package:ecommerce_app/blocs/product_bloc/product_bloc.dart';
+import 'package:ecommerce_app/blocs/product_screen_bloc/product_screen_bloc.dart';
+import 'package:ecommerce_app/blocs/search_filter_bloc/search_filter_bloc.dart';
 import 'package:ecommerce_app/blocs/user_bloc/user_bloc.dart';
 import 'package:ecommerce_app/config/app_routes.dart';
 import 'package:ecommerce_app/screens/splash_screen/splash_screen.dart';
@@ -29,6 +35,12 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => UserBloc()),
         BlocProvider(create: (_) => PlaceOrderBloc()),
         BlocProvider(create: (_) => PaymentMethodsBloc()),
+        BlocProvider(create: (_) => HomeBloc()),
+        BlocProvider(create: (_) => SearchFilterBloc()),
+        BlocProvider(create: (_) => CategoryBloc()),
+        BlocProvider(create: (_) => CategoryProductBloc()),
+        BlocProvider(create: (_) => ProductBloc()),
+        BlocProvider(create: (_) => ProductScreenBloc()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -36,7 +48,7 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: AppRouter().onGenerateRoute,
         theme: ThemeData(
           fontFamily: 'Poppins',
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          // colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
           useMaterial3: true,
         ),
         home: const SplashScreen(),

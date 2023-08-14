@@ -27,46 +27,45 @@ class PromotionItem extends StatelessWidget {
     };
 
     return Container(
-      margin: const EdgeInsets.only(right: 12),
-      padding: const EdgeInsets.all(12),
-      height: height,
-      width: width,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          image: DecorationImage(
-              image: NetworkImage(promotion.imgUrl), fit: BoxFit.cover)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            name,
-            style: AppStyles.displayLarge,
-          ),
-          Text(
-            "On everything today",
-            style:
-                AppStyles.headlineLarge.copyWith(fontWeight: FontWeight.w500),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Text(
-              "With code: ${promotion.code}",
-              style: AppStyles.displayMedium.copyWith(fontSize: 12),
+        margin: const EdgeInsets.only(right: 12),
+        padding: const EdgeInsets.all(12),
+        height: height,
+        width: width,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            image: DecorationImage(
+                image: NetworkImage(promotion.imgUrl), fit: BoxFit.cover)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              name,
+              style: AppStyles.displayLarge,
             ),
-          ),
-          MyButton(
-            // width: 100,
-            // height: 35,
-            onPressed: onGetPromotion,
-            child: const Text(
-              "Get now",
+            Text(
+              "On everything today",
               style:
-                  TextStyle(fontWeight: FontWeight.w600, color: Colors.white),
+                  AppStyles.headlineLarge.copyWith(fontWeight: FontWeight.w500),
             ),
-          )
-        ],
-      ),
-    );
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Text(
+                "With code: ${promotion.code}",
+                style: AppStyles.displayMedium.copyWith(fontSize: 12),
+              ),
+            ),
+            MyButton(
+              // width: 100,
+              // height: 35,
+              onPressed: onGetPromotion,
+              child: const Text(
+                "Get now",
+                style:
+                    TextStyle(fontWeight: FontWeight.w600, color: Colors.white),
+              ),
+            ), // Shimmer loading placeholder
+          ],
+        ));
   }
 }

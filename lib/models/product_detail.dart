@@ -1,46 +1,19 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-
-import 'package:ecommerce_app/extensions/color_extensions.dart';
-import 'package:ecommerce_app/extensions/string_extensions.dart';
-import 'package:flutter/material.dart';
-
 class ProductDetail {
-  final String id;
-  final String productId;
-  final String size;
-  final Color color;
-  final int quantity;
+  final String? size;
+  final String? color;
+  final int stock;
+
   ProductDetail({
-    required this.id,
-    required this.productId,
     required this.size,
     required this.color,
-    required this.quantity,
+    required this.stock,
   });
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'id': id,
-      'productId': productId,
-      'size': size,
-      'color': color.toColorCode(),
-      'quantity': quantity,
-    };
-  }
-
-  factory ProductDetail.fromMap(Map<String, dynamic> map) {
+  factory ProductDetail.fromJson(Map<String, dynamic> json) {
     return ProductDetail(
-      id: map['id'] as String,
-      productId: map['productId'] as String,
-      size: map['size'] as String,
-      color: (map['color'] as String).toColor(),
-      quantity: map['quantity'] as int,
+      size: json['size'].toString(),
+      color: json['color'],
+      stock: json['stock'],
     );
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory ProductDetail.fromJson(String source) =>
-      ProductDetail.fromMap(json.decode(source) as Map<String, dynamic>);
 }

@@ -1,51 +1,58 @@
+import 'package:ecommerce_app/blocs/home_bloc/home_bloc.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
-import 'package:ecommerce_app/screens/home_screen/widgets/product_item.dart';
+import 'package:ecommerce_app/screens/home_screen/widgets/grid_view_product.dart';
+import 'package:ecommerce_app/screens/product_screen/product_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NewArrivalsHome extends StatelessWidget {
   const NewArrivalsHome({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding:
-          const EdgeInsets.symmetric(horizontal: AppDimensions.defaultPadding),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "New Arrivals",
-                    style: AppStyles.titleMedium,
-                  ),
-                  Text(
-                    "View All",
-                    style: AppStyles.bodyMedium
-                        .copyWith(fontWeight: FontWeight.w600),
-                  )
-                ]),
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        final currentState = state as HomeLoaded;
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: AppDimensions.defaultPadding, vertical: 8),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "New Arrivals",
+                        style: AppStyles.titleMedium,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, ProductScreen.routeName,
+                              arguments: {
+                                'sectionName': "New Arrivals",
+                                'products': state.newArrivals
+                              });
+                        },
+                        child: Text(
+                          "View All",
+                          style: AppStyles.bodyMedium
+                              .copyWith(fontWeight: FontWeight.w600),
+                        ),
+                      )
+                    ]),
+              ),
+              GridViewProduct(
+                products: currentState.newArrivals,
+                productCount: 2,
+              )
+            ],
           ),
-          GridView.builder(
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 200,
-                childAspectRatio: 2 / 3.3,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 20),
-            itemCount: 10,
-            // scrollDirection: Axis.vertical,
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return ProductItem();
-            },
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

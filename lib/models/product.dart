@@ -1,62 +1,45 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
+import 'package:equatable/equatable.dart';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-
-import 'package:ecommerce_app/models/product_detail.dart';
-
-class Product {
+class Product extends Equatable {
   final String id;
   final String categoryId;
   final String name;
+  final String brand;
   final String description;
   final double price;
-  final ProductDetail detail;
-  final Timestamp createdAt;
-  final int reviewCount;
   final double averageRating;
-  Product({
-    required this.id,
-    required this.categoryId,
-    required this.name,
-    required this.description,
-    required this.price,
-    required this.detail,
-    required this.createdAt,
-    required this.reviewCount,
-    required this.averageRating,
-  });
+  final int reviewCount;
+  final String imgUrl;
+  final DateTime createdAt;
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'id': id,
-      'categoryId': categoryId,
-      'name': name,
-      'description': description,
-      'price': price,
-      'detail': detail.toMap(),
-      'createdAt': createdAt,
-      'reviewCount': reviewCount,
-      'averageRating': averageRating,
-    };
-  }
+  Product(
+      {required this.id,
+      required this.categoryId,
+      required this.name,
+      required this.brand,
+      required this.description,
+      required this.price,
+      required this.averageRating,
+      required this.reviewCount,
+      required this.imgUrl,
+      required this.createdAt});
 
-  factory Product.fromMap(Map<String, dynamic> map) {
+  factory Product.fromMap(Map<String, dynamic> json) {
     return Product(
-      id: map['id'] as String,
-      categoryId: map['categoryId'] as String,
-      name: map['name'] as String,
-      description: map['description'] as String,
-      price: map['price'] as double,
-      detail: ProductDetail.fromMap(map['detail'] as Map<String, dynamic>),
-      createdAt: map['createdAt'] as Timestamp,
-      reviewCount: map['reviewCount'] as int,
-      averageRating: map['averageRating'] as double,
+      id: json['id'],
+      categoryId: json['categoryId'],
+      name: json['name'],
+      brand: json['brand'],
+      description: json['description'],
+      price: json['price'].toDouble(),
+      averageRating: json['averageRating'].toDouble(),
+      reviewCount: json['reviewCount'],
+      imgUrl: json['imgUrl'],
+      createdAt: json['createdAt'].toDate(),
     );
   }
 
-  String toJson() => json.encode(toMap());
-
-  factory Product.fromJson(String source) =>
-      Product.fromMap(json.decode(source) as Map<String, dynamic>);
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id, name, price, brand];
 }

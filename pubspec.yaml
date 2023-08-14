@@ -53,6 +53,10 @@ dependencies:
   flutter_secure_storage: ^8.0.0
   pinput: ^3.0.0
   credit_card_scanner: ^1.0.5
+  cached_network_image: ^3.2.3
+  shimmer: ^3.0.0
+  syncfusion_flutter_sliders: ^22.2.8
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
@@ -81,6 +85,7 @@ flutter:
     - assets/fonts/
     - assets/icons/
     - assets/lotties/
+    - assets/data/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

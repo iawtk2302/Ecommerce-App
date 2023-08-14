@@ -1,11 +1,12 @@
+import 'package:ecommerce_app/blocs/home_bloc/home_bloc.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
-import 'package:ecommerce_app/constants/app_dimensions.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/screens/home_screen/widgets/home_app_bar.dart';
 import 'package:ecommerce_app/screens/home_screen/widgets/header_home.dart';
+import 'package:ecommerce_app/screens/home_screen/widgets/popular_home.dart';
 import 'package:ecommerce_app/screens/home_screen/widgets/promotions_home.dart';
 import 'package:ecommerce_app/screens/home_screen/widgets/new_arrivals_home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    context.read<HomeBloc>().add(const LoadHome());
     _scrollController = ScrollController();
     _scrollController.addListener(_onScroll);
   }
@@ -46,11 +48,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> ui = [
-      const HeaderHome(),
-      const PromotionsHome(),
-      const NewArrivalsHome()
-    ];
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
@@ -59,11 +56,31 @@ class _HomeScreenState extends State<HomeScreen> {
             height: size.height * 0.09,
             isScrolled: _isScrolled,
           ),
-          body: ListView.builder(
-            controller: _scrollController,
-            itemCount: ui.length,
-            itemBuilder: (context, index) {
-              return ui[index];
+          body: BlocBuilder<HomeBloc, HomeState>(
+            builder: (context, state) {
+              if (state is HomeLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is HomeLoaded) {
+                return SingleChildScrollView(
+                  controller: _scrollController,
+                  child: const Column(
+                    children: [
+                      HeaderHome(),
+                      PromotionsHome(),
+                      NewArrivalsHome(),
+                      PopularHome()
+                    ],
+                  ),
+                );
+              } else if (state is HomeError) {
+                return Center(
+                  child: Text(state.message),
+                );
+              } else {
+                return Container();
+              }
             },
           )),
     );

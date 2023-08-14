@@ -1,4 +1,3 @@
-import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/screens/main_screen/widgets/nav_bar_item.dart';
 import 'package:flutter/material.dart';
 
