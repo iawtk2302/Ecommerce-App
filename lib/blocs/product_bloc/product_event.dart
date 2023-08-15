@@ -41,3 +41,17 @@ class DecreaseQuantity extends ProductEvent {
   // TODO: implement props
   List<Object?> get props => [];
 }
+
+class AddToCart extends ProductEvent {
+  const AddToCart();
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
+
+class UndoAddToCart extends ProductEvent {
+  const UndoAddToCart();
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
