@@ -8,6 +8,7 @@ import 'package:ecommerce_app/blocs/home_bloc/home_bloc.dart';
 import 'package:ecommerce_app/blocs/product_bloc/product_bloc.dart';
 import 'package:ecommerce_app/blocs/product_screen_bloc/product_screen_bloc.dart';
 import 'package:ecommerce_app/blocs/search_filter_bloc/search_filter_bloc.dart';
+import 'package:ecommerce_app/blocs/show_notification/show_notification_bloc.dart';
 import 'package:ecommerce_app/blocs/user_bloc/user_bloc.dart';
 import 'package:ecommerce_app/config/app_routes.dart';
 import 'package:ecommerce_app/screens/splash_screen/splash_screen.dart';
@@ -34,13 +35,17 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => AuthBloc()..add(CheckAuthentication())),
         BlocProvider(create: (_) => UserBloc()),
+        BlocProvider(create: (_) => ShowNotificationBloc()),
         BlocProvider(create: (_) => PlaceOrderBloc()),
         BlocProvider(create: (_) => PaymentMethodsBloc()),
         BlocProvider(create: (_) => HomeBloc()),
         BlocProvider(create: (_) => SearchFilterBloc()),
         BlocProvider(create: (_) => CategoryBloc()),
         BlocProvider(create: (_) => CategoryProductBloc()),
-        BlocProvider(create: (_) => ProductBloc()),
+        BlocProvider(
+            create: (context) => ProductBloc(
+                showNotificationBloc:
+                    BlocProvider.of<ShowNotificationBloc>(context))),
         BlocProvider(create: (_) => ProductScreenBloc()),
         BlocProvider(create: (_) => CartBloc()),
       ],

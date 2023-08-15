@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<HomeBloc>().add(const LoadHome());
+    // context.read<HomeBloc>().add(const LoadHome());
     _scrollController = ScrollController();
     _scrollController.addListener(_onScroll);
   }

@@ -1,5 +1,7 @@
 import 'package:ecommerce_app/blocs/home_bloc/home_bloc.dart';
+import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
+import 'package:ecommerce_app/screens/choose_promotion_screen/choose_promotion_screen.dart';
 import 'package:ecommerce_app/screens/home_screen/widgets/promotion_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,13 +21,31 @@ class PromotionsHome extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               child: Row(
                   children: List.generate(
-                      currentState.promotions.length,
-                      (index) => PromotionItem(
-                            height: size.height * 0.2,
-                            width: size.width * 0.7,
-                            promotion: currentState.promotions[index],
-                            onGetPromotion: () {},
-                          )))),
+                      currentState.promotions.length + 1,
+                      (index) => index < currentState.promotions.length
+                          ? PromotionItem(
+                              height: size.height * 0.2,
+                              width: size.width * 0.7,
+                              promotion: currentState.promotions[index],
+                              onGetPromotion: () {},
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.only(right: 16.0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, ChoosePromotionScreen.routeName);
+                                },
+                                child: Container(
+                                  height: size.height * 0.2,
+                                  width: size.width * 0.09,
+                                  decoration: BoxDecoration(
+                                      color: AppColors.greyColor,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: const Icon(Icons.chevron_right),
+                                ),
+                              ),
+                            )))),
         );
       },
     );
