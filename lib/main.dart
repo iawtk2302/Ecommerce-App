@@ -7,6 +7,7 @@ import 'package:ecommerce_app/blocs/category_product_bloc/category_product_bloc.
 import 'package:ecommerce_app/blocs/home_bloc/home_bloc.dart';
 import 'package:ecommerce_app/blocs/product_bloc/product_bloc.dart';
 import 'package:ecommerce_app/blocs/product_screen_bloc/product_screen_bloc.dart';
+import 'package:ecommerce_app/blocs/review_screen_bloc/review_screen_bloc.dart';
 import 'package:ecommerce_app/blocs/search_filter_bloc/search_filter_bloc.dart';
 import 'package:ecommerce_app/blocs/show_notification/show_notification_bloc.dart';
 import 'package:ecommerce_app/blocs/user_bloc/user_bloc.dart';
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
                     BlocProvider.of<ShowNotificationBloc>(context))),
         BlocProvider(create: (_) => ProductScreenBloc()),
         BlocProvider(create: (_) => CartBloc()),
+        BlocProvider(create: (_) => ReviewScreenBloc()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
