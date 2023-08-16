@@ -4,6 +4,8 @@ part of 'place_order_bloc.dart';
 class PlaceOrderState extends Equatable {
   final ShippingAddress? address;
   final Promotion? promotion;
+  final PaymentMethod? paymentMethod;
+  final PaymentInformation? paymentInformation;
   final double defaultShipping;
   final Cart? cart;
   final double? amount;
@@ -14,6 +16,8 @@ class PlaceOrderState extends Equatable {
   const PlaceOrderState({
     this.address,
     this.promotion,
+    this.paymentMethod,
+    this.paymentInformation,
     this.defaultShipping = 15,
     this.cart,
     this.amount,
@@ -26,6 +30,8 @@ class PlaceOrderState extends Equatable {
   List<Object?> get props => [
         address,
         promotion,
+        paymentMethod,
+        paymentInformation,
         defaultShipping,
         cart,
         amount,
@@ -37,6 +43,8 @@ class PlaceOrderState extends Equatable {
   PlaceOrderState copyWith({
     ShippingAddress? address,
     Promotion? promotion,
+    PaymentMethod? paymentMethod,
+    PaymentInformation? paymentInformation,
     double? defaultShipping,
     Cart? cart,
     double? amount,
@@ -47,6 +55,8 @@ class PlaceOrderState extends Equatable {
     return PlaceOrderState(
       address: address ?? this.address,
       promotion: promotion ?? this.promotion,
+      paymentMethod: paymentMethod,
+      paymentInformation: paymentInformation ?? this.paymentInformation,
       defaultShipping: defaultShipping ?? this.defaultShipping,
       cart: cart ?? this.cart,
       amount: amount ?? this.amount,

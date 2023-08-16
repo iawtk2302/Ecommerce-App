@@ -6,6 +6,7 @@ import 'package:ecommerce_app/common_widgets/my_icon.dart';
 import 'package:ecommerce_app/common_widgets/my_outlined_button.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
+import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/models/shipping_address.dart';
 import 'package:ecommerce_app/screens/add_address_screen/add_address_screen.dart';
@@ -48,6 +49,8 @@ class ChooseAddressScreen extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             MyOutlinedButton(
+                margin: const EdgeInsets.symmetric(
+                    horizontal: AppDimensions.defaultPadding),
                 onPressed: () => _navigateToAddAddressScreen(context),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

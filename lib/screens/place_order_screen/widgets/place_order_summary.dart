@@ -1,9 +1,12 @@
+import 'package:ecommerce_app/blocs/place_order_bloc/place_order_bloc.dart';
 import 'package:ecommerce_app/common_widgets/my_button.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
+import 'package:ecommerce_app/extensions/screen_extensions.dart';
 import 'package:ecommerce_app/screens/payment_screen/payment_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PlaceOrderSummary extends StatelessWidget {
   const PlaceOrderSummary({super.key});
@@ -16,13 +19,17 @@ class PlaceOrderSummary extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Total price", style: AppStyles.bodyMedium),
-              Text(
-                "\$443.00",
-                style: AppStyles.headlineLarge,
+              const Text("Total price", style: AppStyles.bodyMedium),
+              BlocBuilder<PlaceOrderBloc, PlaceOrderState>(
+                builder: (context, state) {
+                  return Text(
+                    state.totalPrice?.toPriceString() ?? "",
+                    style: AppStyles.headlineLarge,
+                  );
+                },
               )
             ],
           ),

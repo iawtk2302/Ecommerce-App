@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/models/payment_card.dart';
+import 'package:ecommerce_app/models/payment_information.dart';
 import 'package:ecommerce_app/utils/firebase_constants.dart';
 
 class PaymentRepository {
@@ -14,13 +14,13 @@ class PaymentRepository {
           .doc(firebaseAuth.currentUser!.uid)
           .collection("payment_cards")
           .doc();
-      final PaymentCard newCard = PaymentCard(
+      final PaymentInformation newCard = PaymentInformation(
         id: doc.id,
         holderName: holderName,
         cardNumber: cardNumber,
         expiryDate: expiryDate,
         cvvCode: cvvCode,
-        cardType: cardType,
+        type: cardType,
       );
       await doc.set(newCard.toMap());
     } catch (e) {
@@ -28,18 +28,19 @@ class PaymentRepository {
     }
   }
 
-  Future<List<PaymentCard>> fetchPaymentCards() async {
+  Future<List<PaymentInformation>> fetchPaymentCards() async {
     try {
       final snapshot = await usersRef
           .doc(firebaseAuth.currentUser!.uid)
           .collection("payment_cards")
           .get();
-      List<PaymentCard> paymentCards = [];
+      List<PaymentInformation> paymentCards = [];
       snapshot.docs.forEach((element) {
         print(element.data());
       });
-      paymentCards =
-          snapshot.docs.map((e) => PaymentCard.fromMap(e.data())).toList();
+      paymentCards = snapshot.docs
+          .map((e) => PaymentInformation.fromMap(e.data()))
+          .toList();
       return paymentCards;
     } catch (e) {
       throw Exception(e);

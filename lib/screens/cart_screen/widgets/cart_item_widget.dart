@@ -2,6 +2,7 @@ import 'package:ecommerce_app/blocs/cart_bloc/cart_bloc.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
+import 'package:ecommerce_app/extensions/screen_extensions.dart';
 import 'package:ecommerce_app/models/cart_item.dart';
 import 'package:ecommerce_app/screens/cart_screen/widgets/cart_item_background.dart';
 import 'package:flutter/material.dart';
@@ -33,21 +34,18 @@ class CartItemWidget extends StatelessWidget {
           motion: const ScrollMotion(),
           extentRatio: 0.15,
           children: [
-            SizedBox(
-              width: 50,
-              child: SlidableAction(
-                autoClose: true,
-                onPressed: (context) {
-                  context
-                      .read<CartBloc>()
-                      .add(RemoveItem(cartItemId: cartItem.id));
-                },
-                backgroundColor: AppColors.primaryColor,
-                foregroundColor: AppColors.whiteColor,
-                icon: Icons.delete,
-                borderRadius: BorderRadius.circular(12),
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-              ),
+            SlidableAction(
+              autoClose: true,
+              onPressed: (context) {
+                context
+                    .read<CartBloc>()
+                    .add(RemoveItem(cartItemId: cartItem.id));
+              },
+              backgroundColor: AppColors.primaryColor,
+              foregroundColor: AppColors.whiteColor,
+              icon: Icons.delete,
+              borderRadius: BorderRadius.circular(12),
+              padding: const EdgeInsets.symmetric(horizontal: 12),
             ),
           ],
         ),
@@ -82,7 +80,8 @@ class CartItemWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "\$${cartItem.product.price * cartItem.quantity}",
+                          (cartItem.product.price * cartItem.quantity)
+                              .toPriceString(),
                           style: AppStyles.headlineLarge,
                         ),
                         if (isAdjustable)

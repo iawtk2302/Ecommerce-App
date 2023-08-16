@@ -40,4 +40,8 @@ class AppAssets {
 
   // Lottie
   static const String lottieSuccess = "$lottiePath/lottie_success.json";
+  static const String lottieFail = "$lottiePath/lottie_fail.json";
+  static const String lottieWaiting = "$lottiePath/lottie_waiting.json";
+  static const String lottieTransactionProcess =
+      "$lottiePath/lottie_transaction_process.json";
 }

@@ -58,6 +58,7 @@ class ChoosePromotionScreen extends StatelessWidget {
   _onGetPromotion(
       {required BuildContext context, required Promotion promotion}) {
     context.read<PlaceOrderBloc>().add(UpdatePromotion(promotion));
+    context.read<PlaceOrderBloc>().add(ReloadBill());
     Navigator.pop(context);
   }
 }

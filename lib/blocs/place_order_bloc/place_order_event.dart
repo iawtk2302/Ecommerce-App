@@ -33,6 +33,18 @@ class UpdatePrice extends PlaceOrderEvent {
   List<Object?> get props => [totalPrice];
 }
 
+class UpdatePaymentInformation extends PlaceOrderEvent {
+  final PaymentInformation? paymentInformation;
+  final PaymentMethod? paymentMethod;
+  const UpdatePaymentInformation({
+    this.paymentInformation,
+    required this.paymentMethod,
+  });
+
+  @override
+  List<Object?> get props => [paymentInformation, paymentMethod];
+}
+
 class GetBill extends PlaceOrderEvent {
   final Cart cart;
   const GetBill({required this.cart});

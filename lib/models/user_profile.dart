@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:ecommerce_app/constants/enums/gender.dart';
 import 'package:ecommerce_app/models/cart_item.dart';
-import 'package:ecommerce_app/models/payment_card.dart';
+import 'package:ecommerce_app/models/payment_information.dart';
 import 'package:ecommerce_app/models/promotion.dart';
 import 'package:ecommerce_app/models/shipping_address.dart';
 
@@ -16,7 +16,7 @@ class UserProfile {
   final int? age;
   final ShippingAddress? defaultShippingAddress;
   final List<ShippingAddress> shippingAddresses;
-  final List<PaymentCard> paymentCards;
+  final List<PaymentInformation> paymentCards;
   final List<CartItem> cart;
   final List<Promotion> promotions;
 

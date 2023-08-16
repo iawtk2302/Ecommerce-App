@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:ecommerce_app/models/payment_card.dart';
+import 'package:ecommerce_app/models/payment_information.dart';
 import 'package:ecommerce_app/repositories/payment_repository.dart';
 import 'package:equatable/equatable.dart';
 
@@ -15,7 +15,7 @@ class PaymentMethodsBloc
   _onLoadPaymentMethods(event, emit) async {
     emit(PaymentMethodsLoading());
     try {
-      final List<PaymentCard> cards =
+      final List<PaymentInformation> cards =
           await PaymentRepository().fetchPaymentCards();
       emit(PaymentMethodsLoaded(paymentCards: cards));
     } catch (e) {

@@ -7,16 +7,18 @@ class MyButton extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
   final EdgeInsets padding;
   final double borderRadius;
+  final bool isEnable;
   final Widget child;
 
   const MyButton({
     super.key,
     required this.onPressed,
-    required this.child,
     this.margin,
     this.backgroundColor = AppColors.primaryColor,
     this.borderRadius = 50,
     this.padding = const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+    this.isEnable = true,
+    required this.child,
   });
 
   @override
@@ -32,7 +34,7 @@ class MyButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(borderRadius),
           ),
         ),
-        onPressed: onPressed,
+        onPressed: isEnable ? onPressed : null,
         child: child,
       ),
     );

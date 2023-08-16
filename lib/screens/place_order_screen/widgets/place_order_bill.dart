@@ -1,7 +1,7 @@
 import 'package:ecommerce_app/blocs/cart_bloc/cart_bloc.dart';
 import 'package:ecommerce_app/blocs/place_order_bloc/place_order_bloc.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
-import 'package:ecommerce_app/models/promotion.dart';
+import 'package:ecommerce_app/extensions/screen_extensions.dart';
 import 'package:ecommerce_app/screens/cart_screen/widgets/cart_item_background.dart';
 import 'package:ecommerce_app/screens/place_order_screen/widgets/place_order_bill_line.dart';
 import 'package:flutter/material.dart';
@@ -15,11 +15,6 @@ class PlaceOrderBill extends StatefulWidget {
 }
 
 class _PlaceOrderBillState extends State<PlaceOrderBill> {
-  // double amount = 0;
-  // double shipping = 15;
-  // double promo = 0;
-  // double total = 0;
-
   @override
   void initState() {
     super.initState();
@@ -38,22 +33,23 @@ class _PlaceOrderBillState extends State<PlaceOrderBill> {
               children: [
                 PlaceOrderBillLine(
                   label: "Amount",
-                  number: "\$${state.amount}",
+                  number: "${state.amount?.toPriceString()}",
                 ),
                 const SizedBox(height: 10),
                 PlaceOrderBillLine(
                   label: "Shipping",
-                  number: "\$${state.shipping}",
+                  number: "${state.shipping?.toPriceString()}",
                 ),
                 const SizedBox(height: 10),
                 PlaceOrderBillLine(
-                    label: "Promo", number: "\$${state.promoDiscount}"),
+                    label: "Promo",
+                    number: "${state.promoDiscount?.toPriceString()}"),
                 const SizedBox(height: 5),
                 const Divider(),
                 const SizedBox(height: 5),
                 PlaceOrderBillLine(
                   label: "Total",
-                  number: "\$${state.totalPrice}",
+                  number: "${state.totalPrice?.toPriceString()}",
                 ),
               ],
             );
@@ -64,53 +60,7 @@ class _PlaceOrderBillState extends State<PlaceOrderBill> {
   _getStatistics() {
     final cartState = context.read<CartBloc>().state;
     if (cartState is CartLoaded) {
-      print("Cart loaded");
       context.read<PlaceOrderBloc>().add(GetBill(cart: cartState.cart));
     }
-    // if (cartState is CartLoaded) {
-    //   amount = cartState.cart.totalPrice;
-    // }
-    // final placeOrderState = context.read<PlaceOrderBloc>().state;
-    // if (placeOrderState.promotion is FreeShippingPromotion) {
-    //   shipping = 0;
-    // } else if (placeOrderState.promotion is PercentagePromotion) {
-    //   promo = amount *
-    //       (placeOrderState.promotion as PercentagePromotion).percentage /
-    //       100;
-    // } else if (placeOrderState.promotion is FixedAmountPromotion) {
-    //   promo = (placeOrderState.promotion as FixedAmountPromotion).amount;
-    // } else {
-    //   shipping = placeOrderState.defaultShipping;
-    //   promo = 0;
-    // }
-    // total = amount + shipping - promo;
   }
-
-  // _updateStatistics() {
-  //   final placeOrderState = context.read<PlaceOrderBloc>().state;
-  //   if (placeOrderState.promotion is FreeShippingPromotion) {
-  //     setState(() {
-  //       shipping = 0;
-  //       promo = 0;
-  //     });
-  //   } else if (placeOrderState.promotion is PercentagePromotion) {
-  //     setState(() {
-  //       promo = amount *
-  //           (placeOrderState.promotion as PercentagePromotion).percentage /
-  //           100;
-  //     });
-  //   } else if (placeOrderState.promotion is FixedAmountPromotion) {
-  //     setState(() {
-  //       promo = (placeOrderState.promotion as FixedAmountPromotion).amount;
-  //     });
-  //   } else {
-  //     setState(() {
-  //       shipping = placeOrderState.defaultShipping;
-  //       promo = 0;
-  //     });
-  //   }
-  //   setState(() {
-  //     total = amount + shipping - promo;
-  //   });
-  // }
 }
