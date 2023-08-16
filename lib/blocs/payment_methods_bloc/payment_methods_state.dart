@@ -12,7 +12,7 @@ final class PaymentMethodsInitial extends PaymentMethodsState {}
 final class PaymentMethodsLoading extends PaymentMethodsState {}
 
 final class PaymentMethodsLoaded extends PaymentMethodsState {
-  final List<PaymentCard> paymentCards;
+  final List<PaymentInformation> paymentCards;
   const PaymentMethodsLoaded({required this.paymentCards});
 
   @override

@@ -1,20 +1,20 @@
-import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:flutter/material.dart';
 
 class MyOutlinedButton extends StatelessWidget {
   final VoidCallback onPressed;
   final Widget child;
+  final EdgeInsets? margin;
   const MyOutlinedButton({
     super.key,
     required this.onPressed,
     required this.child,
+    this.margin,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding:
-          const EdgeInsets.symmetric(horizontal: AppDimensions.defaultPadding),
+    return Container(
+      margin: margin,
       child: OutlinedButton(
           onPressed: onPressed,
           style: OutlinedButton.styleFrom(

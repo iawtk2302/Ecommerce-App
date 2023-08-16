@@ -4,7 +4,9 @@ import 'package:ecommerce_app/screens/choose_address_screen/choose_address_scree
 import 'package:ecommerce_app/screens/choose_promotion_screen/choose_promotion_screen.dart';
 import 'package:ecommerce_app/screens/main_screen/main_screen.dart';
 import 'package:ecommerce_app/screens/onboarding_screen/onboarding_screen.dart';
+import 'package:ecommerce_app/screens/order_detail_screen/order_detail_screen.dart';
 import 'package:ecommerce_app/screens/payment_screen/payment_screen.dart';
+import 'package:ecommerce_app/screens/order_processing_screen/order_processing_screen.dart';
 import 'package:ecommerce_app/screens/place_order_screen/place_order_screen.dart';
 import 'package:ecommerce_app/screens/set_passcode_screen/set_passcode_screen.dart';
 import 'package:ecommerce_app/models/category.dart';
@@ -133,6 +135,14 @@ class AppRouter {
             print(e.toString());
           }
         }
+      case OrderProcessingScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => const OrderProcessingScreen(),
+        );
+      case OrderDetailScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => const OrderDetailScreen(),
+        );
 
       default:
         return MaterialPageRoute(

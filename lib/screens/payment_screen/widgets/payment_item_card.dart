@@ -1,7 +1,7 @@
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/extensions/string_extensions.dart';
-import 'package:ecommerce_app/models/payment_card.dart';
+import 'package:ecommerce_app/models/payment_information.dart';
 import 'package:ecommerce_app/models/payment_method.dart';
 import 'package:ecommerce_app/screens/add_payment_card_screen/add_payment_card_screen.dart';
 import 'package:ecommerce_app/screens/cart_screen/widgets/cart_item_background.dart';
@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 class PaymentItemCard extends StatelessWidget {
   final bool isSelected;
   final PaymentMethod paymentMethod;
-  final PaymentCard? paymentCard;
+  final PaymentInformation? paymentCard;
   final VoidCallback onTap;
 
   const PaymentItemCard({
@@ -54,7 +54,7 @@ class PaymentItemCard extends StatelessWidget {
                   ),
                   if (paymentCard != null)
                     Text(
-                      paymentCard!.cardNumber.maskCardNumber(),
+                      paymentCard!.cardNumber?.maskCardNumber() ?? "",
                       style: AppStyles.bodyLarge.copyWith(
                           color: isSelected
                               ? AppColors.whiteColor

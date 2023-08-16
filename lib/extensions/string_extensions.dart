@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/models/order_status.dart';
 import 'package:ecommerce_app/models/promotion.dart';
 import 'package:flutter/material.dart';
 
@@ -27,5 +28,9 @@ extension StringExtensions on String {
     String maskedDigits = '*' * (end - start);
 
     return "$firstFourDigits$maskedDigits$lastFourDigits";
+  }
+
+  OrderStatus toOrderStatus() {
+    return stringToOrderStatus[this] ?? OrderStatus.pending;
   }
 }
