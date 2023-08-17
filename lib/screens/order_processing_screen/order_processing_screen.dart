@@ -43,81 +43,84 @@ class _OrderProcessingScreenState extends State<OrderProcessingScreen> {
       body: SafeArea(
         child: BlocBuilder<OrderProcessingBloc, OrderProcessingState>(
           builder: (context, state) {
-            return Column(
-              children: [
-                const SizedBox(height: 50),
-                // Icon section
-                if (state is OrderProcessingSuccessfully)
-                  Lottie.asset(AppAssets.lottieSuccess,
-                      height: 300, width: 300),
-                if (state is OrderProcessingFailed)
-                  Lottie.asset(AppAssets.lottieFail, height: 300, width: 300),
-                if (state is OrderProcessingAdding)
-                  Lottie.asset(AppAssets.lottieWaiting,
-                      height: 300, width: 300),
-                const SizedBox(height: 20),
+            return Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 50),
+                  // Icon section
+                  if (state is OrderProcessingSuccessfully)
+                    Lottie.asset(AppAssets.lottieSuccess,
+                        height: 300, width: 300),
+                  if (state is OrderProcessingFailed)
+                    Lottie.asset(AppAssets.lottieFail, height: 300, width: 300),
+                  if (state is OrderProcessingAdding)
+                    Lottie.asset(AppAssets.lottieWaiting,
+                        height: 300, width: 300),
+                  const SizedBox(height: 20),
 
-                // Description section
-                if (state is OrderProcessingSuccessfully)
-                  const Text("Order successfully",
-                      style: AppStyles.displayMedium),
-                if (state is OrderProcessingFailed)
-                  const Text("Order failed. Please try again.",
-                      style: AppStyles.displayMedium),
-                if (state is OrderProcessingAdding)
-                  const Text("Waiting...", style: AppStyles.displayMedium),
-                const Spacer(),
+                  // Description section
+                  if (state is OrderProcessingSuccessfully)
+                    const Text("Order successfully",
+                        style: AppStyles.displayMedium),
+                  if (state is OrderProcessingFailed)
+                    const Text("Order failed. Please try again.",
+                        style: AppStyles.displayMedium),
+                  if (state is OrderProcessingAdding)
+                    const Text("Waiting...", style: AppStyles.displayMedium),
+                  const Spacer(),
 
-                // Actions section
-                if (state is OrderProcessingSuccessfully)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: AppDimensions.defaultPadding),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: MyOutlinedButton(
-                              onPressed: () =>
-                                  _navigateToOrderTrackingScreen(state.order),
-                              child: const Row(
-                                children: [
-                                  Text("View order",
-                                      style: AppStyles.labelLarge),
-                                ],
-                              )),
-                        ),
-                        const SizedBox(width: 20),
-                        Expanded(
-                          child: MyButton(
-                            onPressed: () {
-                              Navigator.popUntil(
-                                  context, (route) => route.isFirst);
-                            },
-                            borderRadius: 12,
-                            child: Text(
-                              "Home",
-                              style: AppStyles.labelLarge.copyWith(
-                                color: AppColors.whiteColor,
+                  // Actions section
+                  if (state is OrderProcessingSuccessfully)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: AppDimensions.defaultPadding),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: MyOutlinedButton(
+                                onPressed: () =>
+                                    _navigateToOrderTrackingScreen(state.order),
+                                child: const Row(
+                                  children: [
+                                    Text("View order",
+                                        style: AppStyles.labelLarge),
+                                  ],
+                                )),
+                          ),
+                          const SizedBox(width: 20),
+                          Expanded(
+                            child: MyButton(
+                              onPressed: () {
+                                Navigator.popUntil(
+                                    context, (route) => route.isFirst);
+                              },
+                              borderRadius: 12,
+                              child: Text(
+                                "Home",
+                                style: AppStyles.labelLarge.copyWith(
+                                  color: AppColors.whiteColor,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                if (state is OrderProcessingFailed)
-                  MyOutlinedButton(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: AppDimensions.defaultPadding),
-                      onPressed: _onFailBackButton,
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("Back", style: AppStyles.labelLarge),
                         ],
-                      )),
-                const SizedBox(height: 30),
-              ],
+                      ),
+                    ),
+                  if (state is OrderProcessingFailed)
+                    MyOutlinedButton(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: AppDimensions.defaultPadding),
+                        onPressed: _onFailBackButton,
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Back", style: AppStyles.labelLarge),
+                          ],
+                        )),
+                  const SizedBox(height: 30),
+                ],
+              ),
             );
           },
         ),
@@ -146,7 +149,7 @@ class _OrderProcessingScreenState extends State<OrderProcessingScreen> {
           ),
           isCompleted: false,
           paymentMethod: placeOrderState.paymentMethod!.code,
-          isPayed: placeOrderState.paymentMethod!.code == "cash_on_delivery"
+          isPaid: placeOrderState.paymentMethod!.code == "cash_on_delivery"
               ? false
               : false,
           currentOrderStatus: OrderStatus.pending,
