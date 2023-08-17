@@ -120,7 +120,7 @@ class SearchFilterBloc extends Bloc<SearchFilterEvent, SearchFilterState> {
   _onApplyFilter(ApplyFilter event, Emitter<SearchFilterState> emit) {
     try {
       final currentState = state as SearchFilterLoaded;
-      final List<Product> resultProducts = List.from(originalList);
+      final List<Product> resultProducts = [...originalList];
       final filterCategory = resultProducts
           .where((element) =>
               element.categoryId ==

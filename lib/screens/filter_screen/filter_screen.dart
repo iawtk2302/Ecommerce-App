@@ -45,9 +45,9 @@ class _FilterScreenState extends State<FilterScreen> {
                       style: AppStyles.labelMedium
                           .copyWith(color: AppColors.whiteColor),
                     ),
-                    onPressed: () {
-                      context.read<SearchFilterBloc>().add(const ApplyFilter());
-                    }))
+                    onPressed: () => context
+                        .read<SearchFilterBloc>()
+                        .add(const ApplyFilter())))
           ],
         ),
       ),

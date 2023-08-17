@@ -17,10 +17,12 @@ class ProductLoading extends ProductState {
 class ProductLoaded extends ProductState {
   final List<ProductDetail> productDetails;
   final Map<String, List<ProductDetail>> sizeGroups;
+  final String productId;
   final String sizeSelected;
   final String colorSelected;
   final int quantity;
   const ProductLoaded({
+    required this.productId,
     required this.productDetails,
     required this.sizeGroups,
     required this.sizeSelected,

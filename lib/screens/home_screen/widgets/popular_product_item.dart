@@ -16,10 +16,7 @@ class PopularProductItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: GestureDetector(
-        onTap: () {
-          Navigator.pushNamed(context, DetailProductScreen.routeName,
-              arguments: product);
-        },
+        onTap: () => _navigateToDetailProductScreen(context),
         child: Container(
           height: size.height * 0.13,
           width: size.width,
@@ -108,5 +105,10 @@ class PopularProductItem extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _navigateToDetailProductScreen(BuildContext context) {
+    Navigator.pushNamed(context, DetailProductScreen.routeName,
+        arguments: product);
   }
 }

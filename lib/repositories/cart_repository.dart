@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce_app/blocs/product_bloc/product_bloc.dart';
 import 'package:ecommerce_app/extensions/string_extensions.dart';
 import 'package:ecommerce_app/models/cart.dart';
 import 'package:ecommerce_app/models/cart_item.dart';
@@ -95,6 +96,28 @@ class CartRepository {
           .collection("cart")
           .doc(cartItemId)
           .update({"quantity": quantity});
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<void> undoAddCartItem({required ProductLoaded cartItem}) async {
+    try {
+      await usersRef
+          .doc(firebaseAuth.currentUser!.uid)
+          .collection("cart")
+          .where("productId", isEqualTo: cartItem.productId)
+          .where("color", isEqualTo: cartItem.colorSelected)
+          .where("size", isEqualTo: cartItem.sizeSelected)
+          .where("quantity", isEqualTo: cartItem.quantity)
+          .get()
+          .then((value) async {
+        await usersRef
+            .doc(firebaseAuth.currentUser!.uid)
+            .collection("cart")
+            .doc(value.docs.first.id)
+            .delete();
+      });
     } catch (e) {
       throw Exception(e);
     }

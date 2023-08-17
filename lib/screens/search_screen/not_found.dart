@@ -1,8 +1,11 @@
+import 'package:ecommerce_app/blocs/search_filter_bloc/search_filter_bloc.dart';
 import 'package:ecommerce_app/common_widgets/screen_name_section.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
+import 'package:ecommerce_app/screens/filter_screen/filter_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class NotFound extends StatelessWidget {
@@ -10,6 +13,7 @@ class NotFound extends StatelessWidget {
   final String title;
   @override
   Widget build(BuildContext context) {
+    final searchFilterBloc = BlocProvider.of<SearchFilterBloc>(context);
     return Padding(
       padding: const EdgeInsets.symmetric(
           horizontal: AppDimensions.defaultPadding, vertical: 10),
@@ -24,7 +28,14 @@ class NotFound extends StatelessWidget {
                 label: title,
                 margin: EdgeInsets.zero,
               ),
-              const Icon(Icons.tune)
+              InkWell(
+                onTap: () {
+                  searchFilterBloc.originalList.length > 1
+                      ? Navigator.pushNamed(context, FilterScreen.routeName)
+                      : null;
+                },
+                child: const Icon(Icons.tune),
+              )
             ],
           ),
           SizedBox(
