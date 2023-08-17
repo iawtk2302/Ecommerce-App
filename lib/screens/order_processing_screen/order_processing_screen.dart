@@ -11,6 +11,7 @@ import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/models/order.dart';
 import 'package:ecommerce_app/models/order_status.dart';
 import 'package:ecommerce_app/models/order_summary.dart';
+import 'package:ecommerce_app/screens/order_tracking_screen/order_tracking_screen.dart';
 import 'package:ecommerce_app/utils/firebase_constants.dart';
 import 'package:ecommerce_app/utils/order_util.dart';
 import 'package:ecommerce_app/utils/utils.dart';
@@ -76,7 +77,8 @@ class _OrderProcessingScreenState extends State<OrderProcessingScreen> {
                       children: [
                         Expanded(
                           child: MyOutlinedButton(
-                              onPressed: () {},
+                              onPressed: () =>
+                                  _navigateToOrderTrackingScreen(state.order),
                               child: const Row(
                                 children: [
                                   Text("View order",
@@ -161,5 +163,10 @@ class _OrderProcessingScreenState extends State<OrderProcessingScreen> {
   _onFailBackButton() {
     Navigator.pop(context);
     context.read<OrderProcessingBloc>().add(ResetOrderProcessingState());
+  }
+
+  _navigateToOrderTrackingScreen(OrderModel order) {
+    Navigator.pushNamed(context, OrderTrackingScreen.routeName,
+        arguments: order);
   }
 }
