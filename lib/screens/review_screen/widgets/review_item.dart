@@ -19,6 +19,7 @@ class _ReviewItemState extends State<ReviewItem> {
   final int maxLength = 20;
   late List<String> content;
   late bool isExpanded;
+
   @override
   void initState() {
     content = widget.review.content.split(' ');
@@ -121,13 +122,7 @@ class _ReviewItemState extends State<ReviewItem> {
                     height: 4,
                   ),
                   GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          if (!isExpanded) {
-                            isExpanded = !isExpanded;
-                          }
-                        });
-                      },
+                      onTap: () => _showMore(),
                       child: !isExpanded
                           ? RichText(
                               text: TextSpan(children: [
@@ -156,5 +151,13 @@ class _ReviewItemState extends State<ReviewItem> {
         ),
       ),
     );
+  }
+
+  void _showMore() {
+    setState(() {
+      if (!isExpanded) {
+        isExpanded = !isExpanded;
+      }
+    });
   }
 }

@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/blocs/home_bloc/home_bloc.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
+import 'package:ecommerce_app/models/product.dart';
 import 'package:ecommerce_app/screens/home_screen/widgets/popular_product_item.dart';
 import 'package:ecommerce_app/screens/product_screen/product_screen.dart';
 import 'package:flutter/material.dart';
@@ -30,13 +31,8 @@ class PopularHome extends StatelessWidget {
                         style: AppStyles.titleMedium,
                       ),
                       GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, ProductScreen.routeName,
-                              arguments: {
-                                'sectionName': "Popular",
-                                'products': state.popular
-                              });
-                        },
+                        onTap: () =>
+                            _navigateToProductScreen(context, state.popular),
                         child: Text(
                           "View All",
                           style: AppStyles.bodyMedium
@@ -61,5 +57,10 @@ class PopularHome extends StatelessWidget {
         );
       },
     );
+  }
+
+  void _navigateToProductScreen(BuildContext context, List<Product> products) {
+    Navigator.pushNamed(context, ProductScreen.routeName,
+        arguments: {'sectionName': "Popular", 'products': products});
   }
 }
