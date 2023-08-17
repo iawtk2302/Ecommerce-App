@@ -8,6 +8,7 @@ import 'package:ecommerce_app/screens/order_detail_screen/order_detail_screen.da
 import 'package:ecommerce_app/screens/payment_screen/payment_screen.dart';
 import 'package:ecommerce_app/screens/order_processing_screen/order_processing_screen.dart';
 import 'package:ecommerce_app/screens/place_order_screen/place_order_screen.dart';
+import 'package:ecommerce_app/screens/review_screen/review_screen.dart';
 import 'package:ecommerce_app/screens/set_passcode_screen/set_passcode_screen.dart';
 import 'package:ecommerce_app/models/category.dart';
 import 'package:ecommerce_app/models/product.dart';
@@ -143,6 +144,17 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (context) => const OrderDetailScreen(),
         );
+      case ReviewScreen.routeName:
+        try {
+          final String productId = settings.arguments as String;
+          return MaterialPageRoute(
+            builder: (context) => ReviewScreen(
+              productId: productId,
+            ),
+          );
+        } catch (e) {
+          print(e.toString());
+        }
 
       default:
         return MaterialPageRoute(

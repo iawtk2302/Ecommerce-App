@@ -1,4 +1,7 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:ecommerce_app/blocs/product_bloc/product_bloc.dart';
+import 'package:ecommerce_app/blocs/show_notification/show_notification_bloc.dart';
+import 'package:ecommerce_app/common_widgets/cart_button.dart';
 import 'package:ecommerce_app/common_widgets/my_app_bar.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/models/product.dart';
@@ -29,57 +32,96 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
     super.initState();
   }
 
+  void _showUndoNotification(BuildContext context) {
+    Flushbar(
+      message: "The product has been removed from the cart.",
+      duration: const Duration(seconds: 3),
+    ).show(context);
+  }
+
+  void _showNotification(BuildContext context) {
+    Flushbar(
+      message: "The product has been added to cart.",
+      duration: const Duration(seconds: 3),
+      mainButton: GestureDetector(
+        onTap: () {
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          context.read<ProductBloc>().add(const UndoAddToCart());
+        },
+        child: const Text(
+          'Undo',
+          style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+        ),
+      ),
+    ).show(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
-      appBar: const MyAppBar(),
-      body: BlocBuilder<ProductBloc, ProductState>(
-        builder: (context, state) {
-          if (state is ProductLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state is ProductLoaded) {
-            return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: SizedBox(
-                  height: double.infinity,
-                  child: Stack(
-                    alignment: Alignment.bottomCenter,
-                    children: [
-                      SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            ProductImage(
-                              product: widget.product,
-                            ),
-                            ProductTile(
-                              product: widget.product,
-                            ),
-                            ProductDescription(
-                              description: widget.product.description,
-                            ),
-                            const ProductSize(),
-                            SizedBox(
-                              height: size.height * 0.07 + 40,
-                            )
-                          ],
-                        ),
-                      ),
-                      const BottomBarProduct()
-                    ],
-                  ),
-                ));
-          } else if (state is ProductError) {
-            return Center(
-              child: Text(state.message),
-            );
-          } else {
-            return Container();
+      appBar: MyAppBar(
+        actions: [
+          CartButton(
+            onTap: () {},
+          )
+        ],
+      ),
+      body: BlocListener<ShowNotificationBloc, ShowNotificationState>(
+        listener: (_, state) {
+          if (state is AddToCartSuccess) {
+            _showNotification(context);
+          } else if (state is UndoAddToCartSuccess) {
+            _showUndoNotification(context);
           }
         },
+        child: BlocBuilder<ProductBloc, ProductState>(
+          builder: (context, state) {
+            if (state is ProductLoading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (state is ProductLoaded) {
+              return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: SizedBox(
+                    height: double.infinity,
+                    child: Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              ProductImage(
+                                product: widget.product,
+                              ),
+                              ProductTile(
+                                product: widget.product,
+                              ),
+                              ProductDescription(
+                                description: widget.product.description,
+                              ),
+                              const ProductSize(),
+                              SizedBox(
+                                height: size.height * 0.07 + 40,
+                              )
+                            ],
+                          ),
+                        ),
+                        const BottomBarProduct()
+                      ],
+                    ),
+                  ));
+            } else if (state is ProductError) {
+              return Center(
+                child: Text(state.message),
+              );
+            } else {
+              return Container();
+            }
+          },
+        ),
       ),
     );
   }

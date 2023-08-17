@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/blocs/search_filter_bloc/search_filter_bloc.dart';
+import 'package:ecommerce_app/common_widgets/custom_loading_widget.dart';
 import 'package:ecommerce_app/common_widgets/my_app_bar.dart';
 import 'package:ecommerce_app/common_widgets/screen_name_section.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
@@ -32,9 +33,7 @@ class _SearchScreenState extends State<SearchScreen> {
         body: BlocBuilder<SearchFilterBloc, SearchFilterState>(
           builder: (context, state) {
             if (state is SearchFilterLoading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+              return const CustomLoadingWidget();
             } else if (state is SearchFilterLoaded) {
               return state.resultProducts.isNotEmpty
                   ? SingleChildScrollView(

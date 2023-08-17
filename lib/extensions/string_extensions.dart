@@ -7,6 +7,15 @@ extension StringExtensions on String {
     return Color(int.parse(substring(1, 7), radix: 16) + 0xFF000000);
   }
 
+  String formatName() {
+    List<String> words = split(' ');
+    if (words.length >= 2) {
+      return words.sublist(words.length - 2).join(' ');
+    } else {
+      return this;
+    }
+  }
+
   PromotionType toPromotion() {
     switch (this) {
       case "free_shipping":

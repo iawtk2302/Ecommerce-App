@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/blocs/auth_bloc/auth_bloc.dart';
+import 'package:ecommerce_app/blocs/home_bloc/home_bloc.dart';
 import 'package:ecommerce_app/blocs/place_order_bloc/place_order_bloc.dart';
 import 'package:ecommerce_app/blocs/user_bloc/user_bloc.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
@@ -55,6 +56,7 @@ class _SplashScreenState extends State<SplashScreen> {
           listener: (context, state) {
             if (state is UserLoaded && !firstTime) {
               firstTime = true;
+              context.read<HomeBloc>().add(const LoadHome());
               Navigator.pushNamedAndRemoveUntil(
                   context, MainScreen.routeName, (route) => false);
               context

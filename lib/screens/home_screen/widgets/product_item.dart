@@ -20,10 +20,7 @@ class ProductItem extends StatelessWidget {
     double heightItem =
         (size.width - 2 * AppDimensions.defaultPadding - 10) / 2 * 1.6 * 7 / 10;
     return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, DetailProductScreen.routeName,
-            arguments: product);
-      },
+      onTap: () => _navigateToDetailProductScreen(context),
       child: Column(
         children: [
           SizedBox(
@@ -95,5 +92,10 @@ class ProductItem extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _navigateToDetailProductScreen(BuildContext context) {
+    Navigator.pushNamed(context, DetailProductScreen.routeName,
+        arguments: product);
   }
 }

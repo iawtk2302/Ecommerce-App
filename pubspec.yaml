@@ -59,6 +59,8 @@ dependencies:
   intl: ^0.18.1
   flutter_slidable: ^3.0.0
   uuid: ^3.0.7
+  flash: ^3.0.5+1
+  another_flushbar: ^1.12.30
 
 dev_dependencies:
   flutter_test:

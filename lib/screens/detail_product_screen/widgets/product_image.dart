@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/models/product.dart';
 import 'package:ecommerce_app/screens/detail_product_screen/widgets/product_clipper.dart';
+import 'package:ecommerce_app/screens/review_screen/review_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -43,33 +44,40 @@ class ProductImage extends StatelessWidget {
           Positioned(
             bottom: 0,
             right: 0,
-            child: Container(
-              width: size.height * 0.45 * 1 / 5 * 3 / 2 * 0.9,
-              height: size.height * 0.45 * 1 / 5 * 0.9,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20), color: Colors.black),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      const Icon(
-                        Icons.star,
-                        color: Colors.yellow,
-                      ),
-                      Text(
-                        product.averageRating.toStringAsFixed(1),
-                        style: AppStyles.bodyLarge.copyWith(
-                            color: Colors.white, fontWeight: FontWeight.w600),
-                      )
-                    ],
-                  ),
-                  Text("${product.reviewCount.toStringAsFixed(0)} Reviews",
-                      style:
-                          AppStyles.bodyMedium.copyWith(color: Colors.white)),
-                ],
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, ReviewScreen.routeName,
+                    arguments: product.id);
+              },
+              child: Container(
+                width: size.height * 0.45 * 1 / 5 * 3 / 2 * 0.9,
+                height: size.height * 0.45 * 1 / 5 * 0.9,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.black),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        const Icon(
+                          Icons.star,
+                          color: Colors.yellow,
+                        ),
+                        Text(
+                          product.averageRating.toStringAsFixed(1),
+                          style: AppStyles.bodyLarge.copyWith(
+                              color: Colors.white, fontWeight: FontWeight.w600),
+                        )
+                      ],
+                    ),
+                    Text("${product.reviewCount.toStringAsFixed(0)} Reviews",
+                        style:
+                            AppStyles.bodyMedium.copyWith(color: Colors.white)),
+                  ],
+                ),
               ),
             ),
           ),
