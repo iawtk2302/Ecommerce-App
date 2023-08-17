@@ -8,6 +8,7 @@ class MyButton extends StatelessWidget {
   final EdgeInsets padding;
   final double borderRadius;
   final bool isEnable;
+  final BorderSide borderSide;
   final Widget child;
 
   const MyButton({
@@ -18,6 +19,7 @@ class MyButton extends StatelessWidget {
     this.borderRadius = 50,
     this.padding = const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
     this.isEnable = true,
+    this.borderSide = BorderSide.none,
     required this.child,
   });
 
@@ -29,8 +31,10 @@ class MyButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           elevation: 0,
           padding: padding,
+          minimumSize: Size(0, 0),
           backgroundColor: backgroundColor,
           shape: RoundedRectangleBorder(
+            side: borderSide,
             borderRadius: BorderRadius.circular(borderRadius),
           ),
         ),

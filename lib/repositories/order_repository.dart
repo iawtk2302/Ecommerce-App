@@ -8,11 +8,35 @@ import 'package:ecommerce_app/models/tracking_status.dart';
 import 'package:ecommerce_app/utils/firebase_constants.dart';
 
 class OrderRepository {
-  Future<List<OrderModel>> getMyOrders() async {
-    return [];
+  Future<List<OrderModel>> fetchMyOrders({required bool isCompleted}) async {
+    try {
+      final QuerySnapshot snapshot = await ordersRef
+          .where("customerId", isEqualTo: firebaseAuth.currentUser!.uid)
+          .where("isCompleted", isEqualTo: isCompleted)
+          .get();
+      return snapshot.docs
+          .map((e) => OrderModel.fromMap(e.data() as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
-  Future<void> addOrder(
+  Future<List<OrderProductDetail>> fetchOrderItems(
+      {required String orderId}) async {
+    try {
+      final QuerySnapshot snapshot =
+          await ordersRef.doc(orderId).collection("items").get();
+      return snapshot.docs
+          .map((e) =>
+              OrderProductDetail.fromMap(e.data() as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<String> addOrder(
       {required OrderModel order, required List<CartItem> items}) async {
     try {
       // add order
@@ -32,6 +56,7 @@ class OrderRepository {
             productId: item.product.id,
             productName: item.product.name,
             productPrice: item.product.price,
+            productImgUrl: item.product.imgUrl,
             color: item.color.toColorCode(),
             size: item.size,
             quantity: item.quantity);
@@ -50,6 +75,7 @@ class OrderRepository {
 
       // wait for all tasks to complete
       await Future.wait(futures);
+      return orderDoc.id;
     } catch (e) {
       throw Exception(e);
     }
@@ -57,5 +83,18 @@ class OrderRepository {
 
   Future<OrderModel?> getOrderById(String id) async {
     return null;
+  }
+
+  Future<List<TrackingStatus>> fetchTrackingStatus(
+      {required String orderId}) async {
+    try {
+      final QuerySnapshot snapshot =
+          await ordersRef.doc(orderId).collection("tracking").get();
+      return snapshot.docs
+          .map((e) => TrackingStatus.fromMap(e.data() as Map<String, dynamic>))
+          .toList();
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 }

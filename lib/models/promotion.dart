@@ -58,6 +58,30 @@ class Promotion {
 
   factory Promotion.fromJson(String source) =>
       Promotion.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  Promotion copyWith({
+    String? id,
+    String? code,
+    String? content,
+    String? imgUrl,
+    PromotionType? type,
+    double? minimumOrderValue,
+    double? maximumDiscountValue,
+    DateTime? startTime,
+    DateTime? endTime,
+  }) {
+    return Promotion(
+      id: id ?? this.id,
+      code: code ?? this.code,
+      content: content ?? this.content,
+      imgUrl: imgUrl ?? this.imgUrl,
+      type: type ?? this.type,
+      minimumOrderValue: minimumOrderValue ?? this.minimumOrderValue,
+      maximumDiscountValue: maximumDiscountValue ?? this.maximumDiscountValue,
+      startTime: startTime ?? this.startTime,
+      endTime: endTime ?? this.endTime,
+    );
+  }
 }
 
 class FreeShippingPromotion extends Promotion {

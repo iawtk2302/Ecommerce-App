@@ -103,11 +103,4 @@ class OrderModel {
       createdAt: createdAt ?? this.createdAt,
     );
   }
-
-//   "Not Shipped": The order has not been shipped yet.
-// "In Transit": The order is currently in transit and on its way to the customer.
-// "Out for Delivery": The order is out for delivery and will be delivered to the customer soon.
-// "Delivered": The order has been successfully delivered to the customer.
-// "Failed Delivery": The delivery attempt was unsuccessful, and the order needs to be rescheduled or reattempted.
-// "Returned": The order was returned to the seller or the fulfillment center.
 }

@@ -5,7 +5,6 @@ import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
-import 'package:ecommerce_app/screens/add_address_screen/add_address_screen.dart';
 import 'package:ecommerce_app/screens/choose_address_screen/choose_address_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,7 +27,7 @@ class AddressSection extends StatelessWidget {
             padding: const EdgeInsets.symmetric(
                 horizontal: AppDimensions.defaultPadding),
             child: OutlinedButton(
-                onPressed: () => _navigateToAddAddressScreen(context),
+                onPressed: () => _navigateToChooseAddressScreen(context),
                 style: OutlinedButton.styleFrom(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
@@ -46,7 +45,7 @@ class AddressSection extends StatelessWidget {
                     ),
                     const SizedBox(width: 10),
                     Text(
-                      "Add Address",
+                      "Choose Address",
                       style: AppStyles.titleSmall
                           .copyWith(color: AppColors.greyTextColor),
                     ),
@@ -56,10 +55,6 @@ class AddressSection extends StatelessWidget {
         }
       },
     );
-  }
-
-  _navigateToAddAddressScreen(BuildContext context) {
-    Navigator.pushNamed(context, AddAddressScreen.routeName);
   }
 
   _navigateToChooseAddressScreen(BuildContext context) {

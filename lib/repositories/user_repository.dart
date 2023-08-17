@@ -40,23 +40,6 @@ class UserRepository {
     }
   }
 
-  Future<void> addNewAddress({
-    required ShippingAddress newAddress,
-    required bool setAsDefaultAddress,
-  }) async {
-    try {
-      await usersRef.doc(firebaseAuth.currentUser!.uid).update({
-        "shippingAddresses": FieldValue.arrayUnion([newAddress.toMap()])
-      });
-
-      if (setAsDefaultAddress) {
-        await updateDefaultShippingAddress(newDefaultAddress: newAddress);
-      }
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
-
   Future<void> updateDefaultShippingAddress(
       {required ShippingAddress newDefaultAddress}) async {
     try {
