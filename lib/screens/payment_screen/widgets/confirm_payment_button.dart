@@ -1,11 +1,13 @@
 import 'package:ecommerce_app/blocs/place_order_bloc/place_order_bloc.dart';
 import 'package:ecommerce_app/common_widgets/my_button.dart';
+import 'package:ecommerce_app/common_widgets/my_icon.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/models/payment_method.dart';
 import 'package:ecommerce_app/screens/order_processing_screen/order_processing_screen.dart';
+import 'package:ecommerce_app/utils/local_auth_utils.dart';
 import 'package:ecommerce_app/utils/passcode_utils.dart';
 import 'package:ecommerce_app/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -69,7 +71,41 @@ class ConfirmPaymentButton extends StatelessWidget {
                         _onTruePasscode(context: context);
                       }
                     },
-                  )
+                  ),
+                  const SizedBox(height: 20),
+                  FutureBuilder<bool>(
+                      future: LocalAuthUtil().isBiometricsAvailable(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          if (snapshot.data == true) {
+                            return InkWell(
+                              onTap: () {
+                                LocalAuthUtil()
+                                    .authenticateWithBiometrics()
+                                    .then((value) {
+                                  if (value) {
+                                    _onTruePasscode(context: context);
+                                  } else {
+                                    Utils.showSnackBar(
+                                        context: context,
+                                        message:
+                                            "Your device does not support");
+                                  }
+                                });
+                              },
+                              child: const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  MyIcon(icon: AppAssets.icFingerprint),
+                                  SizedBox(width: 10),
+                                  Text("Use fingerprint"),
+                                ],
+                              ),
+                            );
+                          }
+                        }
+                        return const SizedBox();
+                      })
                 ],
               ),
             );

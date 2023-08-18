@@ -85,7 +85,7 @@ class _OrderProcessingScreenState extends State<OrderProcessingScreen> {
                                 child: const Row(
                                   children: [
                                     Text("View order",
-                                        style: AppStyles.labelLarge),
+                                        style: AppStyles.labelMedium),
                                   ],
                                 )),
                           ),
@@ -99,7 +99,7 @@ class _OrderProcessingScreenState extends State<OrderProcessingScreen> {
                               borderRadius: 12,
                               child: Text(
                                 "Home",
-                                style: AppStyles.labelLarge.copyWith(
+                                style: AppStyles.labelMedium.copyWith(
                                   color: AppColors.whiteColor,
                                 ),
                               ),

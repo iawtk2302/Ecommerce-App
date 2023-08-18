@@ -1,6 +1,5 @@
 import 'package:ecommerce_app/common_widgets/custom_loading_widget.dart';
 import 'package:ecommerce_app/common_widgets/my_app_bar.dart';
-import 'package:ecommerce_app/common_widgets/my_button.dart';
 import 'package:ecommerce_app/common_widgets/section_label.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
@@ -39,47 +38,45 @@ class OrderTrackingScreen extends StatelessWidget {
           children: [
             Text(order.orderNumber, style: AppStyles.headlineLarge),
             const Text("Washington - Geiorgia", style: AppStyles.bodyMedium),
-            const SizedBox(height: 10),
             if (orderItem != null)
               OrderItemWidget(
-                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  margin: const EdgeInsets.symmetric(vertical: 20),
                   order: order,
                   orderItem: orderItem!),
-            const SizedBox(height: 10),
-            const SectionLabel(
-              label: "Collection Point",
-              margin: EdgeInsets.only(bottom: 8),
-            ),
-            const Text("10:11-11:00 - 25 June, 2021",
-                style: AppStyles.bodyLarge),
-            Text("${order.address.street}, ${order.address.country}",
-                style: AppStyles.bodyLarge),
-            const SizedBox(height: 8),
-            const Divider(color: AppColors.greyColor),
-            Row(
-              children: [
-                const Expanded(
-                  child: Text(
-                      "You can change pick-up time for your order by 10:00, 24 June",
-                      style: AppStyles.bodyLarge),
-                ),
-                const SizedBox(width: 30),
-                MyButton(
-                    borderRadius: 8,
-                    onPressed: () {},
-                    padding: const EdgeInsets.all(8),
-                    child: Text(
-                      "Change",
-                      style: AppStyles.bodyMedium.copyWith(
-                          color: AppColors.whiteColor,
-                          fontWeight: FontWeight.w600),
-                    )),
-              ],
-            ),
-            const SizedBox(height: 50),
+            // const SizedBox(height: 10),
+            // const SectionLabel(
+            //   label: "Collection Point",
+            //   margin: EdgeInsets.only(bottom: 8),
+            // ),
+            // const Text("10:11-11:00 - 25 June, 2021",
+            //     style: AppStyles.bodyLarge),
+            // Text("${order.address.street}, ${order.address.country}",
+            //     style: AppStyles.bodyLarge),
+            // const SizedBox(height: 8),
+            // const Divider(color: AppColors.greyColor),
+            // Row(
+            //   children: [
+            //     const Expanded(
+            //       child: Text(
+            //           "You can change pick-up time for your order by 10:00, 24 June",
+            //           style: AppStyles.bodyLarge),
+            //     ),
+            //     const SizedBox(width: 30),
+            //     MyButton(
+            //         borderRadius: 8,
+            //         onPressed: () {},
+            //         padding: const EdgeInsets.all(8),
+            //         child: Text(
+            //           "Change",
+            //           style: AppStyles.bodyMedium.copyWith(
+            //               color: AppColors.whiteColor,
+            //               fontWeight: FontWeight.w600),
+            //         )),
+            //   ],
+            // ),
             const SectionLabel(
               label: "History",
-              margin: EdgeInsets.only(bottom: 8),
+              margin: EdgeInsets.only(bottom: 8, top: 10),
             ),
             FutureBuilder<List<TrackingStatus>>(
               future: OrderRepository().fetchTrackingStatus(orderId: order.id),
