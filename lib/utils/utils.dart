@@ -20,7 +20,6 @@ class Utils {
       required String message,
       required String title,
       Widget? actionButton}) {
-    Size size = MediaQuery.of(context).size;
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         backgroundColor: Colors.transparent,
         elevation: 0,

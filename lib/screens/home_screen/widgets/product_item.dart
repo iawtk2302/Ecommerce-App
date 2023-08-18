@@ -7,6 +7,8 @@ import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/extensions/screen_extensions.dart';
 import 'package:ecommerce_app/models/product.dart';
+import 'package:ecommerce_app/repositories/favorite_repository.dart';
+import 'package:ecommerce_app/repositories/product_repository.dart';
 import 'package:ecommerce_app/screens/detail_product_screen/detail_product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -52,17 +54,38 @@ class ProductItem extends StatelessWidget {
                   errorWidget: (context, url, error) =>
                       const Center(child: Icon(Icons.error)), // Error widget
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: MyIconButton(
-                    size: 30,
-                    color: AppColors.primaryColor,
-                    onPressed: () {},
-                    icon: const MyIcon(
-                      icon: AppAssets.icHeartOutline,
-                    ),
-                  ),
-                ),
+                StreamBuilder(
+                  stream: ProductRepository().checkIsFavorite(product.id),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const SizedBox();
+                    } else if (snapshot.hasData) {
+                      return Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: MyIconButton(
+                          size: 30,
+                          color: AppColors.primaryColor,
+                          onPressed: () async {
+                            if (snapshot.data!) {
+                              await FavoriteRepository()
+                                  .removeFavoriteProduct(product.id);
+                            } else {
+                              await FavoriteRepository()
+                                  .addFavoriteProduct(product);
+                            }
+                          },
+                          icon: MyIcon(
+                            icon: snapshot.data!
+                                ? AppAssets.icHeartBold
+                                : AppAssets.icHeartOutline,
+                          ),
+                        ),
+                      );
+                    } else {
+                      return Container();
+                    }
+                  },
+                )
               ],
             ),
           ),

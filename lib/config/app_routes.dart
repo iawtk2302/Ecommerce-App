@@ -12,6 +12,7 @@ import 'package:ecommerce_app/screens/order_tracking_screen/order_tracking_scree
 import 'package:ecommerce_app/screens/payment_screen/payment_screen.dart';
 import 'package:ecommerce_app/screens/order_processing_screen/order_processing_screen.dart';
 import 'package:ecommerce_app/screens/place_order_screen/place_order_screen.dart';
+import 'package:ecommerce_app/screens/promotion_screen/promotion_screen.dart';
 import 'package:ecommerce_app/screens/review_screen/review_screen.dart';
 import 'package:ecommerce_app/screens/set_passcode_screen/set_passcode_screen.dart';
 import 'package:ecommerce_app/models/category.dart';
@@ -171,6 +172,10 @@ class AppRouter {
         } catch (e) {
           print(e.toString());
         }
+      case PromotionScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => const PromotionScreen(),
+        );
 
       default:
         return MaterialPageRoute(

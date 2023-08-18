@@ -1,4 +1,3 @@
-import 'package:another_flushbar/flushbar.dart';
 import 'package:ecommerce_app/blocs/product_bloc/product_bloc.dart';
 import 'package:ecommerce_app/blocs/show_notification/show_notification_bloc.dart';
 import 'package:ecommerce_app/common_widgets/cart_button.dart';

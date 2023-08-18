@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/blocs/product_screen_bloc/product_screen_bloc.dart';
+import 'package:ecommerce_app/common_widgets/custom_loading_widget.dart';
 import 'package:ecommerce_app/common_widgets/my_app_bar.dart';
 import 'package:ecommerce_app/common_widgets/my_icon.dart';
 import 'package:ecommerce_app/common_widgets/screen_name_section.dart';
@@ -45,9 +46,7 @@ class _ProductScreenState extends State<ProductScreen> {
         body: BlocBuilder<ProductScreenBloc, ProductScreenState>(
           builder: (context, state) {
             if (state is ProductScreenLoading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+              return const CustomLoadingWidget();
             } else if (state is ProductScreenLoaded) {
               return state.products.isNotEmpty
                   ? SingleChildScrollView(
