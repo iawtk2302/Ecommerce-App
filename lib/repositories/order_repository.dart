@@ -57,6 +57,7 @@ class OrderRepository {
             productName: item.product.name,
             productPrice: item.product.price,
             productImgUrl: item.product.imgUrl,
+            productBrand: item.product.brand,
             color: item.color.toColorCode(),
             size: item.size,
             quantity: item.quantity);

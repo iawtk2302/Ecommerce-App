@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/config/app_routes.dart';
+import 'package:ecommerce_app/common_widgets/color_dot_widget.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/extensions/screen_extensions.dart';
@@ -6,19 +6,21 @@ import 'package:ecommerce_app/extensions/string_extensions.dart';
 import 'package:ecommerce_app/models/order.dart';
 import 'package:ecommerce_app/models/order_product_detail.dart';
 import 'package:ecommerce_app/screens/cart_screen/widgets/cart_item_background.dart';
-import 'package:ecommerce_app/screens/order_tracking_screen/order_tracking_screen.dart';
 import 'package:flutter/material.dart';
 
 class OrderItemWidget extends StatelessWidget {
   final OrderModel order;
   final OrderProductDetail orderItem;
   final EdgeInsets margin;
+  final VoidCallback? onTap;
+
   const OrderItemWidget({
     super.key,
     required this.order,
     required this.orderItem,
     this.margin = const EdgeInsets.symmetric(
         horizontal: AppDimensions.defaultPadding, vertical: 10),
+    this.onTap,
   });
 
   @override
@@ -26,7 +28,7 @@ class OrderItemWidget extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
 
     return InkWell(
-      onTap: () => _navigateToOrderTrackingScreen(context),
+      onTap: onTap,
       child: CartItemBackground(
         margin: margin,
         child: Row(
@@ -40,6 +42,7 @@ class OrderItemWidget extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
+            const SizedBox(width: 10),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,10 +53,11 @@ class OrderItemWidget extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: AppStyles.labelLarge,
                   ),
-                  const Text(
-                    "Vado Odelle Dress",
-                    style: AppStyles.bodyLarge,
-                  ),
+                  if (orderItem.productBrand.isNotEmpty)
+                    Text(
+                      orderItem.productBrand,
+                      style: AppStyles.bodyLarge,
+                    ),
                   Text(
                     "Quantity: ${orderItem.quantity}",
                     style: AppStyles.bodyMedium,
@@ -68,14 +72,7 @@ class OrderItemWidget extends StatelessWidget {
                         "Color: ",
                         style: AppStyles.bodyMedium,
                       ),
-                      Container(
-                        height: 10,
-                        width: 10,
-                        decoration: BoxDecoration(
-                          color: orderItem.color.toColor(),
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                      )
+                      ColorDotWidget(color: orderItem.color.toColor())
                     ],
                   ),
                 ],
@@ -90,10 +87,5 @@ class OrderItemWidget extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _navigateToOrderTrackingScreen(BuildContext context) {
-    Navigator.pushNamed(context, OrderTrackingScreen.routeName,
-        arguments: OrderTrackingArguments(order: order, orderItem: orderItem));
   }
 }

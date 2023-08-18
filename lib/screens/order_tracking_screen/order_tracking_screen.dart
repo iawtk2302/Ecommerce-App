@@ -16,11 +16,11 @@ import 'package:flutter/material.dart';
 
 class OrderTrackingScreen extends StatelessWidget {
   final OrderModel order;
-  final OrderProductDetail orderItem;
+  final OrderProductDetail? orderItem;
   const OrderTrackingScreen({
     super.key,
     required this.order,
-    required this.orderItem,
+    this.orderItem,
   });
 
   static const String routeName = "/order-tracking-screen";
@@ -40,10 +40,11 @@ class OrderTrackingScreen extends StatelessWidget {
             Text(order.orderNumber, style: AppStyles.headlineLarge),
             const Text("Washington - Geiorgia", style: AppStyles.bodyMedium),
             const SizedBox(height: 10),
-            OrderItemWidget(
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                order: order,
-                orderItem: orderItem),
+            if (orderItem != null)
+              OrderItemWidget(
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  order: order,
+                  orderItem: orderItem!),
             const SizedBox(height: 10),
             const SectionLabel(
               label: "Collection Point",

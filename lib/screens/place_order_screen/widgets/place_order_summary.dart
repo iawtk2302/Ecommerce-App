@@ -33,11 +33,17 @@ class PlaceOrderSummary extends StatelessWidget {
               )
             ],
           ),
-          MyButton(
-              child: Text("Place Order",
-                  style: AppStyles.labelLarge
-                      .copyWith(color: AppColors.whiteColor)),
-              onPressed: () => _navigateToPaymentScreen(context))
+          BlocBuilder<PlaceOrderBloc, PlaceOrderState>(
+            builder: (context, state) {
+              return MyButton(
+                isEnable: state.address != null,
+                onPressed: () => _navigateToPaymentScreen(context),
+                child: Text("Place Order",
+                    style: AppStyles.labelLarge
+                        .copyWith(color: AppColors.whiteColor)),
+              );
+            },
+          )
         ],
       ),
     );
