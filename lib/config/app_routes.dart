@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/screens/add_address_screen/add_address_screen.dart';
 import 'package:ecommerce_app/screens/add_payment_card_screen/add_payment_card_screen.dart';
+import 'package:ecommerce_app/screens/cart_screen/cart_screen.dart';
 import 'package:ecommerce_app/screens/choose_address_screen/choose_address_screen.dart';
 import 'package:ecommerce_app/screens/choose_promotion_screen/choose_promotion_screen.dart';
 import 'package:ecommerce_app/screens/main_screen/main_screen.dart';
@@ -139,6 +140,10 @@ class AppRouter {
       case OrderProcessingScreen.routeName:
         return MaterialPageRoute(
           builder: (context) => const OrderProcessingScreen(),
+        );
+      case CartScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => const CartScreen(),
         );
       case OrderDetailScreen.routeName:
         return MaterialPageRoute(

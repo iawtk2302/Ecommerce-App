@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,6 +13,46 @@ class Utils {
       {required BuildContext context, required String message}) {
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  static void showSnackBarSuccess(
+      {required BuildContext context,
+      required String message,
+      required String title,
+      Widget? actionButton}) {
+    Size size = MediaQuery.of(context).size;
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        content: Container(
+          // height: size.height * 0.1,
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12), color: Colors.green),
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style:
+                            AppStyles.labelMedium.copyWith(color: Colors.white),
+                      ),
+                      Text(
+                        message,
+                        style:
+                            AppStyles.bodyMedium.copyWith(color: Colors.white),
+                      )
+                    ],
+                  ),
+                ),
+                actionButton!
+              ]),
+        )));
   }
 
   static String isValidPassword(String password) {

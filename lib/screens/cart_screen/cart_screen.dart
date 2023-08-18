@@ -12,7 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
-
+  static const String routeName = '/cart-screen';
   @override
   State<CartScreen> createState() => _CartScreenState();
 }
