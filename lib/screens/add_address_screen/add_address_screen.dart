@@ -1,11 +1,11 @@
-import 'package:ecommerce_app/blocs/user_bloc/user_bloc.dart';
+import 'package:ecommerce_app/blocs/addresses_bloc/addresses_bloc.dart';
 import 'package:ecommerce_app/common_widgets/fill_information_text_field.dart';
 import 'package:ecommerce_app/common_widgets/loading_manager.dart';
 import 'package:ecommerce_app/common_widgets/my_app_bar.dart';
 import 'package:ecommerce_app/common_widgets/screen_name_section.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/models/shipping_address.dart';
-import 'package:ecommerce_app/repositories/user_repository.dart';
+import 'package:ecommerce_app/repositories/address_repository.dart';
 import 'package:ecommerce_app/screens/add_address_screen/add_address_confirm_button.dart';
 import 'package:ecommerce_app/utils/location_util.dart';
 import 'package:flutter/material.dart';
@@ -135,7 +135,6 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                 ),
               ),
             ),
-            // AddAddressScanButton(onPressed: _onConfirmPressed),
             AddAddressConfirmButton(onPressed: _onConfirmPressed),
           ],
         ),
@@ -157,23 +156,23 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
       });
       final ShippingAddress newAddress = ShippingAddress(
         recipientName: fullNameController.text,
-        street: countryController.text,
+        street: streetController.text,
         city: stateController.text,
         state: cityController.text,
-        country: streetController.text,
+        country: countryController.text,
         zipCode: zipCodeController.text,
         countryCallingCode: callingCodeController.text,
         phoneNumber: phoneNumberController.text,
         latitude: position?.latitude,
         longitude: position?.longitude,
       );
-      await UserRepository().addNewAddress(
-        newAddress: newAddress,
-        setAsDefaultAddress: setAsDefaultAddress,
+      await AddressRepository().addShippingAddress(
+        address: newAddress,
+        setAsDefault: setAsDefaultAddress,
       );
 
       if (!mounted) return;
-      context.read<UserBloc>().add(LoadUser());
+      context.read<AddressesBloc>().add(LoadAddresses());
       Navigator.pop(context);
 
       setState(() {

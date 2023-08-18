@@ -1,11 +1,14 @@
+import 'package:ecommerce_app/models/order.dart';
+import 'package:ecommerce_app/models/order_product_detail.dart';
 import 'package:ecommerce_app/screens/add_address_screen/add_address_screen.dart';
 import 'package:ecommerce_app/screens/add_payment_card_screen/add_payment_card_screen.dart';
 import 'package:ecommerce_app/screens/cart_screen/cart_screen.dart';
 import 'package:ecommerce_app/screens/choose_address_screen/choose_address_screen.dart';
 import 'package:ecommerce_app/screens/choose_promotion_screen/choose_promotion_screen.dart';
 import 'package:ecommerce_app/screens/main_screen/main_screen.dart';
+import 'package:ecommerce_app/screens/my_order_screen/my_order_screen.dart';
 import 'package:ecommerce_app/screens/onboarding_screen/onboarding_screen.dart';
-import 'package:ecommerce_app/screens/order_detail_screen/order_detail_screen.dart';
+import 'package:ecommerce_app/screens/order_tracking_screen/order_tracking_screen.dart';
 import 'package:ecommerce_app/screens/payment_screen/payment_screen.dart';
 import 'package:ecommerce_app/screens/order_processing_screen/order_processing_screen.dart';
 import 'package:ecommerce_app/screens/place_order_screen/place_order_screen.dart';
@@ -145,9 +148,17 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (context) => const CartScreen(),
         );
-      case OrderDetailScreen.routeName:
+      case OrderTrackingScreen.routeName:
+        final args = settings.arguments as OrderTrackingArguments;
         return MaterialPageRoute(
-          builder: (context) => const OrderDetailScreen(),
+          builder: (context) => OrderTrackingScreen(
+            order: args.order,
+            orderItem: args.orderItem,
+          ),
+        );
+      case MyOrderScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => const MyOrderScreen(),
         );
       case ReviewScreen.routeName:
         try {
@@ -171,4 +182,11 @@ class AppRouter {
         );
     }
   }
+}
+
+class OrderTrackingArguments {
+  final OrderModel order;
+  final OrderProductDetail orderItem;
+
+  const OrderTrackingArguments({required this.order, required this.orderItem});
 }

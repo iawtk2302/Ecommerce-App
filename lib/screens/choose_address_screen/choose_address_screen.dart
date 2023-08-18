@@ -1,5 +1,5 @@
+import 'package:ecommerce_app/blocs/addresses_bloc/addresses_bloc.dart';
 import 'package:ecommerce_app/blocs/place_order_bloc/place_order_bloc.dart';
-import 'package:ecommerce_app/blocs/user_bloc/user_bloc.dart';
 import 'package:ecommerce_app/common_widgets/address_card.dart';
 import 'package:ecommerce_app/common_widgets/my_app_bar.dart';
 import 'package:ecommerce_app/common_widgets/my_icon.dart';
@@ -13,10 +13,21 @@ import 'package:ecommerce_app/screens/add_address_screen/add_address_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ChooseAddressScreen extends StatelessWidget {
+class ChooseAddressScreen extends StatefulWidget {
   const ChooseAddressScreen({super.key});
 
   static const String routeName = "/choose-address-screen";
+
+  @override
+  State<ChooseAddressScreen> createState() => _ChooseAddressScreenState();
+}
+
+class _ChooseAddressScreenState extends State<ChooseAddressScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<AddressesBloc>().add(LoadAddresses());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,18 +36,18 @@ class ChooseAddressScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            BlocBuilder<UserBloc, UserState>(
+            BlocBuilder<AddressesBloc, AddressesState>(
               builder: (context, state) {
-                if (state is UserLoaded) {
+                if (state is AddressesLoaded) {
                   return ListView.separated(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: state.user.shippingAddresses.length,
+                      itemCount: state.addresses.length,
                       separatorBuilder: (_, index) {
                         return const SizedBox(height: 10);
                       },
                       itemBuilder: (_, index) {
-                        final address = state.user.shippingAddresses[index];
+                        final address = state.addresses[index];
                         return InkWell(
                             onTap: () => _onChooseAddress(
                                 context: context, address: address),

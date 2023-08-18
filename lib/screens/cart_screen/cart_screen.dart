@@ -7,6 +7,7 @@ import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/screens/cart_screen/widgets/cart_list.dart';
 import 'package:ecommerce_app/screens/cart_screen/widgets/summary_section.dart';
+import 'package:ecommerce_app/screens/my_order_screen/my_order_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,33 +31,38 @@ class _CartScreenState extends State<CartScreen> {
       appBar: MyAppBar(
         hideDefaultLeadingButton: true,
         actions: [
-          BlocBuilder<CartBloc, CartState>(
-            builder: (context, state) {
-              return Badge(
-                label: Text(
-                  "${state is CartLoaded ? state.cart.itemsCount : 0}",
-                ),
-                backgroundColor: AppColors.primaryColor,
-                child: Container(
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                        color: AppColors.whiteColor,
-                        borderRadius: AppDimensions.circleCorners,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            blurRadius: 5,
-                            offset: const Offset(0, 0),
-                          )
-                        ]),
-                    alignment: Alignment.center,
-                    child: const MyIcon(
-                      icon: AppAssets.icShoppingBag,
-                      height: 12,
-                    )),
-              );
+          InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, MyOrderScreen.routeName);
             },
+            child: BlocBuilder<CartBloc, CartState>(
+              builder: (context, state) {
+                return Badge(
+                  label: Text(
+                    "${state is CartLoaded ? state.cart.itemsCount : 0}",
+                  ),
+                  backgroundColor: AppColors.primaryColor,
+                  child: Container(
+                      height: 30,
+                      width: 30,
+                      decoration: BoxDecoration(
+                          color: AppColors.whiteColor,
+                          borderRadius: AppDimensions.circleCorners,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              blurRadius: 5,
+                              offset: const Offset(0, 0),
+                            )
+                          ]),
+                      alignment: Alignment.center,
+                      child: const MyIcon(
+                        icon: AppAssets.icShoppingBag,
+                        height: 12,
+                      )),
+                );
+              },
+            ),
           ),
         ],
       ),

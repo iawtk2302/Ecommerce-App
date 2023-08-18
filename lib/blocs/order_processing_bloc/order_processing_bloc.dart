@@ -17,8 +17,10 @@ class OrderProcessingBloc
   void _onAddOrder(AddOrder event, Emitter<OrderProcessingState> emit) async {
     emit(OrderProcessingAdding());
     try {
-      await OrderRepository().addOrder(order: event.order, items: event.items);
-      emit(OrderProcessingSuccessfully(order: event.order));
+      final String orderId = await OrderRepository()
+          .addOrder(order: event.order, items: event.items);
+      final order = event.order.copyWith(id: orderId);
+      emit(OrderProcessingSuccessfully(order: order));
     } catch (e) {
       emit(OrderProcessingFailed(message: e.toString()));
     }

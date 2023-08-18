@@ -1,10 +1,107 @@
+import 'package:ecommerce_app/common_widgets/custom_loading_widget.dart';
+import 'package:ecommerce_app/common_widgets/my_app_bar.dart';
+import 'package:ecommerce_app/common_widgets/screen_name_section.dart';
+import 'package:ecommerce_app/constants/app_dimensions.dart';
+import 'package:ecommerce_app/models/order.dart';
+import 'package:ecommerce_app/models/order_product_detail.dart';
+import 'package:ecommerce_app/repositories/order_repository.dart';
+import 'package:ecommerce_app/screens/my_order_screen/widgets/my_order_tab_selection_button.dart';
+import 'package:ecommerce_app/screens/my_order_screen/widgets/my_order_tab_selections.dart';
+import 'package:ecommerce_app/screens/my_order_screen/widgets/order_item_widget.dart';
 import 'package:flutter/material.dart';
 
-class MyOrderScreen extends StatelessWidget {
+class MyOrderScreen extends StatefulWidget {
   const MyOrderScreen({super.key});
+
+  static const routeName = "/my-order-screen";
+
+  @override
+  State<MyOrderScreen> createState() => _MyOrderScreenState();
+}
+
+class _MyOrderScreenState extends State<MyOrderScreen> {
+  MyOrderTabSelections _selection = MyOrderTabSelections.ongoing;
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+        appBar: const MyAppBar(),
+        body: Column(
+          children: [
+            Row(
+              children: [
+                const ScreenNameSection(label: "My Order"),
+                const Spacer(),
+                const SizedBox(width: 10),
+                MyOrderTabSelectionButton(
+                    label: "Ongoing",
+                    isSelected: _selection == MyOrderTabSelections.ongoing,
+                    onPressed: () {
+                      setState(() {
+                        _selection = MyOrderTabSelections.ongoing;
+                      });
+                    }),
+                const SizedBox(width: 10),
+                MyOrderTabSelectionButton(
+                    label: "Completed",
+                    isSelected: _selection == MyOrderTabSelections.completed,
+                    onPressed: () {
+                      setState(() {
+                        _selection = MyOrderTabSelections.completed;
+                      });
+                    }),
+                const SizedBox(width: AppDimensions.defaultPadding),
+              ],
+            ),
+            Expanded(
+              child: FutureBuilder<List<OrderModel>>(
+                  future: OrderRepository().fetchMyOrders(
+                    isCompleted: _selection == MyOrderTabSelections.completed,
+                  ),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return const Center(
+                        child: Text("Something went wrong"),
+                      );
+                    } else if (snapshot.connectionState ==
+                        ConnectionState.waiting) {
+                      return const CustomLoadingWidget();
+                    } else {
+                      final List<OrderModel> orders = snapshot.data!;
+                      return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: orders.length,
+                          itemBuilder: (_, index) {
+                            final order = orders[index];
+                            return FutureBuilder<List<OrderProductDetail>>(
+                                future: OrderRepository()
+                                    .fetchOrderItems(orderId: order.id),
+                                builder: (_, snapshot) {
+                                  if (snapshot.hasError) {
+                                    return const Center(
+                                      child: Text("Something went wrong"),
+                                    );
+                                  } else if (snapshot.hasData) {
+                                    final List<OrderProductDetail> orderItems =
+                                        snapshot.data!;
+                                    return ListView.builder(
+                                        shrinkWrap: true,
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        itemCount: orderItems.length,
+                                        itemBuilder: (_, index) {
+                                          return OrderItemWidget(
+                                              order: order,
+                                              orderItem: orderItems[index]);
+                                        });
+                                  }
+                                  return const SizedBox();
+                                });
+                          });
+                    }
+                  }),
+            )
+          ],
+        ));
   }
 }

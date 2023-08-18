@@ -3,22 +3,33 @@ import 'package:ecommerce_app/models/promotion.dart';
 import 'package:ecommerce_app/utils/firebase_constants.dart';
 
 class PromotionRepository {
-  Future<List<Promotion>> fetchPromotions() async {
-    List<Promotion> result = [];
-
+  Future<List<Promotion>> fetchMyPromotions() async {
     try {
-      final QuerySnapshot snaps = await promotionsRef
+      final QuerySnapshot snaps = await usersRef
+          .doc(firebaseAuth.currentUser!.uid)
+          .collection("promotions")
           .where("endTime", isGreaterThan: Timestamp.fromDate(DateTime.now()))
           .get();
 
-      result = snaps.docs
+      return snaps.docs
           .map((e) => Promotion.fromMap(e.data() as Map<String, dynamic>))
           .toList();
     } catch (e) {
       throw Exception(e);
     }
+  }
 
-    return result;
+  Future<void> addToMyPromotions({required Promotion promotion}) async {
+    try {
+      final doc = usersRef
+          .doc(firebaseAuth.currentUser!.uid)
+          .collection("promotions")
+          .doc();
+      promotion = promotion.copyWith(id: doc.id);
+      await doc.set(promotion.toMap());
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   Future<List<Promotion>> fetchPromotionsInHome() async {
