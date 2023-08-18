@@ -30,7 +30,8 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
         appBar: const MyAppBar(),
         body: Column(
           children: [
-            Row(
+            Wrap(
+              alignment: WrapAlignment.spaceBetween,
               children: [
                 const ScreenNameSection(label: "My Order"),
                 const Spacer(),
