@@ -13,6 +13,7 @@ class OrderRepository {
       final QuerySnapshot snapshot = await ordersRef
           .where("customerId", isEqualTo: firebaseAuth.currentUser!.uid)
           .where("isCompleted", isEqualTo: isCompleted)
+          .orderBy("createdAt", descending: true)
           .get();
       return snapshot.docs
           .map((e) => OrderModel.fromMap(e.data() as Map<String, dynamic>))
