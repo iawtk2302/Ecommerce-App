@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class ColorDotWidget extends StatelessWidget {
@@ -14,6 +15,9 @@ class ColorDotWidget extends StatelessWidget {
       height: height,
       width: width,
       decoration: BoxDecoration(
+        border: Border.all(
+          color: AppColors.darkGreyColor,
+        ),
         color: color,
         borderRadius: BorderRadius.circular(50),
       ),
