@@ -19,7 +19,7 @@ class OrderModel {
   final OrderSummary orderSummary;
   final bool isCompleted;
   final String paymentMethod;
-  final bool isPayed;
+  final bool isPaid;
   final OrderStatus currentOrderStatus;
   final Timestamp createdAt;
 
@@ -32,7 +32,7 @@ class OrderModel {
     required this.orderSummary,
     required this.isCompleted,
     required this.paymentMethod,
-    required this.isPayed,
+    required this.isPaid,
     required this.currentOrderStatus,
     required this.createdAt,
   });
@@ -47,7 +47,7 @@ class OrderModel {
       'orderSummary': orderSummary.toMap(),
       'isCompleted': isCompleted,
       'paymentMethod': paymentMethod,
-      'isPayed': isPayed,
+      'isPaid': isPaid,
       'currentOrderStatus': currentOrderStatus.toOrderStatusString(),
       'createdAt': createdAt,
     };
@@ -64,7 +64,7 @@ class OrderModel {
           OrderSummary.fromMap(map['orderSummary'] as Map<String, dynamic>),
       isCompleted: map['isCompleted'] as bool,
       paymentMethod: map['paymentMethod'] as String,
-      isPayed: map['isPayed'] as bool,
+      isPaid: map['isPaid'] as bool,
       currentOrderStatus: (map['currentOrderStatus'] as String).toOrderStatus(),
       createdAt: map['createdAt'] as Timestamp,
     );
@@ -85,7 +85,7 @@ class OrderModel {
     OrderSummary? orderSummary,
     bool? isCompleted,
     String? paymentMethod,
-    bool? isPayed,
+    bool? isPaid,
     OrderStatus? currentOrderStatus,
     Timestamp? createdAt,
   }) {
@@ -98,7 +98,7 @@ class OrderModel {
       orderSummary: orderSummary ?? this.orderSummary,
       isCompleted: isCompleted ?? this.isCompleted,
       paymentMethod: paymentMethod ?? this.paymentMethod,
-      isPayed: isPayed ?? this.isPayed,
+      isPaid: isPaid ?? this.isPaid,
       currentOrderStatus: currentOrderStatus ?? this.currentOrderStatus,
       createdAt: createdAt ?? this.createdAt,
     );

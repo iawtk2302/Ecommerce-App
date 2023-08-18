@@ -13,6 +13,7 @@ class OrderRepository {
       final QuerySnapshot snapshot = await ordersRef
           .where("customerId", isEqualTo: firebaseAuth.currentUser!.uid)
           .where("isCompleted", isEqualTo: isCompleted)
+          .orderBy("createdAt", descending: true)
           .get();
       return snapshot.docs
           .map((e) => OrderModel.fromMap(e.data() as Map<String, dynamic>))
@@ -57,6 +58,7 @@ class OrderRepository {
             productName: item.product.name,
             productPrice: item.product.price,
             productImgUrl: item.product.imgUrl,
+            productBrand: item.product.brand,
             color: item.color.toColorCode(),
             size: item.size,
             quantity: item.quantity);

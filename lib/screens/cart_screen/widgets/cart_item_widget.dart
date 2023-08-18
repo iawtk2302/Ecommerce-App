@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/blocs/cart_bloc/cart_bloc.dart';
+import 'package:ecommerce_app/common_widgets/color_dot_widget.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
@@ -75,6 +76,13 @@ class CartItemWidget extends StatelessWidget {
                     Text(
                       cartItem.product.brand,
                       style: AppStyles.bodyLarge,
+                    ),
+                    Row(
+                      children: [
+                        Text("Size: ${cartItem.size} - Color: ",
+                            style: AppStyles.bodyMedium),
+                        ColorDotWidget(color: cartItem.color),
+                      ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

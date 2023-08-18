@@ -24,6 +24,7 @@ class AppAssets {
   static const String icEdit = "$iconPath/ic_edit.svg";
   static const String icAddRound = "$iconPath/ic_add_round.svg";
   static const String icNumber = "$iconPath/ic_number.svg";
+  static const String icFingerprint = "$iconPath/ic_fingerprint.svg";
 
   // Images
   static const String imgSplashBackground =

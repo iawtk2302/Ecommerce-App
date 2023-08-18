@@ -7,6 +7,7 @@ class OrderProductDetail {
   final String productName;
   final double productPrice;
   final String productImgUrl;
+  final String productBrand;
   final String color;
   final String size;
   final int quantity;
@@ -17,6 +18,7 @@ class OrderProductDetail {
     required this.productName,
     required this.productPrice,
     required this.productImgUrl,
+    required this.productBrand,
     required this.color,
     required this.size,
     required this.quantity,
@@ -29,6 +31,7 @@ class OrderProductDetail {
       'productName': productName,
       'productPrice': productPrice,
       'productImgUrl': productImgUrl,
+      'productBrand': productBrand,
       'color': color,
       'size': size,
       'quantity': quantity,
@@ -42,6 +45,7 @@ class OrderProductDetail {
       productName: map['productName'] as String,
       productPrice: map['productPrice'] as double,
       productImgUrl: map['productImgUrl'] as String,
+      productBrand: map['productBrand'] ?? "",
       color: map['color'] as String,
       size: map['size'] as String,
       quantity: map['quantity'] as int,

@@ -22,15 +22,6 @@ class _SplashScreenState extends State<SplashScreen> {
       false; // It is used for marking this is the first time load user for whole app.
 
   @override
-  void initState() {
-    super.initState();
-    // Future.delayed(const Duration(seconds: 3), () {
-    //   Navigator.pushNamedAndRemoveUntil(
-    //       context, OnboardingScreen.routeName, (route) => false);
-    // });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: BlocConsumer<AuthBloc, AuthState>(

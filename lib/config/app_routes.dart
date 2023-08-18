@@ -181,7 +181,7 @@ class AppRouter {
 
 class OrderTrackingArguments {
   final OrderModel order;
-  final OrderProductDetail orderItem;
+  final OrderProductDetail? orderItem;
 
-  const OrderTrackingArguments({required this.order, required this.orderItem});
+  const OrderTrackingArguments({required this.order, this.orderItem});
 }
