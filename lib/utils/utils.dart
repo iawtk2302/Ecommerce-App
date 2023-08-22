@@ -65,4 +65,26 @@ class Utils {
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
     return image;
   }
+
+  Future<bool> getNotificationMode() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool("notificationMode") ?? true;
+  }
+
+  Future<void> changeNotificationMode() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final bool notificationMode = await getNotificationMode();
+    prefs.setBool("notificationMode", !notificationMode);
+  }
+
+  Future<bool> getDarkMode() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool("darkMode") ?? false;
+  }
+
+  Future<void> changeDarkMode() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final bool darkMode = await getDarkMode();
+    prefs.setBool("darkMode", !darkMode);
+  }
 }

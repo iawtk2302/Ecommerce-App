@@ -1,6 +1,4 @@
 import 'package:ecommerce_app/blocs/addresses_bloc/addresses_bloc.dart';
-import 'package:ecommerce_app/blocs/place_order_bloc/place_order_bloc.dart';
-import 'package:ecommerce_app/common_widgets/address_card.dart';
 import 'package:ecommerce_app/common_widgets/my_app_bar.dart';
 import 'package:ecommerce_app/common_widgets/my_icon.dart';
 import 'package:ecommerce_app/common_widgets/my_outlined_button.dart';
@@ -8,21 +6,22 @@ import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
-import 'package:ecommerce_app/models/shipping_address.dart';
 import 'package:ecommerce_app/screens/add_address_screen/add_address_screen.dart';
+import 'package:ecommerce_app/screens/shipping_addresses_screen/widgets/adjustable_address_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ChooseAddressScreen extends StatefulWidget {
-  const ChooseAddressScreen({super.key});
+class ShippingAddressesScreen extends StatefulWidget {
+  const ShippingAddressesScreen({super.key});
 
-  static const String routeName = "/choose-address-screen";
+  static const String routeName = "shipping-addresses-screen";
 
   @override
-  State<ChooseAddressScreen> createState() => _ChooseAddressScreenState();
+  State<ShippingAddressesScreen> createState() =>
+      _ShippingAddressesScreenState();
 }
 
-class _ChooseAddressScreenState extends State<ChooseAddressScreen> {
+class _ShippingAddressesScreenState extends State<ShippingAddressesScreen> {
   @override
   void initState() {
     super.initState();
@@ -44,15 +43,14 @@ class _ChooseAddressScreenState extends State<ChooseAddressScreen> {
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: state.addresses.length,
                       separatorBuilder: (_, index) {
-                        return const SizedBox(height: 10);
+                        return const SizedBox(height: 20);
                       },
                       itemBuilder: (_, index) {
                         final address = state.addresses[index];
-                        return InkWell(
-                            onTap: () => _onChooseAddress(
-                                context: context, address: address),
-                            child: AddressCard(address: address));
+                        return AdjustableAddressCard(address: address);
                       });
+                } else if (state is AddressesError) {
+                  return Text(state.message);
                 } else {
                   return const SizedBox();
                 }
@@ -84,11 +82,5 @@ class _ChooseAddressScreenState extends State<ChooseAddressScreen> {
 
   _navigateToAddAddressScreen(BuildContext context) {
     Navigator.pushNamed(context, AddAddressScreen.routeName);
-  }
-
-  _onChooseAddress(
-      {required BuildContext context, required ShippingAddress address}) {
-    context.read<PlaceOrderBloc>().add(UpdateAddress(address));
-    Navigator.pop(context);
   }
 }

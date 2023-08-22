@@ -2,6 +2,8 @@
 import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/screens/my_order_screen/my_order_screen.dart';
 import 'package:ecommerce_app/screens/personal_details_screen/personal_details_screen.dart';
+import 'package:ecommerce_app/screens/settings_screen/settings_screen.dart';
+import 'package:ecommerce_app/screens/shipping_addresses_screen/shipping_addresses_screen.dart';
 import 'package:flutter/material.dart';
 
 class SettingsElement {
@@ -38,7 +40,9 @@ final List<SettingsElement> settingsElements = [
   SettingsElement(
     title: "Shipping Address",
     assetPath: AppAssets.icTruck,
-    onTap: (context) {},
+    onTap: (context) {
+      Navigator.pushNamed(context, ShippingAddressesScreen.routeName);
+    },
   ),
   SettingsElement(
     title: "My Card",
@@ -48,7 +52,9 @@ final List<SettingsElement> settingsElements = [
   SettingsElement(
     title: "Settings",
     assetPath: AppAssets.icSetting,
-    onTap: (context) {},
+    onTap: (context) {
+      Navigator.pushNamed(context, SettingsScreen.routeName);
+    },
   ),
 ];
 

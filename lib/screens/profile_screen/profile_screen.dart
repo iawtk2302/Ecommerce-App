@@ -1,4 +1,3 @@
-import 'package:ecommerce_app/common_widgets/my_app_bar.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/models/settings_element.dart';
 import 'package:ecommerce_app/screens/profile_screen/widgets/profile_button.dart';
@@ -17,11 +16,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MyAppBar(),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-            horizontal: AppDimensions.defaultPadding, vertical: 20),
+      body: SafeArea(
         child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(
+              horizontal: AppDimensions.defaultPadding, vertical: 20),
           child: Column(children: [
             const ProfileInformationCard(),
             const SizedBox(height: 20),

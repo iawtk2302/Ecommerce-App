@@ -39,6 +39,9 @@ class AppAssets {
   static const String icStar = "$iconPath/ic_star.svg";
   static const String icStarBold = "$iconPath/ic_star_bold.svg";
   static const String icGallery = "$iconPath/ic_gallery.svg";
+  static const String icGlobal = "$iconPath/ic_global.svg";
+  static const String icNotification = "$iconPath/ic_notification.svg";
+  static const String icMoon = "$iconPath/ic_moon.svg";
 
   // Images
   static const String imgSplashBackground =

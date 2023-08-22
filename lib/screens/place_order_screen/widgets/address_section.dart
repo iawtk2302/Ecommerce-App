@@ -20,7 +20,7 @@ class AddressSection extends StatelessWidget {
         if (address != null) {
           return InkWell(
             onTap: () => _navigateToChooseAddressScreen(context),
-            child: AddressCard(defaultAddress: address),
+            child: AddressCard(address: address),
           );
         } else {
           return Padding(

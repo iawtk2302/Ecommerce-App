@@ -13,7 +13,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 
 class AddAddressScreen extends StatefulWidget {
-  const AddAddressScreen({super.key});
+  final ShippingAddress? address;
+
+  const AddAddressScreen({
+    super.key,
+    this.address,
+  });
 
   static const String routeName = "/add-address-screen";
 
@@ -33,12 +38,23 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
   final TextEditingController phoneNumberController = TextEditingController();
   bool setAsDefaultAddress = true;
   final formState = GlobalKey<FormState>();
-  late Position? position;
+  Position? position;
 
   @override
   void initState() {
     super.initState();
-    _getPosition();
+    if (widget.address != null) {
+      fullNameController.text = widget.address!.recipientName;
+      countryController.text = widget.address!.country;
+      stateController.text = widget.address!.state;
+      cityController.text = widget.address!.city;
+      streetController.text = widget.address!.street;
+      zipCodeController.text = widget.address!.zipCode;
+      callingCodeController.text = widget.address!.countryCallingCode;
+      phoneNumberController.text = widget.address!.phoneNumber;
+    } else {
+      _getPosition();
+    }
   }
 
   @override
@@ -155,6 +171,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
         isLoading = true;
       });
       final ShippingAddress newAddress = ShippingAddress(
+        id: widget.address != null ? widget.address!.id : "",
         recipientName: fullNameController.text,
         street: streetController.text,
         city: stateController.text,
@@ -163,13 +180,23 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
         zipCode: zipCodeController.text,
         countryCallingCode: callingCodeController.text,
         phoneNumber: phoneNumberController.text,
-        latitude: position?.latitude,
-        longitude: position?.longitude,
+        latitude: widget.address != null
+            ? widget.address!.latitude
+            : position?.latitude,
+        longitude: widget.address != null
+            ? widget.address!.longitude
+            : position?.longitude,
       );
-      await AddressRepository().addShippingAddress(
-        address: newAddress,
-        setAsDefault: setAsDefaultAddress,
-      );
+      if (widget.address == null) {
+        await AddressRepository().addShippingAddress(
+          address: newAddress,
+          setAsDefault: setAsDefaultAddress,
+        );
+      } else {
+        await AddressRepository().updateShippingAddress(
+          address: newAddress,
+        );
+      }
 
       if (!mounted) return;
       context.read<AddressesBloc>().add(LoadAddresses());

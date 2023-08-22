@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 class AddressCard extends StatelessWidget {
   const AddressCard({
     super.key,
-    required this.defaultAddress,
+    required this.address,
   });
 
-  final ShippingAddress defaultAddress;
+  final ShippingAddress address;
 
   @override
   Widget build(BuildContext context) {
@@ -22,17 +22,15 @@ class AddressCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AddressLine(label: "Street", content: defaultAddress.street),
-            AddressLine(label: "City", content: defaultAddress.city),
-            AddressLine(
-                label: "State/province/area", content: defaultAddress.state),
-            AddressLine(
-                label: "Phone number", content: defaultAddress.phoneNumber),
-            AddressLine(label: "Zip code", content: defaultAddress.zipCode),
+            AddressLine(label: "Street", content: address.street),
+            AddressLine(label: "City", content: address.city),
+            AddressLine(label: "State/province/area", content: address.state),
+            AddressLine(label: "Phone number", content: address.phoneNumber),
+            AddressLine(label: "Zip code", content: address.zipCode),
             AddressLine(
                 label: "Country calling code",
-                content: defaultAddress.countryCallingCode),
-            AddressLine(label: "Country", content: defaultAddress.country),
+                content: address.countryCallingCode),
+            AddressLine(label: "Country", content: address.country),
           ],
         ));
   }

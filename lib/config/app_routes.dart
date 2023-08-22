@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/models/order.dart';
 import 'package:ecommerce_app/models/order_product_detail.dart';
+import 'package:ecommerce_app/models/shipping_address.dart';
 import 'package:ecommerce_app/screens/add_address_screen/add_address_screen.dart';
 import 'package:ecommerce_app/screens/add_payment_card_screen/add_payment_card_screen.dart';
 import 'package:ecommerce_app/screens/choose_address_screen/choose_address_screen.dart';
@@ -22,6 +23,8 @@ import 'package:ecommerce_app/screens/detail_product_screen/detail_product_scree
 import 'package:ecommerce_app/screens/filter_screen/filter_screen.dart';
 import 'package:ecommerce_app/screens/product_screen/product_screen.dart';
 import 'package:ecommerce_app/screens/search_screen/search_screen.dart';
+import 'package:ecommerce_app/screens/settings_screen/settings_screen.dart';
+import 'package:ecommerce_app/screens/shipping_addresses_screen/shipping_addresses_screen.dart';
 import 'package:ecommerce_app/screens/sign_in_screen/sign_in_screen.dart';
 import 'package:ecommerce_app/screens/sign_up_screen/sign_up_screen.dart';
 import 'package:ecommerce_app/screens/sign_up_screen/sign_up_success_screen.dart';
@@ -59,8 +62,9 @@ class AppRouter {
           builder: (context) => const PaymentScreen(),
         );
       case AddAddressScreen.routeName:
+        final args = settings.arguments as ShippingAddress?;
         return MaterialPageRoute(
-          builder: (context) => const AddAddressScreen(),
+          builder: (context) => AddAddressScreen(address: args),
         );
       case ChooseAddressScreen.routeName:
         return MaterialPageRoute(
@@ -170,6 +174,14 @@ class AppRouter {
       case PersonalDetailsScreen.routeName:
         return MaterialPageRoute(
           builder: (context) => const PersonalDetailsScreen(),
+        );
+      case ShippingAddressesScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => const ShippingAddressesScreen(),
+        );
+      case SettingsScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => const SettingsScreen(),
         );
 
       default:
