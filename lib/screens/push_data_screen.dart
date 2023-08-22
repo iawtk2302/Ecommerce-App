@@ -20,7 +20,7 @@ class PushDataScreen extends StatelessWidget {
                       .collection("payment_cards ")
                       .add({"test": "test"});
                 },
-                child: Text("Push"))
+                child: const Text("Push"))
           ],
         ),
       ),
@@ -29,12 +29,12 @@ class PushDataScreen extends StatelessWidget {
 
   Future<void> pushJsonDataToFirestore() async {
     await firestore.collection("products").get().then((value) async {
-      value.docs.forEach((element) {
+      for (var element in value.docs) {
         firestore
             .collection("products")
             .doc(element.id)
             .update({'createdAt': generateRandomDate()});
-      });
+      }
     });
     // Load JSON data from assets
     // final String jsonData =
@@ -138,7 +138,7 @@ class PushDataScreen extends StatelessWidget {
         .where('categoryId', isEqualTo: x['categoryId'])
         .get()
         .then((value) {
-      value.docs.forEach((element) {
+      for (var element in value.docs) {
         firestore
             .collection('products')
             .doc(element.id)
@@ -148,7 +148,7 @@ class PushDataScreen extends StatelessWidget {
           'color': x['color'],
           'stock': x['stock'],
         });
-      });
+      }
     });
   }
 

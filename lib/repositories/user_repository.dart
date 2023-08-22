@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_app/models/shipping_address.dart';
 import 'package:ecommerce_app/models/user_profile.dart';
 import 'package:ecommerce_app/utils/firebase_constants.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 
 class UserRepository {
   Future<UserProfile> fetchUser() async {
@@ -14,9 +18,34 @@ class UserRepository {
     }
   }
 
-  Future<void> updateUser(UserProfile user) async {
+  Future<void> updateUser({
+    String? name,
+    String? gender,
+    int? age,
+    String? email,
+    XFile? image,
+  }) async {
     try {
-      await usersRef.doc(firebaseAuth.currentUser!.uid).update(user.toMap());
+      Map<String, dynamic> data = {};
+      if (name != null) {
+        data["name"] = name;
+      }
+      if (gender != null) {
+        data["gender"] = gender;
+      }
+      if (age != null) {
+        data["age"] = age;
+      }
+      if (image != null) {
+        final ref = FirebaseStorage.instance
+            .ref()
+            .child("avatar_img/${firebaseAuth.currentUser!.uid}");
+        await ref.putFile(File(image.path));
+        final url = await ref.getDownloadURL();
+        data["imageUrl"] = url;
+      }
+
+      await usersRef.doc(firebaseAuth.currentUser!.uid).update(data);
     } catch (e) {
       throw Exception(e);
     }

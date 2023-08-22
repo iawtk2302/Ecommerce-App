@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Utils {
@@ -57,5 +58,11 @@ class Utils {
 
   static Color hexToColor(String color) {
     return Color(int.parse(color.substring(1, 7), radix: 16) + 0xFF000000);
+  }
+
+  Future<XFile?> pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    return image;
   }
 }

@@ -10,7 +10,7 @@ class OrderUtil {
         time.minute.toString() +
         time.second.toString();
 
-    final randomComponent = Uuid()
+    final randomComponent = const Uuid()
         .v4()
         .split('-')
         .first; // Generate a random UUID and take the first part

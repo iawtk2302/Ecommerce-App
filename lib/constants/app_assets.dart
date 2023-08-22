@@ -22,9 +22,23 @@ class AppAssets {
   static const String icAddAddress = "$iconPath/ic_add_item.svg";
   static const String icScan = "$iconPath/ic_scan.svg";
   static const String icEdit = "$iconPath/ic_edit.svg";
+  static const String icEditBold = "$iconPath/ic_edit_bold.svg";
   static const String icAddRound = "$iconPath/ic_add_round.svg";
   static const String icNumber = "$iconPath/ic_number.svg";
   static const String icFingerprint = "$iconPath/ic_fingerprint.svg";
+  static const String icUser = "$iconPath/ic_user.svg";
+  static const String icTruck = "$iconPath/ic_truck.svg";
+  static const String icBagBold = "$iconPath/ic_bag_bold.svg";
+  static const String icCard = "$iconPath/ic_card.svg";
+  static const String icSetting = "$iconPath/ic_setting.svg";
+  static const String icChevronRight = "$iconPath/ic_chevron_right.svg";
+  static const String icInfo = "$iconPath/ic_info.svg";
+  static const String icShieldTick = "$iconPath/ic_shield_tick.svg";
+  static const String icHeadphone = "$iconPath/ic_headphone.svg";
+  static const String icLogout = "$iconPath/ic_logout.svg";
+  static const String icStar = "$iconPath/ic_star.svg";
+  static const String icStarBold = "$iconPath/ic_star_bold.svg";
+  static const String icGallery = "$iconPath/ic_gallery.svg";
 
   // Images
   static const String imgSplashBackground =

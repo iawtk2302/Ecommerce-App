@@ -10,6 +10,7 @@ import 'package:ecommerce_app/screens/onboarding_screen/onboarding_screen.dart';
 import 'package:ecommerce_app/screens/order_tracking_screen/order_tracking_screen.dart';
 import 'package:ecommerce_app/screens/payment_screen/payment_screen.dart';
 import 'package:ecommerce_app/screens/order_processing_screen/order_processing_screen.dart';
+import 'package:ecommerce_app/screens/personal_details_screen/personal_details_screen.dart';
 import 'package:ecommerce_app/screens/place_order_screen/place_order_screen.dart';
 import 'package:ecommerce_app/screens/review_screen/review_screen.dart';
 import 'package:ecommerce_app/screens/set_passcode_screen/set_passcode_screen.dart';
@@ -166,6 +167,10 @@ class AppRouter {
         } catch (e) {
           print(e.toString());
         }
+      case PersonalDetailsScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => const PersonalDetailsScreen(),
+        );
 
       default:
         return MaterialPageRoute(
@@ -176,6 +181,7 @@ class AppRouter {
           ),
         );
     }
+    return null;
   }
 }
 

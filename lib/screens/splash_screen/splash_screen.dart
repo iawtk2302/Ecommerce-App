@@ -19,7 +19,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   bool firstTime =
-      false; // It is used for marking this is the first time load user for whole app.
+      true; // It is used for marking this is the first time load user for whole app.
 
   @override
   Widget build(BuildContext context) {
@@ -45,14 +45,16 @@ class _SplashScreenState extends State<SplashScreen> {
       builder: (context, state) {
         return BlocConsumer<UserBloc, UserState>(
           listener: (context, state) {
-            if (state is UserLoaded && !firstTime) {
-              firstTime = true;
+            if (state is UserLoaded && firstTime) {
+              firstTime = false;
               context.read<HomeBloc>().add(const LoadHome());
-              Navigator.pushNamedAndRemoveUntil(
-                  context, MainScreen.routeName, (route) => false);
               context
                   .read<PlaceOrderBloc>()
                   .add(UpdateAddress(state.user.defaultShippingAddress));
+
+              // Only the first time load user, we need to navigate to MainScreen
+              Navigator.pushNamedAndRemoveUntil(
+                  context, MainScreen.routeName, (route) => false);
             } else if (state is UserError) {
               Utils.showSnackBar(
                   context: context,

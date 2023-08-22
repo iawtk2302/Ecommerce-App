@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:ecommerce_app/constants/enums/gender.dart';
+import 'package:ecommerce_app/extensions/string_extensions.dart';
 import 'package:ecommerce_app/models/shipping_address.dart';
 
 class UserProfile {
@@ -12,10 +13,6 @@ class UserProfile {
   final Gender? gender;
   final int? age;
   final ShippingAddress? defaultShippingAddress;
-  // final List<ShippingAddress> shippingAddresses;
-  // final List<PaymentInformation> paymentCards;
-  // final List<CartItem> cart;
-  // final List<Promotion> promotions;
 
   UserProfile({
     required this.id,
@@ -25,10 +22,6 @@ class UserProfile {
     required this.age,
     required this.email,
     this.defaultShippingAddress,
-    // this.shippingAddresses = const [],
-    // this.paymentCards = const [],
-    // this.cart = const [],
-    // this.promotions = const [],
   });
 
   Map<String, dynamic> toMap() {
@@ -40,13 +33,6 @@ class UserProfile {
       'gender': gender?.name,
       'age': age,
       'defaultShippingAddress': defaultShippingAddress,
-      // 'shippingAddresses': shippingAddresses.map((x) => x.toMap()).toList(),
-      // 'paymentCards': [],
-      // paymentCards.map((x) => x.toMap()).toList(),
-      // 'cart': [],
-      // cart.map((x) => x.toMap()).toList(),
-      // 'promotions': [],
-      // promotions.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -56,41 +42,14 @@ class UserProfile {
       name: map['name'] as String,
       email: map['email'] as String,
       imageUrl: map['imageUrl'] as String,
-      gender: map['gender'] != null
-          ? map['gender'] == Gender.male.name
-              ? Gender.male
-              : map['gender'] == Gender.female.name
-                  ? Gender.female
-                  : Gender.other
-          : null,
+      gender: map['gender'] == null
+          ? Gender.notHave
+          : (map['gender'] as String).toGender(),
       age: map['age'] != null ? map['age'] as int : null,
       defaultShippingAddress: map['defaultShippingAddress'] != null
           ? ShippingAddress.fromMap(
               map['defaultShippingAddress'] as Map<String, dynamic>)
           : null,
-      // shippingAddresses: List<ShippingAddress>.from(
-      //   (map['shippingAddresses']).map<ShippingAddress>(
-      //     (x) => ShippingAddress.fromMap(x as Map<String, dynamic>),
-      //   ),
-      // ),
-      // paymentCards: [],
-      // List<PaymentCard>.from(
-      //   (map['paymentCards'] as List<int>).map<PaymentCard>(
-      //     (x) => PaymentCard.fromMap(x as Map<String, dynamic>),
-      //   ),
-      // ),
-      // cart: [],
-      // List<CartItem>.from(
-      //   (map['cart'] as List<int>).map<CartItem>(
-      //     (x) => CartItem.fromMap(x as Map<String, dynamic>),
-      //   ),
-      // ),
-      // promotions: []
-      // List<Promotion>.from(
-      //   (map['promotions'] as List<int>).map<Promotion>(
-      //     (x) => Promotion.fromMap(x as Map<String, dynamic>),
-      //   ),
-      // ),
     );
   }
 

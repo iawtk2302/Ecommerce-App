@@ -96,6 +96,9 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
                                           return OrderItemWidget(
                                               order: order,
                                               orderItem: orderItems[index],
+                                              isComplete: _selection ==
+                                                  MyOrderTabSelections
+                                                      .completed,
                                               onTap: () =>
                                                   _navigateToOrderTrackingScreen(
                                                       context,
