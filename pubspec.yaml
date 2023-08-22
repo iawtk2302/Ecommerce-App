@@ -60,7 +60,10 @@ dependencies:
   intl: ^0.18.0
   flutter_slidable: ^3.0.0
   uuid: ^3.0.7
-  flash: ^3.0.5+1
+  image_size_getter: ^2.1.2
+  firebase_storage: ^11.2.6
+  audioplayers: ^5.0.0
+  image_picker: ^1.0.2
 
 dev_dependencies:
   flutter_test:

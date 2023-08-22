@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/blocs/addresses_bloc/addresses_bloc.dart';
 import 'package:ecommerce_app/blocs/auth_bloc/auth_bloc.dart';
 import 'package:ecommerce_app/blocs/cart_bloc/cart_bloc.dart';
+import 'package:ecommerce_app/blocs/chat_bloc/chat_bloc.dart';
 import 'package:ecommerce_app/blocs/language_bloc/language_bloc.dart';
 import 'package:ecommerce_app/blocs/order_processing_bloc/order_processing_bloc.dart';
 import 'package:ecommerce_app/blocs/payment_methods_bloc/payment_methods_bloc.dart';
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => OrderProcessingBloc()),
         BlocProvider(create: (_) => AddressesBloc()),
         BlocProvider(create: (_) => ReviewScreenBloc()),
+        BlocProvider(create: (_) => ChatBloc()),
         BlocProvider(create: (_) => LanguageBloc()..add(const LoadLanguage())),
       ],
       child: BlocBuilder<LanguageBloc, LanguageState>(

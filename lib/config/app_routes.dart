@@ -3,6 +3,7 @@ import 'package:ecommerce_app/models/order_product_detail.dart';
 import 'package:ecommerce_app/screens/add_address_screen/add_address_screen.dart';
 import 'package:ecommerce_app/screens/add_payment_card_screen/add_payment_card_screen.dart';
 import 'package:ecommerce_app/screens/cart_screen/cart_screen.dart';
+import 'package:ecommerce_app/screens/chat_screen/chat_screen.dart';
 import 'package:ecommerce_app/screens/choose_address_screen/choose_address_screen.dart';
 import 'package:ecommerce_app/screens/choose_promotion_screen/choose_promotion_screen.dart';
 import 'package:ecommerce_app/screens/main_screen/main_screen.dart';
@@ -175,6 +176,10 @@ class AppRouter {
       case PromotionScreen.routeName:
         return MaterialPageRoute(
           builder: (context) => const PromotionScreen(),
+        );
+      case ChatScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => const ChatScreen(),
         );
 
       default:
