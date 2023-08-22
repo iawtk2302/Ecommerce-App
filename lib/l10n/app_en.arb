@@ -1,0 +1,15 @@
+{
+  "@@locale": "en",
+  "welcome": "Welcome",
+  "ourFashionsApp": "Our Fashions App",
+  "search": "Search",
+  "home": "Home",
+  "cart": "Cart",
+  "notification": "Notification",
+  "getNow": "Get Now",
+  "newArrivals": "New Arrivals",
+  "viewAll": "View All",
+  "profile": "Profile",
+  "review": "review",
+  "addToCart": "Add to cart"
+}

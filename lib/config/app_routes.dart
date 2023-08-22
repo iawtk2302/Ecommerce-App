@@ -2,6 +2,7 @@ import 'package:ecommerce_app/models/order.dart';
 import 'package:ecommerce_app/models/order_product_detail.dart';
 import 'package:ecommerce_app/screens/add_address_screen/add_address_screen.dart';
 import 'package:ecommerce_app/screens/add_payment_card_screen/add_payment_card_screen.dart';
+import 'package:ecommerce_app/screens/cart_screen/cart_screen.dart';
 import 'package:ecommerce_app/screens/choose_address_screen/choose_address_screen.dart';
 import 'package:ecommerce_app/screens/choose_promotion_screen/choose_promotion_screen.dart';
 import 'package:ecommerce_app/screens/main_screen/main_screen.dart';
@@ -11,6 +12,7 @@ import 'package:ecommerce_app/screens/order_tracking_screen/order_tracking_scree
 import 'package:ecommerce_app/screens/payment_screen/payment_screen.dart';
 import 'package:ecommerce_app/screens/order_processing_screen/order_processing_screen.dart';
 import 'package:ecommerce_app/screens/place_order_screen/place_order_screen.dart';
+import 'package:ecommerce_app/screens/promotion_screen/promotion_screen.dart';
 import 'package:ecommerce_app/screens/review_screen/review_screen.dart';
 import 'package:ecommerce_app/screens/set_passcode_screen/set_passcode_screen.dart';
 import 'package:ecommerce_app/models/category.dart';
@@ -143,6 +145,10 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (context) => const OrderProcessingScreen(),
         );
+      case CartScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => const CartScreen(),
+        );
       case OrderTrackingScreen.routeName:
         final args = settings.arguments as OrderTrackingArguments;
         return MaterialPageRoute(
@@ -166,6 +172,10 @@ class AppRouter {
         } catch (e) {
           print(e.toString());
         }
+      case PromotionScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => const PromotionScreen(),
+        );
 
       default:
         return MaterialPageRoute(

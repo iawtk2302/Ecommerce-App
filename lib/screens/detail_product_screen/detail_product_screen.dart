@@ -1,15 +1,16 @@
-import 'package:another_flushbar/flushbar.dart';
 import 'package:ecommerce_app/blocs/product_bloc/product_bloc.dart';
 import 'package:ecommerce_app/blocs/show_notification/show_notification_bloc.dart';
 import 'package:ecommerce_app/common_widgets/cart_button.dart';
 import 'package:ecommerce_app/common_widgets/my_app_bar.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
+import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/models/product.dart';
 import 'package:ecommerce_app/screens/detail_product_screen/widgets/bottom_bar_product.dart';
 import 'package:ecommerce_app/screens/detail_product_screen/widgets/product_description.dart';
 import 'package:ecommerce_app/screens/detail_product_screen/widgets/product_image.dart';
 import 'package:ecommerce_app/screens/detail_product_screen/widgets/product_size.dart';
 import 'package:ecommerce_app/screens/detail_product_screen/widgets/product_title.dart';
+import 'package:ecommerce_app/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,28 +33,20 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
     super.initState();
   }
 
-  void _showUndoNotification(BuildContext context) {
-    Flushbar(
-      message: "The product has been removed from the cart.",
-      duration: const Duration(seconds: 3),
-    ).show(context);
-  }
-
   void _showNotification(BuildContext context) {
-    Flushbar(
-      message: "The product has been added to cart.",
-      duration: const Duration(seconds: 3),
-      mainButton: GestureDetector(
-        onTap: () {
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          context.read<ProductBloc>().add(const UndoAddToCart());
-        },
-        child: const Text(
-          'Undo',
-          style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
-        ),
-      ),
-    ).show(context);
+    Utils.showSnackBarSuccess(
+        context: context,
+        message: "The product has been added to cart.",
+        title: "Success",
+        actionButton: TextButton(
+            onPressed: () {
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              context.read<ProductBloc>().add(const UndoAddToCart());
+            },
+            child: Text(
+              "Undo",
+              style: AppStyles.labelMedium.copyWith(color: Colors.white),
+            )));
   }
 
   @override
@@ -72,8 +65,6 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
         listener: (_, state) {
           if (state is AddToCartSuccess) {
             _showNotification(context);
-          } else if (state is UndoAddToCartSuccess) {
-            _showUndoNotification(context);
           }
         },
         child: BlocBuilder<ProductBloc, ProductState>(
