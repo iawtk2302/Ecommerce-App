@@ -57,7 +57,7 @@ class Product extends Equatable {
       'averageRating': averageRating,
       'reviewCount': reviewCount,
       'imgUrl': imgUrl,
-      'createdAt': createdAt.millisecondsSinceEpoch,
+      'createdAt': createdAt,
     };
   }
 

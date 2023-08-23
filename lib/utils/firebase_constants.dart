@@ -10,3 +10,4 @@ final CollectionReference categoriesRef = firestore.collection("categories");
 final CollectionReference productsRef = firestore.collection("products");
 final CollectionReference promotionsRef = firestore.collection("promotions");
 final CollectionReference ordersRef = firestore.collection("orders");
+final CollectionReference favoritesRef = currentUserRef.collection("favorites");

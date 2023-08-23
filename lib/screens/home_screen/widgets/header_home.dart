@@ -5,6 +5,7 @@ import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/screens/search_screen/custom_search_delegate.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HeaderHome extends StatelessWidget {
   const HeaderHome({super.key});
@@ -18,12 +19,12 @@ class HeaderHome extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "Welcome",
+          Text(
+            AppLocalizations.of(context)!.home,
             style: AppStyles.displayLarge,
           ),
-          const Text(
-            "Our Fashion App",
+          Text(
+            AppLocalizations.of(context)!.ourFashionsApp,
             style: AppStyles.displayMedium,
           ),
           Padding(

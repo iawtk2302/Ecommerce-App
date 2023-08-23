@@ -56,7 +56,7 @@ class AppAssets {
   static const String imgCashOnDelivery = "$imagePath/img_cash_on_delivery.png";
   static const String imgNotFound = "$imagePath/img_not_found.svg";
   static const String imgNoReview = "$imagePath/img_no_review.svg";
-
+  static const String imgNoFavorite = "$imagePath/img_no_favorite.svg";
   // Lottie
   static const String lottieSuccess = "$lottiePath/lottie_success.json";
   static const String lottieFail = "$lottiePath/lottie_fail.json";
