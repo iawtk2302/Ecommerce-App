@@ -1,12 +1,18 @@
+import 'package:ecommerce_app/blocs/auth_bloc/auth_bloc.dart';
 import 'package:ecommerce_app/common_widgets/my_app_bar.dart';
+import 'package:ecommerce_app/common_widgets/my_button.dart';
+import 'package:ecommerce_app/common_widgets/my_icon.dart';
 import 'package:ecommerce_app/common_widgets/screen_name_section.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
+import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
+import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/screens/profile_screen/widgets/profile_section_background.dart';
 import 'package:ecommerce_app/screens/settings_screen/widgets/my_switch_button.dart';
 import 'package:ecommerce_app/screens/settings_screen/widgets/settings_button.dart';
 import 'package:ecommerce_app/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -64,7 +70,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       iconAsset: AppAssets.icInfo,
                       action: SizedBox()),
                 ],
-              ))
+              )),
+          const Spacer(),
+          MyButton(
+            margin: const EdgeInsets.symmetric(
+                horizontal: AppDimensions.defaultPadding),
+            borderRadius: 12,
+            onPressed: _onLogOut,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const MyIcon(
+                  icon: AppAssets.icLogout,
+                  colorFilter:
+                      ColorFilter.mode(AppColors.whiteColor, BlendMode.srcIn),
+                ),
+                const SizedBox(width: 10),
+                Text("Log out",
+                    style: AppStyles.labelLarge
+                        .copyWith(color: AppColors.whiteColor)),
+              ],
+            ),
+          ),
+          const SizedBox(height: 20),
         ],
       ),
     );
@@ -96,5 +124,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       darkMode = !darkMode;
     });
     Utils().changeDarkMode();
+  }
+
+  void _onLogOut() {
+    context.read<AuthBloc>().add(LogOut());
   }
 }
