@@ -10,6 +10,7 @@ import 'package:ecommerce_app/screens/add_address_screen/add_address_confirm_but
 import 'package:ecommerce_app/utils/location_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:geolocator/geolocator.dart';
 
 class AddAddressScreen extends StatefulWidget {
@@ -75,84 +76,86 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
       isLoading: isLoading,
       child: Scaffold(
         appBar: const MyAppBar(),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const ScreenNameSection(label: "Add New Address"),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: AppDimensions.defaultPadding),
-                  child: Form(
-                    key: formState,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        FillInformationTextField(
-                          label: "Full name",
-                          controller: fullNameController,
-                          validator: _validator,
-                        ),
-                        FillInformationTextField(
-                          label: "Country",
-                          controller: countryController,
-                          validator: _validator,
-                        ),
-                        FillInformationTextField(
-                          label: "State/Province/Region",
-                          controller: stateController,
-                          validator: _validator,
-                        ),
-                        FillInformationTextField(
-                          label: "City",
-                          controller: cityController,
-                          validator: _validator,
-                        ),
-                        FillInformationTextField(
-                          label: "Street",
-                          controller: streetController,
-                          validator: _validator,
-                        ),
-                        FillInformationTextField(
-                          label: "Zip code",
-                          controller: zipCodeController,
-                          validator: _validator,
-                        ),
-                        FillInformationTextField(
-                          label: "Country calling code",
-                          controller: callingCodeController,
-                          validator: _validator,
-                        ),
-                        FillInformationTextField(
-                          label: "Phone number",
-                          controller: phoneNumberController,
-                          validator: _validator,
-                        ),
-                        Row(
-                          children: [
-                            Checkbox(
-                                value: setAsDefaultAddress,
-                                onChanged: (value) {
-                                  setState(() {
-                                    if (value != null) {
-                                      setState(() {
-                                        setAsDefaultAddress = value;
-                                      });
-                                    }
-                                  });
-                                }),
-                            const Text("Use as default address.")
-                          ],
-                        )
-                      ],
+        body: KeyboardDismissOnTap(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const ScreenNameSection(label: "Add New Address"),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: AppDimensions.defaultPadding),
+                    child: Form(
+                      key: formState,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          FillInformationTextField(
+                            label: "Full name",
+                            controller: fullNameController,
+                            validator: _validator,
+                          ),
+                          FillInformationTextField(
+                            label: "Country",
+                            controller: countryController,
+                            validator: _validator,
+                          ),
+                          FillInformationTextField(
+                            label: "State/Province/Region",
+                            controller: stateController,
+                            validator: _validator,
+                          ),
+                          FillInformationTextField(
+                            label: "City",
+                            controller: cityController,
+                            validator: _validator,
+                          ),
+                          FillInformationTextField(
+                            label: "Street",
+                            controller: streetController,
+                            validator: _validator,
+                          ),
+                          FillInformationTextField(
+                            label: "Zip code",
+                            controller: zipCodeController,
+                            validator: _validator,
+                          ),
+                          FillInformationTextField(
+                            label: "Country calling code",
+                            controller: callingCodeController,
+                            validator: _validator,
+                          ),
+                          FillInformationTextField(
+                            label: "Phone number",
+                            controller: phoneNumberController,
+                            validator: _validator,
+                          ),
+                          Row(
+                            children: [
+                              Checkbox(
+                                  value: setAsDefaultAddress,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      if (value != null) {
+                                        setState(() {
+                                          setAsDefaultAddress = value;
+                                        });
+                                      }
+                                    });
+                                  }),
+                              const Text("Use as default address.")
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            AddAddressConfirmButton(onPressed: _onConfirmPressed),
-          ],
+              AddAddressConfirmButton(onPressed: _onConfirmPressed),
+            ],
+          ),
         ),
       ),
     );

@@ -24,6 +24,8 @@ class ReviewRepository {
 
   Future<void> addReview(
       {required BuildContext context,
+      required String orderId,
+      required String orderItemId,
       required String productId,
       required int rating,
       required String content}) async {
@@ -40,6 +42,13 @@ class ReviewRepository {
             content: content,
             createdAt: DateTime.now());
         await doc.set(review.toMap());
+
+        // update review in order doc
+        await ordersRef
+            .doc(orderId)
+            .collection("items")
+            .doc(orderItemId)
+            .update({'review': review.toMap()});
 
         // update average rating and review count in product doc
         final product = await ProductRepository().fetchProductById(productId);

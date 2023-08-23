@@ -51,7 +51,7 @@ class Utils {
                     ],
                   ),
                 ),
-                actionButton!
+                if (actionButton != null) actionButton
               ]),
         )));
   }
