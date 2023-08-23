@@ -1,10 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:ecommerce_app/constants/app_assets.dart';
+import 'package:ecommerce_app/screens/faqs_screen/faqs_screen.dart';
 import 'package:ecommerce_app/screens/favorite_screen/favorite_screen.dart';
 import 'package:ecommerce_app/screens/my_order_screen/my_order_screen.dart';
 import 'package:ecommerce_app/screens/personal_details_screen/personal_details_screen.dart';
 import 'package:ecommerce_app/screens/settings_screen/settings_screen.dart';
 import 'package:ecommerce_app/screens/shipping_addresses_screen/shipping_addresses_screen.dart';
+import 'package:ecommerce_app/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class SettingsElement {
@@ -63,11 +65,18 @@ final List<SettingsElement> settingsElements = [
 
 final List<SettingsElement> contactSettingsElements = [
   SettingsElement(
-      title: "FAQs", assetPath: AppAssets.icInfo, onTap: (context) {}),
+      title: "FAQs",
+      assetPath: AppAssets.icInfo,
+      onTap: (context) {
+        Navigator.pushNamed(context, FAQsScreen.routeName);
+      }),
   SettingsElement(
       title: "Privacy Policy",
       assetPath: AppAssets.icShieldTick,
-      onTap: (context) {}),
+      onTap: (context) {
+        Utils().launchUrl(
+            "https://www.termsfeed.com/live/fd3cdd13-7687-478e-8783-d06f5454ee5d");
+      }),
   SettingsElement(
       title: "Support", assetPath: AppAssets.icHeadphone, onTap: (context) {}),
   SettingsElement(

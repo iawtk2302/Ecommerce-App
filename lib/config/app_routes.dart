@@ -6,6 +6,7 @@ import 'package:ecommerce_app/screens/add_payment_card_screen/add_payment_card_s
 import 'package:ecommerce_app/screens/cart_screen/cart_screen.dart';
 import 'package:ecommerce_app/screens/choose_address_screen/choose_address_screen.dart';
 import 'package:ecommerce_app/screens/choose_promotion_screen/choose_promotion_screen.dart';
+import 'package:ecommerce_app/screens/faqs_screen/faqs_screen.dart';
 import 'package:ecommerce_app/screens/favorite_screen/favorite_screen.dart';
 import 'package:ecommerce_app/screens/main_screen/main_screen.dart';
 import 'package:ecommerce_app/screens/my_order_screen/my_order_screen.dart';
@@ -202,6 +203,10 @@ class AppRouter {
       case FavoriteScreen.routeName:
         return MaterialPageRoute(
           builder: (context) => const FavoriteScreen(),
+        );
+      case FAQsScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => const FAQsScreen(),
         );
 
       default:

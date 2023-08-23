@@ -2,6 +2,7 @@ import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart' as url_launcher;
 
 class Utils {
   static bool isEmailValid(String email) {
@@ -126,5 +127,11 @@ class Utils {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final bool darkMode = await getDarkMode();
     prefs.setBool("darkMode", !darkMode);
+  }
+
+  Future<void> launchUrl(String url) async {
+    if (!await url_launcher.launchUrl(Uri.parse(url))) {
+      throw Exception("Could not launch: $url");
+    }
   }
 }
