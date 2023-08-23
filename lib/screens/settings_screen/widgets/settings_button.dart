@@ -9,11 +9,13 @@ class SettingButton extends StatelessWidget {
     required this.title,
     required this.iconAsset,
     required this.action,
+    this.onPressed,
   });
 
   final String title;
   final String iconAsset;
   final Widget action;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class SettingButton extends StatelessWidget {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5)),
-        onPressed: null,
+        onPressed: onPressed,
         child: Row(
           children: [
             Container(

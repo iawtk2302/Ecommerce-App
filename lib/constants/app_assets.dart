@@ -57,6 +57,12 @@ class AppAssets {
   static const String imgNotFound = "$imagePath/img_not_found.svg";
   static const String imgNoReview = "$imagePath/img_no_review.svg";
   static const String imgNoFavorite = "$imagePath/img_no_favorite.svg";
+  static const String imgVietnamFlag = "$imagePath/img_vietnam_flag.png";
+  static const String imgUKFlag = "$imagePath/img_uk_flag.png";
+  static const String imgBangladeshFlag = "$imagePath/img_bangladesh_flag.png";
+  static const String imgGermanFlag = "$imagePath/img_german_flag.png";
+  static const String imgPortugalFlag = "$imagePath/img_portugal_flag.png";
+
   // Lottie
   static const String lottieSuccess = "$lottiePath/lottie_success.json";
   static const String lottieFail = "$lottiePath/lottie_fail.json";

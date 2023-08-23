@@ -6,6 +6,7 @@ import 'package:ecommerce_app/screens/add_payment_card_screen/add_payment_card_s
 import 'package:ecommerce_app/screens/cart_screen/cart_screen.dart';
 import 'package:ecommerce_app/screens/choose_address_screen/choose_address_screen.dart';
 import 'package:ecommerce_app/screens/choose_promotion_screen/choose_promotion_screen.dart';
+import 'package:ecommerce_app/screens/favorite_screen/favorite_screen.dart';
 import 'package:ecommerce_app/screens/main_screen/main_screen.dart';
 import 'package:ecommerce_app/screens/my_order_screen/my_order_screen.dart';
 import 'package:ecommerce_app/screens/onboarding_screen/onboarding_screen.dart';
@@ -16,6 +17,7 @@ import 'package:ecommerce_app/screens/personal_details_screen/personal_details_s
 import 'package:ecommerce_app/screens/place_order_screen/place_order_screen.dart';
 import 'package:ecommerce_app/screens/promotion_screen/promotion_screen.dart';
 import 'package:ecommerce_app/screens/review_screen/review_screen.dart';
+import 'package:ecommerce_app/screens/select_language_screen/select_language_screen.dart';
 import 'package:ecommerce_app/screens/set_passcode_screen/set_passcode_screen.dart';
 import 'package:ecommerce_app/models/category.dart';
 import 'package:ecommerce_app/models/product.dart';
@@ -189,10 +191,17 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (context) => const SettingsScreen(),
         );
-
       case PromotionScreen.routeName:
         return MaterialPageRoute(
           builder: (context) => const PromotionScreen(),
+        );
+      case SelectLanguageScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => const SelectLanguageScreen(),
+        );
+      case FavoriteScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => const FavoriteScreen(),
         );
 
       default:

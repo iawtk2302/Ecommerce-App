@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/blocs/auth_bloc/auth_bloc.dart';
+import 'package:ecommerce_app/blocs/language_bloc/language_bloc.dart';
 import 'package:ecommerce_app/common_widgets/my_app_bar.dart';
 import 'package:ecommerce_app/common_widgets/my_button.dart';
 import 'package:ecommerce_app/common_widgets/my_icon.dart';
@@ -7,7 +8,9 @@ import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
+import 'package:ecommerce_app/constants/enums/language.dart';
 import 'package:ecommerce_app/screens/profile_screen/widgets/profile_section_background.dart';
+import 'package:ecommerce_app/screens/select_language_screen/select_language_screen.dart';
 import 'package:ecommerce_app/screens/settings_screen/widgets/my_switch_button.dart';
 import 'package:ecommerce_app/screens/settings_screen/widgets/settings_button.dart';
 import 'package:ecommerce_app/utils/utils.dart';
@@ -50,7 +53,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   SettingButton(
                       title: "Language",
                       iconAsset: AppAssets.icGlobal,
-                      action: Container()),
+                      onPressed: _onNavigateToSelectLanguageScreen,
+                      action: BlocBuilder<LanguageBloc, LanguageState>(
+                        builder: (context, state) {
+                          if (state is LanguageLoaded) {
+                            return Row(
+                              children: [
+                                Text(
+                                    languageToLanguageName[
+                                        languageCodeToLanguage[state.locale]!]!,
+                                    style: AppStyles.bodyLarge),
+                                const SizedBox(width: 10),
+                                const MyIcon(
+                                    icon: AppAssets.icChevronRight, height: 14)
+                              ],
+                            );
+                          }
+                          return Container();
+                        },
+                      )),
                   SettingButton(
                       title: "Notification",
                       iconAsset: AppAssets.icNotification,
@@ -128,5 +149,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   void _onLogOut() {
     context.read<AuthBloc>().add(LogOut());
+  }
+
+  void _onNavigateToSelectLanguageScreen() {
+    Navigator.pushNamed(context, SelectLanguageScreen.routeName);
   }
 }

@@ -28,37 +28,40 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: const MyAppBar(),
-        body: FutureBuilder<List<Product>>(
-          future: FavoriteRepository().fetchProducts(),
-          builder:
-              (BuildContext context, AsyncSnapshot<List<Product>> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CustomLoadingWidget();
-            } else if (snapshot.hasData) {
-              return snapshot.data!.isNotEmpty
-                  ? SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const ScreenNameSection(
-                            label: 'Favorite Products',
-                          ),
-                          GridViewProduct(
-                            products: snapshot.data!,
-                            productCount: snapshot.data!.length,
-                          )
-                        ],
-                      ),
-                    )
-                  : const EmptyProduct();
-            } else if (snapshot.hasError) {
-              return Center(
-                child: Text(snapshot.error.toString()),
-              );
-            } else {
-              return Container();
-            }
-          },
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const ScreenNameSection(
+                label: 'Wishlist',
+              ),
+              FutureBuilder<List<Product>>(
+                future: FavoriteRepository().fetchProducts(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<Product>> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CustomLoadingWidget();
+                  } else if (snapshot.hasData) {
+                    if (snapshot.data!.isEmpty) {
+                      return const EmptyProduct();
+                    }
+
+                    final List<Product> products = snapshot.data!;
+                    return GridViewProduct(
+                      products: products,
+                      productCount: products.length,
+                    );
+                  } else if (snapshot.hasError) {
+                    return Center(
+                      child: Text(snapshot.error.toString()),
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
+            ],
+          ),
         ));
   }
 }

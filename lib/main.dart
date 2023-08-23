@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
         builder: (context, state) {
           Locale? locate;
           if (state is LanguageLoaded) {
-            locate = Locale(state.locate);
+            locate = Locale(state.locale);
           }
           return MaterialApp(
             title: 'Flutter Demo',

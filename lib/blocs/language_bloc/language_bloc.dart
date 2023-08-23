@@ -17,13 +17,13 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
       LoadLanguage event, Emitter<LanguageState> emit) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String locate = prefs.getString('locate') ?? 'en';
-    emit(LanguageLoaded(locate: locate));
+    emit(LanguageLoaded(locale: locate));
   }
 
   FutureOr<void> _onChangeLanguage(
       ChangeLanguage event, Emitter<LanguageState> emit) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('locate', event.locate);
-    emit(LanguageLoaded(locate: event.locate));
+    emit(LanguageLoaded(locale: event.locate));
   }
 }
