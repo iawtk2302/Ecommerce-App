@@ -1,28 +1,24 @@
-import 'dart:io';
-
-import 'package:ecommerce_app/common_widgets/my_button.dart';
-import 'package:ecommerce_app/common_widgets/my_ink_well.dart';
+import 'package:ecommerce_app/common_widgets/my_icon.dart';
+import 'package:ecommerce_app/common_widgets/my_icon_button.dart';
+import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
-import 'package:ecommerce_app/constants/enums/message_type.dart';
-import 'package:ecommerce_app/models/message.dart';
-import 'package:ecommerce_app/repositories/chat_repository.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:ecommerce_app/screens/record_voice_screen/record_voice_screen.dart';
+import 'package:ecommerce_app/services/chat_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class MessageInput extends StatefulWidget {
-  const MessageInput(
-      {super.key, required this.userId, required this.chatRoomId});
-  final String userId;
-  final String chatRoomId;
+  const MessageInput({super.key});
+
   @override
   State<MessageInput> createState() => _MessageInputState();
 }
 
 class _MessageInputState extends State<MessageInput> {
   final TextEditingController _messageController = TextEditingController();
-
+  final String userId = FirebaseAuth.instance.currentUser!.uid;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -36,11 +32,15 @@ class _MessageInputState extends State<MessageInput> {
                   border: Border.all(color: AppColors.greyColor, width: 2)),
               child: Row(
                 children: [
-                  IconButton(
-                      onPressed: () => _chooseImage(),
-                      icon: const Icon(
-                        Icons.camera_alt,
-                      )),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: InkWell(
+                      onTap: () => _chooseImage(),
+                      child: const MyIcon(
+                        icon: AppAssets.icCamera,
+                      ),
+                    ),
+                  ),
                   Container(
                     width: 2,
                     height: 40,
@@ -54,6 +54,15 @@ class _MessageInputState extends State<MessageInput> {
                           border: InputBorder.none,
                           hintText: 'Type message...'),
                     ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: InkWell(
+                      onTap: () => _navigateRecordVoiceScreen(),
+                      child: const MyIcon(
+                        icon: AppAssets.icMic,
+                      ),
+                    ),
                   )
                 ],
               ),
@@ -62,17 +71,13 @@ class _MessageInputState extends State<MessageInput> {
           const SizedBox(
             width: 10,
           ),
-          InkWell(
-            onTap: () => _sendTextMessage(),
-            child: const CircleAvatar(
-              radius: 25,
-              backgroundColor: AppColors.primaryColor,
-              child: Icon(
-                Icons.send,
-                color: AppColors.whiteColor,
+          MyIconButton(
+              onPressed: () => _sendTextMessage(),
+              icon: const MyIcon(
+                icon: AppAssets.icSend,
               ),
-            ),
-          )
+              size: 50,
+              color: AppColors.primaryColor)
         ],
       ),
     );
@@ -81,43 +86,17 @@ class _MessageInputState extends State<MessageInput> {
   Future<void> _getImageCamera() async {
     final image = await ImagePicker().pickImage(source: ImageSource.camera);
     if (image == null) return;
-    final temp = File(image.path);
+    if (!context.mounted) return;
     Navigator.of(context).pop();
-    final storageRef = FirebaseStorage.instance.ref().child('chat/chat_img');
-    final task = await storageRef
-        .child('${widget.userId + DateTime.now().toString()}.jpg')
-        .putFile(temp);
-    final linkImage = await task.ref.getDownloadURL();
-    Message message = Message(
-        id: '',
-        senderId: widget.userId,
-        content: '',
-        imageUrl: linkImage,
-        audioUrl: '',
-        type: MessageType.image,
-        timestamp: DateTime.now());
-    ChatRepository().sendMessage(widget.chatRoomId, message);
+    await ChatService().sendImageMessage(image.path);
   }
 
   Future<void> _getImageGallery() async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (image == null) return;
-    final temp = File(image.path);
+    if (!context.mounted) return;
     Navigator.of(context).pop();
-    final storageRef = FirebaseStorage.instance.ref().child('chat/chat_img');
-    final task = await storageRef
-        .child('${widget.userId + DateTime.now().toString()}.jpg')
-        .putFile(temp);
-    final linkImage = await task.ref.getDownloadURL();
-    Message message = Message(
-        id: '',
-        senderId: widget.userId,
-        content: '',
-        imageUrl: linkImage,
-        audioUrl: '',
-        type: MessageType.image,
-        timestamp: DateTime.now());
-    ChatRepository().sendMessage(widget.chatRoomId, message);
+    await ChatService().sendImageMessage(image.path);
   }
 
   _chooseImage() {
@@ -180,16 +159,13 @@ class _MessageInputState extends State<MessageInput> {
 
   _sendTextMessage() async {
     if (_messageController.text.isNotEmpty) {
-      Message message = Message(
-          id: '',
-          senderId: widget.userId,
-          content: _messageController.text.trim(),
-          imageUrl: '',
-          audioUrl: '',
-          type: MessageType.text,
-          timestamp: DateTime.now());
+      final content = _messageController.text;
       _messageController.clear();
-      await ChatRepository().sendMessage(widget.chatRoomId, message);
+      await ChatService().sendTextMessage(content);
     }
+  }
+
+  _navigateRecordVoiceScreen() {
+    Navigator.pushNamed(context, RecordVoiceScreen.routeName);
   }
 }

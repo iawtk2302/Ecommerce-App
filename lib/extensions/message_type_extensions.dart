@@ -1,5 +1,4 @@
 import 'package:ecommerce_app/constants/enums/message_type.dart';
-import 'package:ecommerce_app/models/promotion.dart';
 
 extension MessageTypeExt on MessageType {
   String toMessageTypeString() {

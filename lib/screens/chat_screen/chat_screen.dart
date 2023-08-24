@@ -3,14 +3,16 @@ import 'package:ecommerce_app/blocs/chat_bloc/chat_bloc.dart';
 import 'package:ecommerce_app/blocs/user_bloc/user_bloc.dart';
 import 'package:ecommerce_app/common_widgets/custom_loading_widget.dart';
 import 'package:ecommerce_app/common_widgets/my_app_bar.dart';
+import 'package:ecommerce_app/common_widgets/my_icon.dart';
+import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
-import 'package:ecommerce_app/constants/enums/message_type.dart';
 import 'package:ecommerce_app/models/message.dart';
-import 'package:ecommerce_app/repositories/chat_repository.dart';
 import 'package:ecommerce_app/screens/chat_screen/widgets/message_input.dart';
 import 'package:ecommerce_app/screens/chat_screen/widgets/message_item.dart';
+import 'package:ecommerce_app/services/chat_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -30,14 +32,57 @@ class _ChatScreenState extends State<ChatScreen> {
     final userBloc = context.read<UserBloc>();
     final user = userBloc.state as UserLoaded;
     userId = user.user.id;
-    context.read<ChatBloc>().add(LoadChatRoom(
-        id: userId, imgUrl: user.user.imageUrl, name: user.user.name));
+    context
+        .read<ChatBloc>()
+        .add(LoadChatRoom(imgUrl: user.user.imageUrl, name: user.user.name));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MyAppBar(),
+      appBar: MyAppBar(
+        actions: [
+          ZegoSendCallInvitationButton(
+            iconSize: const Size(30, 30),
+            isVideoCall: true,
+            buttonSize: const Size(40, 40),
+            icon: ButtonIcon(
+                backgroundColor: Colors.transparent,
+                icon: const MyIcon(
+                  icon: AppAssets.icVideoCall,
+                  width: 20,
+                  height: 20,
+                )),
+            resourceID: "zegouikit_call", // For offline call notification
+            invitees: [
+              ZegoUIKitUser(
+                id: 'admin',
+                name: 'admin',
+              ),
+            ],
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          ZegoSendCallInvitationButton(
+            iconSize: const Size(30, 30),
+            buttonSize: const Size(40, 40),
+            icon: ButtonIcon(
+                backgroundColor: Colors.transparent,
+                icon: const MyIcon(
+                  icon: AppAssets.icVoiceCall,
+                )),
+            isVideoCall: false,
+            resourceID: "zegouikit_call", // For offline call notification
+            invitees: [
+              ZegoUIKitUser(
+                id: 'admin',
+                name: 'admin',
+              ),
+            ],
+          ),
+        ],
+      ),
       body: BlocBuilder<ChatBloc, ChatState>(
         builder: (context, state) {
           if (state is ChatLoading) {
@@ -50,10 +95,17 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: [
                   Expanded(
                     child: StreamBuilder<QuerySnapshot>(
-                        stream: ChatRepository()
-                            .getMessages("GXJg9eOUXsNiPjIiwTnvOQvDtK43_admin"),
+                        stream: ChatService().getMessages(),
                         builder: (context, snapshot) {
-                          if (snapshot.hasData && snapshot.data!.size > 0) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const CustomLoadingWidget();
+                          } else if (snapshot.hasError) {
+                            return Center(
+                              child: Text(snapshot.error.toString()),
+                            );
+                          } else if (snapshot.hasData &&
+                              snapshot.data!.size > 0) {
                             List<Message> messages = snapshot.data!.docs
                                 .map((e) => Message.fromMap(
                                     e.data() as Map<String, dynamic>))
@@ -72,10 +124,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           }
                         }),
                   ),
-                  MessageInput(
-                    chatRoomId: 'GXJg9eOUXsNiPjIiwTnvOQvDtK43_admin',
-                    userId: userId,
-                  ),
+                  const MessageInput(),
                 ],
               ),
             );

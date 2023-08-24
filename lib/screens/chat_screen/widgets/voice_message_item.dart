@@ -1,8 +1,9 @@
 import 'dart:async';
-
 import 'package:audioplayers/audioplayers.dart';
+import 'package:ecommerce_app/constants/app_colors.dart';
+import 'package:ecommerce_app/extensions/date_time_extension.dart';
 import 'package:ecommerce_app/models/message.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:ecommerce_app/utils/firebase_constants.dart';
 import 'package:flutter/material.dart';
 
 class VoiceMessageItem extends StatefulWidget {
@@ -13,95 +14,137 @@ class VoiceMessageItem extends StatefulWidget {
 }
 
 class _VoiceMessageItemState extends State<VoiceMessageItem> {
-  final AudioPlayer _audioPlayer = AudioPlayer();
-  bool _isPlaying = false;
-  int _durationInSeconds = 0;
-  Timer? _timer;
-
+  bool isPlaying = false;
+  late final AudioPlayer player;
+  late final UrlSource path;
+  Duration _duration = const Duration();
+  Duration _position = const Duration();
+  bool isShowTime = false;
   @override
   void initState() {
+    initPlayer();
     super.initState();
-    _audioPlayer.onPlayerStateChanged.listen((PlayerState state) {
-      if (state == PlayerState.completed || state == PlayerState.stopped) {
-        setState(() {
-          _isPlaying = false;
-          _durationInSeconds = 0;
-          _timer?.cancel();
-        });
-      }
-    });
-  }
-
-  Future<void> _playAudio() async {
-    if (_isPlaying) {
-      await _audioPlayer.stop();
-      setState(() {
-        _isPlaying = false;
-        _timer?.cancel();
-      });
-    } else {
-      await _audioPlayer.play(UrlSource(
-          'https://firebasestorage.googleapis.com/v0/b/ecommerce-app-b5380.appspot.com/o/chat%2Fchat_voice%2Fy2mate.is%20-%20JACK%20J97%20X%C3%93A%20T%C3%8AN%20ANH%20%C4%90I%20Official%20Music%20Video%20Album26%20-mA-UxOle3YQ-48k-1692691214.mp3?alt=media&token=80990a61-2ddf-465a-bac5-aa15b7c865aa'));
-      final duration = await _audioPlayer.getDuration();
-      setState(() {
-        _isPlaying = true;
-        _durationInSeconds = duration!.inSeconds ~/ 1000;
-        _startCountdownTimer();
-      });
-    }
-  }
-
-  void _startCountdownTimer() {
-    _timer?.cancel(); // Cancel any previous timer
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      setState(() {
-        if (_durationInSeconds > 0) {
-          _durationInSeconds--;
-        } else {
-          _timer?.cancel();
-        }
-      });
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      width: 200,
-      color: Colors.red,
-      child: Row(
-        children: [
-          GestureDetector(
-            onTap: () async {
-              // final storage = FirebaseStorage.instance;
-              // final ref = storage.refFromURL(
-              //     "https://firebasestorage.googleapis.com/v0/b/ecommerce-app-b5380.appspot.com/o/chat%2Fchat_voice%2Fy2mate.is%20-%20JACK%20J97%20X%C3%93A%20T%C3%8AN%20ANH%20%C4%90I%20Official%20Music%20Video%20Album26%20-mA-UxOle3YQ-48k-1692691214.mp3?alt=media&token=80990a61-2ddf-465a-bac5-aa15b7c865aa");
-              // final downloadUrl = await ref.;
-              final player = AudioPlayer();
-              await player.play(UrlSource(
-                  'https://firebasestorage.googleapis.com/v0/b/ecommerce-app-b5380.appspot.com/o/chat%2Fchat_voice%2Fy2mate.is%20-%20JACK%20J97%20X%C3%93A%20T%C3%8AN%20ANH%20%C4%90I%20Official%20Music%20Video%20Album26%20-mA-UxOle3YQ-48k-1692691214.mp3?alt=media&token=80990a61-2ddf-465a-bac5-aa15b7c865aa'));
-            },
-            child: Icon(
-              _isPlaying ? Icons.pause_circle_filled : Icons.play_circle_filled,
-              size: 36.0,
-            ),
-          ),
-          SizedBox(width: 8.0),
-          Text(
-            _isPlaying ? '$_durationInSeconds seconds' : 'Tap to play',
-            style: TextStyle(fontSize: 16.0),
-          ),
-        ],
-      ),
-    );
   }
 
   @override
   void dispose() {
-    _audioPlayer.release();
-    _audioPlayer.dispose();
-    _timer?.cancel();
+    player.dispose();
     super.dispose();
+  }
+
+  Future initPlayer() async {
+    player = AudioPlayer();
+    path = UrlSource(widget.message.audioUrl);
+
+    player.onDurationChanged.listen((Duration d) {
+      setState(() => _duration = d);
+    });
+
+    player.onPositionChanged.listen((Duration p) {
+      setState(() => _position = p);
+    });
+
+    player.onPlayerComplete.listen((_) {
+      setState(() => _position = _duration);
+    });
+  }
+
+  void playPause() async {
+    if (isPlaying) {
+      player.pause();
+      isPlaying = false;
+    } else {
+      player.play(path);
+      isPlaying = true;
+    }
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final userId = firebaseAuth.currentUser!.uid;
+    final isUser = widget.message.senderId == userId;
+    Size size = MediaQuery.of(context).size;
+    return GestureDetector(
+      onTap: () => _showTime(),
+      child: Container(
+        alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              constraints: BoxConstraints(maxWidth: size.width * 0.6),
+              decoration: BoxDecoration(
+                  color: isUser ? AppColors.greyColor : AppColors.primaryColor,
+                  borderRadius: isUser
+                      ? const BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          topRight: Radius.circular(15),
+                          bottomLeft: Radius.circular(15))
+                      : const BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          topRight: Radius.circular(15),
+                          bottomRight: Radius.circular(15))),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  GestureDetector(
+                    onTap: () async {
+                      playPause();
+                    },
+                    child: Icon(
+                      isPlaying
+                          ? Icons.pause_circle_filled
+                          : Icons.play_circle_filled,
+                      size: 32.0,
+                      color: isUser
+                          ? AppColors.primaryColor
+                          : AppColors.whiteColor,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                    width: 110,
+                    child: Slider(
+                      value: _position.inSeconds.toDouble(),
+                      onChanged: (value) async {
+                        await player.seek(Duration(seconds: value.toInt()));
+                        setState(() {});
+                      },
+                      min: 0,
+                      max: _duration.inSeconds.toDouble(),
+                      inactiveColor: Colors.grey,
+                      activeColor: isUser
+                          ? AppColors.primaryColor
+                          : AppColors.whiteColor,
+                    ),
+                  ),
+                  Text(
+                    (_duration - _position).toString().substring(2, 7),
+                    style: TextStyle(
+                        color: isUser
+                            ? AppColors.primaryColor
+                            : AppColors.whiteColor),
+                  ),
+                ],
+              ),
+            ),
+            !isShowTime
+                ? const SizedBox()
+                : Text(
+                    widget.message.timestamp.formattedDateChat(),
+                  )
+          ],
+        ),
+      ),
+    );
+  }
+
+  _showTime() {
+    setState(() {
+      isShowTime = !isShowTime;
+    });
   }
 }

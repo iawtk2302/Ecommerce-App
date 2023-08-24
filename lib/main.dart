@@ -21,20 +21,26 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 import 'firebase_options.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final navigatorKey = GlobalKey<NavigatorState>();
+  ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(MyApp(
+    navigatorKey: navigatorKey,
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  const MyApp({super.key, required this.navigatorKey});
+  final GlobalKey<NavigatorState> navigatorKey;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -69,6 +75,7 @@ class MyApp extends StatelessWidget {
           }
           return MaterialApp(
             title: 'Flutter Demo',
+            navigatorKey: navigatorKey,
             debugShowCheckedModeBanner: false,
             onGenerateRoute: AppRouter().onGenerateRoute,
             theme: ThemeData(

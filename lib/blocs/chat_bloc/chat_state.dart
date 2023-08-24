@@ -15,9 +15,7 @@ class ChatLoading extends ChatState {
 }
 
 class ChatLoaded extends ChatState {
-  final String idChatRoom;
-
-  const ChatLoaded({required this.idChatRoom});
+  const ChatLoaded();
   @override
   List<Object> get props => [];
 }
