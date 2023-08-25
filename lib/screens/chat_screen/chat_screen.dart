@@ -24,14 +24,12 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  late String userId;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     final userBloc = context.read<UserBloc>();
     final user = userBloc.state as UserLoaded;
-    userId = user.user.id;
     context
         .read<ChatBloc>()
         .add(LoadChatRoom(imgUrl: user.user.imageUrl, name: user.user.name));

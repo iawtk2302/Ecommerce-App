@@ -11,7 +11,6 @@ import 'package:ecommerce_app/services/chat_service.dart';
 import 'package:ecommerce_app/utils/firebase_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:shimmer/shimmer.dart';
 
 class ImageMessageItem extends StatefulWidget {
   const ImageMessageItem({super.key, required this.message});
@@ -32,45 +31,36 @@ class _ImageMessageItemState extends State<ImageMessageItem> {
   Widget build(BuildContext context) {
     final userId = firebaseAuth.currentUser!.uid;
     final isUser = widget.message.senderId == userId;
+    Size size = MediaQuery.of(context).size;
     return Container(
       alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisSize: MainAxisSize.min,
         children: [
           GestureDetector(
             onTap: () => _onPressImage(),
-            child: CachedNetworkImage(
-              imageUrl: widget.message.imageUrl,
-              imageBuilder: (context, imageProvider) => Container(
-                constraints:
-                    const BoxConstraints(maxWidth: 200, minHeight: 100),
-                height: 300,
-                width: 300,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
+            child: Container(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: CachedNetworkImage(
+                  imageUrl: widget.message.imageUrl,
+                  width: size.width * 0.7,
+                  placeholder: (context, url) => Container(
+                    height: 60,
+                    alignment: Alignment.centerRight,
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: CircularProgressIndicator(),
+                    ),
                   ),
+
+                  /// Loading placeholder
+                  errorWidget: (context, url, error) =>
+                      const Center(child: Icon(Icons.error)), // Error widget
                 ),
               ),
-              placeholder: (context, url) => Shimmer.fromColors(
-                baseColor: const Color(0xFFE0E0E0),
-                highlightColor: const Color(0xFFF5F5F5),
-                child: Container(
-                  constraints:
-                      const BoxConstraints(maxWidth: 200, minHeight: 100),
-                  height: 300,
-                  width: 300,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Colors.white,
-                  ),
-                ),
-              ), // Loading placeholder
-              errorWidget: (context, url, error) =>
-                  const Center(child: Icon(Icons.error)), // Error widget
             ),
           ),
           Text(

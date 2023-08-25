@@ -84,19 +84,22 @@ class _MessageInputState extends State<MessageInput> {
   }
 
   Future<void> _getImageCamera() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.camera);
+    final XFile? image =
+        await ImagePicker().pickImage(source: ImageSource.camera);
     if (image == null) return;
+    final List<XFile> images = [image];
     if (!context.mounted) return;
     Navigator.of(context).pop();
-    await ChatService().sendImageMessage(image.path);
+    await ChatService().sendImageMessage(images);
   }
 
   Future<void> _getImageGallery() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (image == null) return;
+    final List<XFile> images =
+        await ImagePicker().pickMultiImage(imageQuality: 70);
+    if (images.isEmpty) return;
     if (!context.mounted) return;
     Navigator.of(context).pop();
-    await ChatService().sendImageMessage(image.path);
+    await ChatService().sendImageMessage(images);
   }
 
   _chooseImage() {

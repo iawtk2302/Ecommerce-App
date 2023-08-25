@@ -10,6 +10,7 @@ import 'package:ecommerce_app/utils/chat_util.dart';
 import 'package:ecommerce_app/utils/firebase_constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ChatService {
   final String chatRoomId = FirebaseAuth.instance.currentUser!.uid;
@@ -33,34 +34,38 @@ class ChatService {
         .set(message.toMap());
   }
 
-  Future<void> sendImageMessage(String filePath) async {
-    final String messageId =
+  Future<void> sendImageMessage(List<XFile> images) async {
+    final String info =
         userId + DateTime.now().millisecondsSinceEpoch.toString();
-    final imageFile = File(filePath);
-    final compressImageFile = await ChatUtil().compressImage(imageFile);
-    try {
-      final storageRef = FirebaseStorage.instance.ref().child('chat/chat_img');
-      final task = await storageRef
-          .child(
-              '${userId + DateTime.now().millisecondsSinceEpoch.toString()}.jpg')
-          .putFile(compressImageFile);
-      final linkImage = await task.ref.getDownloadURL();
-      Message message = Message(
-          id: messageId,
-          senderId: userId,
-          content: '',
-          imageUrl: linkImage,
-          audioUrl: '',
-          isRead: false,
-          type: MessageType.image,
-          timestamp: DateTime.now());
-      await chatRoomsRef
-          .doc(chatRoomId)
-          .collection('messages')
-          .doc(messageId)
-          .set(message.toMap());
-    } catch (e) {
-      log(e.toString());
+    for (int i = 0; i < images.length; i++) {
+      final messageId = info + i.toString();
+      final imageFile = File(images[i].path);
+      final compressImageFile = await ChatUtil().compressImage(imageFile);
+      try {
+        final storageRef =
+            FirebaseStorage.instance.ref().child('chat/chat_img');
+        final task = await storageRef
+            .child(
+                '${userId + DateTime.now().millisecondsSinceEpoch.toString()}.jpg')
+            .putFile(compressImageFile);
+        final linkImage = await task.ref.getDownloadURL();
+        Message message = Message(
+            id: messageId,
+            senderId: userId,
+            content: '',
+            imageUrl: linkImage,
+            audioUrl: '',
+            isRead: false,
+            type: MessageType.image,
+            timestamp: DateTime.now());
+        await chatRoomsRef
+            .doc(chatRoomId)
+            .collection('messages')
+            .doc(messageId)
+            .set(message.toMap());
+      } catch (e) {
+        log(e.toString());
+      }
     }
   }
 
