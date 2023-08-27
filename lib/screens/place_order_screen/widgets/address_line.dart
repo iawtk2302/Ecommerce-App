@@ -16,13 +16,11 @@ class AddressLine extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: margin,
-      child: Row(
-        children: [
-          Text(label, style: AppStyles.labelMedium),
-          const Text(":", style: AppStyles.labelMedium),
-          const SizedBox(width: 6),
-          Text(content, style: AppStyles.bodyLarge),
-        ],
+      child: Text.rich(
+        TextSpan(text: label, style: AppStyles.labelMedium, children: [
+          const TextSpan(text: ": ", style: AppStyles.bodyLarge),
+          TextSpan(text: content, style: AppStyles.bodyLarge)
+        ]),
       ),
     );
   }

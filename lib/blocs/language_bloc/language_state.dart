@@ -10,11 +10,11 @@ class LanguageInitial extends LanguageState {
 }
 
 class LanguageLoaded extends LanguageState {
-  final String locate;
+  final String locale;
 
-  const LanguageLoaded({required this.locate});
+  const LanguageLoaded({required this.locale});
   @override
-  List<Object> get props => [locate];
+  List<Object> get props => [locale];
 }
 
 class LanguageLoading extends LanguageState {

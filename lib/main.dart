@@ -1,6 +1,8 @@
 import 'package:ecommerce_app/blocs/addresses_bloc/addresses_bloc.dart';
 import 'package:ecommerce_app/blocs/auth_bloc/auth_bloc.dart';
 import 'package:ecommerce_app/blocs/cart_bloc/cart_bloc.dart';
+import 'package:ecommerce_app/blocs/e_wallet_cards_bloc/e_wallet_cards_bloc.dart';
+import 'package:ecommerce_app/blocs/e_wallet_transactions_bloc/e_wallet_transactions_bloc.dart';
 import 'package:ecommerce_app/blocs/chat_bloc/chat_bloc.dart';
 import 'package:ecommerce_app/blocs/language_bloc/language_bloc.dart';
 import 'package:ecommerce_app/blocs/order_processing_bloc/order_processing_bloc.dart';
@@ -22,7 +24,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
-import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 import 'firebase_options.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -66,12 +67,14 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => ReviewScreenBloc()),
         BlocProvider(create: (_) => ChatBloc()),
         BlocProvider(create: (_) => LanguageBloc()..add(const LoadLanguage())),
+        BlocProvider(create: (_) => EWalletCardsBloc()),
+        BlocProvider(create: (_) => EWalletTransactionsBloc()),
       ],
       child: BlocBuilder<LanguageBloc, LanguageState>(
         builder: (context, state) {
           Locale? locate;
           if (state is LanguageLoaded) {
-            locate = Locale(state.locate);
+            locate = Locale(state.locale);
           }
           return MaterialApp(
             title: 'Flutter Demo',
@@ -80,7 +83,6 @@ class MyApp extends StatelessWidget {
             onGenerateRoute: AppRouter().onGenerateRoute,
             theme: ThemeData(
               fontFamily: 'Poppins',
-              // colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
               useMaterial3: true,
             ),
             localizationsDelegates: const [

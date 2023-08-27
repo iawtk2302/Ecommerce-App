@@ -14,13 +14,15 @@ class AuthRepository {
     try {
       await firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
+
       // Create user profile on Firestore
       UserProfile user = UserProfile(
           id: firebaseAuth.currentUser!.uid,
           name: name,
           gender: null,
           age: null,
-          email: email);
+          email: email,
+          eWalletBalance: 0);
       await currentUserRef.set(user.toMap());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:ecommerce_app/models/review.dart';
+
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class OrderProductDetail {
   final String id;
@@ -11,6 +13,7 @@ class OrderProductDetail {
   final String color;
   final String size;
   final int quantity;
+  final Review? review;
 
   OrderProductDetail({
     required this.id,
@@ -22,6 +25,7 @@ class OrderProductDetail {
     required this.color,
     required this.size,
     required this.quantity,
+    this.review,
   });
 
   Map<String, dynamic> toMap() {
@@ -35,6 +39,7 @@ class OrderProductDetail {
       'color': color,
       'size': size,
       'quantity': quantity,
+      'review': review?.toMap(),
     };
   }
 
@@ -49,6 +54,7 @@ class OrderProductDetail {
       color: map['color'] as String,
       size: map['size'] as String,
       quantity: map['quantity'] as int,
+      review: map['review'] == null ? null : Review.fromMap(map['review']),
     );
   }
 

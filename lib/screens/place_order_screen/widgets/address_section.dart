@@ -14,13 +14,17 @@ class AddressSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+
     return BlocBuilder<PlaceOrderBloc, PlaceOrderState>(
       builder: (context, state) {
         final address = state.address;
         if (address != null) {
           return InkWell(
             onTap: () => _navigateToChooseAddressScreen(context),
-            child: AddressCard(defaultAddress: address),
+            child: AddressCard(
+                width: size.width - 2 * AppDimensions.defaultPadding,
+                address: address),
           );
         } else {
           return Padding(

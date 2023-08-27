@@ -6,6 +6,10 @@ extension DateTimeExtensions on DateTime {
     return formatter.format(this);
   }
 
+  String toTransactionDateTimeFormat() {
+    return DateFormat('MMM dd, yyyy | h:mm a').format(this);
+  }
+
   String formattedDateChat() {
     final now = DateTime.now();
     if (year == now.year) {

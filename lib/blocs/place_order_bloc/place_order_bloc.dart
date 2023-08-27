@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:ecommerce_app/models/cart.dart';
 import 'package:ecommerce_app/models/payment_information.dart';
-import 'package:ecommerce_app/models/payment_method.dart';
+import 'package:ecommerce_app/models/payment_method_resource.dart';
 import 'package:ecommerce_app/models/promotion.dart';
 import 'package:ecommerce_app/models/shipping_address.dart';
 import 'package:equatable/equatable.dart';
@@ -32,7 +32,6 @@ class PlaceOrderBloc extends Bloc<PlaceOrderEvent, PlaceOrderState> {
   }
 
   void _onUpdatePaymentInformation(UpdatePaymentInformation event, emit) {
-    print(event.paymentMethod);
     emit(state.copyWith(
         paymentInformation: event.paymentInformation,
         paymentMethod: event.paymentMethod));

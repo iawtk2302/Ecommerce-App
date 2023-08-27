@@ -60,6 +60,9 @@ dependencies:
   flutter_slidable: ^3.0.0
   uuid: ^3.0.7
   local_auth: ^2.1.6
+  flutter_rating_bar: ^4.0.1
+  url_launcher: ^6.1.12
+  flutter_keyboard_visibility: ^5.4.1
   image_size_getter: ^2.1.2
   firebase_storage: ^11.2.6
   audioplayers: ^4.1.0

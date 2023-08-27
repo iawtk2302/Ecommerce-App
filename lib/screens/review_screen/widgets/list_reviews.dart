@@ -2,7 +2,6 @@ import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/models/review.dart';
 import 'package:ecommerce_app/screens/review_screen/widgets/review_item.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class ListReviews extends StatelessWidget {
   const ListReviews({super.key, required this.reviews});

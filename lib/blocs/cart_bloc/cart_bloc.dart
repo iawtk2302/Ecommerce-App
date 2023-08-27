@@ -42,8 +42,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
   _onUpdateItem(event, emit) async {
     try {
-      await CartRepository().updateCartItem(
-          cartItemId: event.cartItemId, quantity: event.quantity);
       if (state is CartLoaded) {
         final List<CartItem> cartItems = (state as CartLoaded).cart.cartItems;
         final List<CartItem> newCartItems = cartItems.map((e) {
@@ -53,6 +51,9 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           return e;
         }).toList();
         emit(CartLoaded(cart: Cart(cartItems: newCartItems)));
+
+        await CartRepository().updateCartItem(
+            cartItemId: event.cartItemId, quantity: event.quantity);
       }
     } catch (e) {
       print("Update item error: $e");

@@ -1,3 +1,5 @@
+import 'package:ecommerce_app/constants/enums/gender.dart';
+import 'package:ecommerce_app/models/e_wallet_transaction.dart';
 import 'package:ecommerce_app/constants/enums/message_type.dart';
 import 'package:ecommerce_app/models/order_status.dart';
 import 'package:ecommerce_app/models/promotion.dart';
@@ -55,5 +57,13 @@ extension StringExtensions on String {
 
   OrderStatus toOrderStatus() {
     return stringToOrderStatus[this] ?? OrderStatus.pending;
+  }
+
+  Gender toGender() {
+    return stringToGender[this] ?? Gender.notHave;
+  }
+
+  EWalletTransactionType toEWalletTransactionType() {
+    return stringToEWalletTransactionType[this] ?? EWalletTransactionType.topUp;
   }
 }

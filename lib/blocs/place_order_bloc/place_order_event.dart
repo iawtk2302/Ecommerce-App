@@ -35,7 +35,7 @@ class UpdatePrice extends PlaceOrderEvent {
 
 class UpdatePaymentInformation extends PlaceOrderEvent {
   final PaymentInformation? paymentInformation;
-  final PaymentMethod? paymentMethod;
+  final PaymentMethodResource? paymentMethod;
   const UpdatePaymentInformation({
     this.paymentInformation,
     required this.paymentMethod,
