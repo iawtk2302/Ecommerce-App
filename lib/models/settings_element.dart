@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:ecommerce_app/constants/app_assets.dart';
+import 'package:ecommerce_app/screens/chat_screen/chat_screen.dart';
 import 'package:ecommerce_app/screens/e_wallet_screen/e_wallet_screen.dart';
 import 'package:ecommerce_app/screens/faqs_screen/faqs_screen.dart';
 import 'package:ecommerce_app/screens/favorite_screen/favorite_screen.dart';
@@ -89,7 +90,11 @@ final List<SettingsElement> contactSettingsElements = [
             "https://www.termsfeed.com/live/fd3cdd13-7687-478e-8783-d06f5454ee5d");
       }),
   SettingsElement(
-      title: "Support", assetPath: AppAssets.icHeadphone, onTap: (context) {}),
+      title: "Support",
+      assetPath: AppAssets.icHeadphone,
+      onTap: (context) {
+        Navigator.pushNamed(context, ChatScreen.routeName);
+      }),
   // SettingsElement(
   //     title: "Logout", assetPath: AppAssets.icLogout, onTap: (context) {}),
 ];
