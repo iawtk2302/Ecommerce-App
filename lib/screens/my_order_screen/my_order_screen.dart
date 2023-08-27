@@ -76,13 +76,13 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
                           itemCount: orders.length,
                           itemBuilder: (_, index) {
                             final order = orders[index];
-                            return FutureBuilder<List<OrderProductDetail>>(
-                                future: OrderRepository()
-                                    .fetchOrderItems(orderId: order.id),
+                            return StreamBuilder(
+                                stream: OrderRepository()
+                                    .streamOrderItem(orderId: order.id),
                                 builder: (_, snapshot) {
                                   if (snapshot.hasError) {
-                                    return const Center(
-                                      child: Text("Something went wrong"),
+                                    return Center(
+                                      child: Text(snapshot.error.toString()),
                                     );
                                   } else if (snapshot.hasData) {
                                     final List<OrderProductDetail> orderItems =

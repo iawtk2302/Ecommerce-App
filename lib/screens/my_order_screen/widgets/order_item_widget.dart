@@ -10,7 +10,7 @@ import 'package:ecommerce_app/models/order.dart';
 import 'package:ecommerce_app/models/order_product_detail.dart';
 import 'package:ecommerce_app/repositories/cart_repository.dart';
 import 'package:ecommerce_app/repositories/review_repository.dart';
-import 'package:ecommerce_app/screens/cart_screen/widgets/cart_item_background.dart';
+import 'package:ecommerce_app/common_widgets/primary_background.dart';
 import 'package:ecommerce_app/screens/my_order_screen/widgets/write_review_bottom_sheet.dart';
 import 'package:ecommerce_app/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +39,7 @@ class OrderItemWidget extends StatelessWidget {
 
     return InkWell(
       onTap: onTap,
-      child: CartItemBackground(
+      child: PrimaryBackground(
         margin: margin,
         child: Row(
           children: [

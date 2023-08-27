@@ -3,7 +3,7 @@ import 'package:ecommerce_app/common_widgets/my_icon.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
-import 'package:ecommerce_app/screens/cart_screen/widgets/cart_item_background.dart';
+import 'package:ecommerce_app/common_widgets/primary_background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,7 +17,7 @@ class ProfileInformationCard extends StatelessWidget {
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) {
         if (state is UserLoaded) {
-          return CartItemBackground(
+          return PrimaryBackground(
               padding: const EdgeInsets.all(10),
               child: Row(
                 children: [

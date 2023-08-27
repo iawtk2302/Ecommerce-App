@@ -2,8 +2,8 @@ import 'package:ecommerce_app/blocs/cart_bloc/cart_bloc.dart';
 import 'package:ecommerce_app/blocs/place_order_bloc/place_order_bloc.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/extensions/screen_extensions.dart';
-import 'package:ecommerce_app/screens/cart_screen/widgets/cart_item_background.dart';
-import 'package:ecommerce_app/screens/place_order_screen/widgets/place_order_bill_line.dart';
+import 'package:ecommerce_app/common_widgets/primary_background.dart';
+import 'package:ecommerce_app/common_widgets/transaction_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,7 +23,7 @@ class _PlaceOrderBillState extends State<PlaceOrderBill> {
 
   @override
   Widget build(BuildContext context) {
-    return CartItemBackground(
+    return PrimaryBackground(
         margin: const EdgeInsets.symmetric(
             horizontal: AppDimensions.defaultPadding, vertical: 10),
         padding: const EdgeInsets.all(AppDimensions.defaultPadding),
@@ -31,23 +31,23 @@ class _PlaceOrderBillState extends State<PlaceOrderBill> {
           builder: (context, state) {
             return Column(
               children: [
-                PlaceOrderBillLine(
+                TransactionItem(
                   label: "Amount",
                   number: "${state.amount?.toPriceString()}",
                 ),
                 const SizedBox(height: 10),
-                PlaceOrderBillLine(
+                TransactionItem(
                   label: "Shipping",
                   number: "${state.shipping?.toPriceString()}",
                 ),
                 const SizedBox(height: 10),
-                PlaceOrderBillLine(
+                TransactionItem(
                     label: "Promo",
                     number: "${state.promoDiscount?.toPriceString()}"),
                 const SizedBox(height: 5),
                 const Divider(),
                 const SizedBox(height: 5),
-                PlaceOrderBillLine(
+                TransactionItem(
                   label: "Total",
                   number: "${state.totalPrice?.toPriceString()}",
                 ),

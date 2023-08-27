@@ -58,4 +58,11 @@ class AppStyles {
     borderSide:
         const BorderSide(color: Color.fromARGB(255, 195, 35, 35), width: 1.5),
   );
+  static OutlineInputBorder topUpEnabledBorder = OutlineInputBorder(
+      borderSide: const BorderSide(color: AppColors.primaryColor, width: 2),
+      borderRadius: BorderRadius.circular(25));
+  static OutlineInputBorder topUpErrorBorder = OutlineInputBorder(
+      borderSide:
+          const BorderSide(color: Color.fromARGB(255, 195, 35, 35), width: 2),
+      borderRadius: BorderRadius.circular(25));
 }

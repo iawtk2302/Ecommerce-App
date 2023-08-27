@@ -29,10 +29,19 @@ class AddressRepository {
           .set(address.toMap());
 
       if (setAsDefault == true) {
-        await usersRef
-            .doc(firebaseAuth.currentUser!.uid)
-            .update({"defaultAddress": address.toMap()});
+        await updateDefaultShippingAddress(address: address);
       }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<void> updateDefaultShippingAddress(
+      {required ShippingAddress address}) async {
+    try {
+      await usersRef
+          .doc(firebaseAuth.currentUser!.uid)
+          .update({"defaultShippingAddress": address.toMap()});
     } catch (e) {
       throw Exception(e);
     }

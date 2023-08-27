@@ -13,6 +13,7 @@ class UserProfile {
   final Gender? gender;
   final int? age;
   final ShippingAddress? defaultShippingAddress;
+  final double eWalletBalance;
 
   UserProfile({
     required this.id,
@@ -22,6 +23,7 @@ class UserProfile {
     required this.age,
     required this.email,
     this.defaultShippingAddress,
+    required this.eWalletBalance,
   });
 
   Map<String, dynamic> toMap() {
@@ -33,6 +35,7 @@ class UserProfile {
       'gender': gender?.name,
       'age': age,
       'defaultShippingAddress': defaultShippingAddress,
+      'eWalletBalance': eWalletBalance,
     };
   }
 
@@ -50,6 +53,8 @@ class UserProfile {
           ? ShippingAddress.fromMap(
               map['defaultShippingAddress'] as Map<String, dynamic>)
           : null,
+      eWalletBalance:
+          map['eWalletBalance'] == null ? 0 : map['eWalletBalance'].toDouble(),
     );
   }
 

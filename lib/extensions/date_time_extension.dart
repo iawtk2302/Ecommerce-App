@@ -5,4 +5,8 @@ extension DateTimeExtensions on DateTime {
     final formatter = DateFormat('d MMM, yyyy');
     return formatter.format(this);
   }
+
+  String toTransactionDateTimeFormat() {
+    return DateFormat('MMM dd, yyyy | h:mm a').format(this);
+  }
 }

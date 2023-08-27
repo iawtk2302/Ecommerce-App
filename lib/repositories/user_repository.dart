@@ -57,11 +57,13 @@ class UserRepository {
     required String name,
   }) async {
     final UserProfile userProfile = UserProfile(
-        id: firebaseAuth.currentUser!.uid,
-        name: name,
-        gender: null,
-        age: null,
-        email: email);
+      id: firebaseAuth.currentUser!.uid,
+      name: name,
+      gender: null,
+      age: null,
+      email: email,
+      eWalletBalance: 0,
+    );
     try {
       await usersRef.doc(id).set(userProfile.toMap());
     } catch (e) {

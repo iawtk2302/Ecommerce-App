@@ -6,7 +6,7 @@ import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/constants/enums/language.dart';
 import 'package:ecommerce_app/extensions/language_extension.dart';
-import 'package:ecommerce_app/screens/cart_screen/widgets/cart_item_background.dart';
+import 'package:ecommerce_app/common_widgets/primary_background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,7 +30,7 @@ class SelectLanguageScreen extends StatelessWidget {
                     final Language language = Language.values[index];
                     final isSelected = state is LanguageLoaded &&
                         state.locale == language.code;
-                    return CartItemBackground(
+                    return PrimaryBackground(
                       margin: const EdgeInsets.symmetric(
                           horizontal: AppDimensions.defaultPadding,
                           vertical: 10),

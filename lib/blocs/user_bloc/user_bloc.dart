@@ -17,12 +17,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   _onLoadUser(event, emit) async {
     try {
-      emit(UserLoading());
       final UserProfile user = await UserRepository().fetchUser();
       emit(UserLoaded(user: user));
     } catch (e) {
       emit(UserError(message: e.toString()));
-      print("Load user error: $e");
     }
   }
 

@@ -4,7 +4,7 @@ part of 'place_order_bloc.dart';
 class PlaceOrderState extends Equatable {
   final ShippingAddress? address;
   final Promotion? promotion;
-  final PaymentMethod? paymentMethod;
+  final PaymentMethodResource? paymentMethod;
   final PaymentInformation? paymentInformation;
   final double defaultShipping;
   final Cart? cart;
@@ -43,7 +43,7 @@ class PlaceOrderState extends Equatable {
   PlaceOrderState copyWith({
     ShippingAddress? address,
     Promotion? promotion,
-    PaymentMethod? paymentMethod,
+    PaymentMethodResource? paymentMethod,
     PaymentInformation? paymentInformation,
     double? defaultShipping,
     Cart? cart,

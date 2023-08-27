@@ -43,26 +43,30 @@ class _SplashScreenState extends State<SplashScreen> {
                 Utils.showSnackBar(context: context, message: state.message);
               }
             },
-            child:
-                BlocListener<UserBloc, UserState>(listener: (context, state) {
-              if (state is UserLoaded && firstTime) {
-                firstTime = false;
-                context.read<HomeBloc>().add(const LoadHome());
-                context
-                    .read<PlaceOrderBloc>()
-                    .add(UpdateAddress(state.user.defaultShippingAddress));
+            child: BlocListener<UserBloc, UserState>(
+                listener: (context, state) {
+                  if (state is UserLoaded && firstTime) {
+                    print(state.user.toMap());
+                    firstTime = false;
+                    context.read<HomeBloc>().add(const LoadHome());
+                    context
+                        .read<PlaceOrderBloc>()
+                        .add(UpdateAddress(state.user.defaultShippingAddress));
 
-                // Only the first time load user, we need to navigate to MainScreen
-                Navigator.pushNamedAndRemoveUntil(
-                    context, MainScreen.routeName, (route) => route.isFirst);
-              } else if (state is UserError) {
-                Utils.showSnackBar(
-                    context: context,
-                    message: "Some error occurred. Please sign in again!");
-                Navigator.pushNamedAndRemoveUntil(
-                    context, SignInScreen.routeName, (route) => route.isFirst);
-              }
-            }, child: Image.asset(
+                    // Only the first time load user, we need to navigate to MainScreen
+                    Navigator.pushReplacementNamed(
+                        context, MainScreen.routeName);
+                    // Navigator.pushNamedAndRemoveUntil(context,
+                    //     MainScreen.routeName, (route) => route.isFirst);
+                  } else if (state is UserError) {
+                    Utils.showSnackBar(
+                        context: context,
+                        message: "Some error occurred. Please sign in again!");
+                    Navigator.pushNamedAndRemoveUntil(context,
+                        SignInScreen.routeName, (route) => route.isFirst);
+                  }
+                },
+                child: Image.asset(
                   AppAssets.imgSplashBackground,
                   width: MediaQuery.of(context).size.width,
                   fit: BoxFit.cover,

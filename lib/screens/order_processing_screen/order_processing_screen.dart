@@ -42,7 +42,14 @@ class _OrderProcessingScreenState extends State<OrderProcessingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: BlocBuilder<OrderProcessingBloc, OrderProcessingState>(
+        child: BlocConsumer<OrderProcessingBloc, OrderProcessingState>(
+          listener: (_, state) {
+            if (state is OrderProcessingSuccessfully) {
+              context.read<UserBloc>().add(ReloadUser());
+              // TODO: Clear cart
+              // TODO: Reset PlaceOrderState
+            }
+          },
           builder: (context, state) {
             return Center(
               child: Column(
@@ -129,7 +136,7 @@ class _OrderProcessingScreenState extends State<OrderProcessingScreen> {
     );
   }
 
-  _addOrder() {
+  _addOrder() async {
     final placeOrderState = context.read<PlaceOrderBloc>().state;
     final userState = context.read<UserBloc>().state;
     if (userState is UserLoaded) {
@@ -152,12 +159,18 @@ class _OrderProcessingScreenState extends State<OrderProcessingScreen> {
           paymentMethod: placeOrderState.paymentMethod!.code,
           isPaid: placeOrderState.paymentMethod!.code == "cash_on_delivery"
               ? false
-              : false,
+              : true,
           currentOrderStatus: OrderStatus.pending,
           createdAt: Timestamp.fromDate(DateTime.now()));
-      context
-          .read<OrderProcessingBloc>()
-          .add(AddOrder(order: order, items: placeOrderState.cart!.cartItems));
+
+      context.read<OrderProcessingBloc>().add(
+            AddOrder(
+              order: order,
+              items: placeOrderState.cart!.cartItems,
+              cartItems: placeOrderState.cart?.cartItems ?? [],
+              cardNumber: placeOrderState.paymentInformation?.cardNumber ?? "",
+            ),
+          );
     } else {
       Utils.showSnackBar(
           context: context, message: "Something went wrong. Please try again.");

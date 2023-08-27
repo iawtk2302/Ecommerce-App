@@ -1,7 +1,7 @@
 import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/extensions/screen_extensions.dart';
 import 'package:ecommerce_app/models/cart_item.dart';
-import 'package:ecommerce_app/screens/cart_screen/widgets/cart_item_background.dart';
+import 'package:ecommerce_app/common_widgets/primary_background.dart';
 import 'package:flutter/material.dart';
 
 class PlaceOrderItem extends StatelessWidget {
@@ -14,7 +14,7 @@ class PlaceOrderItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CartItemBackground(
+    return PrimaryBackground(
       child: Row(
         children: [
           ClipRRect(

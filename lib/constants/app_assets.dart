@@ -12,6 +12,8 @@ class AppAssets {
   // Icons
   static const String icArrowLeft = "$iconPath/ic_arrow_left.svg";
   static const String icArrowRight = "$iconPath/ic_arrow_right.svg";
+  static const String icArrowUp = "$iconPath/ic_arrow_up.svg";
+  static const String icArrowDown = "$iconPath/ic_arrow_down.svg";
   static const String icAppLogo = "$iconPath/ic_app_logo.svg";
   static const String icFacebook = "$iconPath/ic_facebook.svg";
   static const String icGoogle = "$iconPath/ic_google.svg";
@@ -30,6 +32,7 @@ class AppAssets {
   static const String icTruck = "$iconPath/ic_truck.svg";
   static const String icBagBold = "$iconPath/ic_bag_bold.svg";
   static const String icCard = "$iconPath/ic_card.svg";
+  static const String icWallet = "$iconPath/ic_wallet.svg";
   static const String icSetting = "$iconPath/ic_setting.svg";
   static const String icChevronRight = "$iconPath/ic_chevron_right.svg";
   static const String icInfo = "$iconPath/ic_info.svg";
@@ -42,6 +45,7 @@ class AppAssets {
   static const String icGlobal = "$iconPath/ic_global.svg";
   static const String icNotification = "$iconPath/ic_notification.svg";
   static const String icMoon = "$iconPath/ic_moon.svg";
+  static const String icTopUp = "$iconPath/ic_top_up.svg";
 
   // Images
   static const String imgSplashBackground =
@@ -49,6 +53,7 @@ class AppAssets {
   static const String imgOnboarding1 = "$imagePath/img_onboarding_1.jpg";
   static const String imgOnboarding2 = "$imagePath/img_onboarding_2.jpg";
   static const String imgOnboarding3 = "$imagePath/img_onboarding_3.jpg";
+  static const String imgEWallet = "$imagePath/img_e_wallet.png";
   static const String imgCreditCard = "$imagePath/img_credit_card.jpg";
   static const String imgPaypal = "$imagePath/img_paypal.png";
   static const String imgVisa = "$imagePath/img_visa.png";

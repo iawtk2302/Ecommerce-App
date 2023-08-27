@@ -5,7 +5,6 @@ import 'package:ecommerce_app/common_widgets/screen_name_section.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/screens/cart_screen/widgets/cart_list.dart';
 import 'package:ecommerce_app/screens/cart_screen/widgets/summary_section.dart';
-import 'package:ecommerce_app/screens/my_order_screen/my_order_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,16 +24,12 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       appBar: MyAppBar(
         hideDefaultLeadingButton: true,
-        actions: [
-          CartButton(
-              onTap: () =>
-                  Navigator.pushNamed(context, MyOrderScreen.routeName)),
-        ],
+        actions: [CartButton()],
       ),
-      body: const Column(
+      body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ScreenNameSection(

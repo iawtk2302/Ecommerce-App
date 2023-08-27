@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:ecommerce_app/constants/app_assets.dart';
+import 'package:ecommerce_app/screens/e_wallet_screen/e_wallet_screen.dart';
 import 'package:ecommerce_app/screens/faqs_screen/faqs_screen.dart';
 import 'package:ecommerce_app/screens/favorite_screen/favorite_screen.dart';
+import 'package:ecommerce_app/screens/my_cards_screen/my_cards_screen.dart';
 import 'package:ecommerce_app/screens/my_order_screen/my_order_screen.dart';
 import 'package:ecommerce_app/screens/personal_details_screen/personal_details_screen.dart';
 import 'package:ecommerce_app/screens/settings_screen/settings_screen.dart';
@@ -52,7 +54,16 @@ final List<SettingsElement> settingsElements = [
   SettingsElement(
     title: "My Card",
     assetPath: AppAssets.icCard,
-    onTap: (context) {},
+    onTap: (context) {
+      Navigator.pushNamed(context, MyCardsScreen.routeName);
+    },
+  ),
+  SettingsElement(
+    title: "E-Wallet",
+    assetPath: AppAssets.icWallet,
+    onTap: (context) {
+      Navigator.pushNamed(context, EWalletScreen.routeName);
+    },
   ),
   SettingsElement(
     title: "Settings",

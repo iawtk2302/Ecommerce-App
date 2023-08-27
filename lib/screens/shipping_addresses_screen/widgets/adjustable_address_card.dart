@@ -3,7 +3,7 @@ import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/models/shipping_address.dart';
 import 'package:ecommerce_app/screens/add_address_screen/add_address_screen.dart';
-import 'package:ecommerce_app/screens/cart_screen/widgets/cart_item_background.dart';
+import 'package:ecommerce_app/common_widgets/primary_background.dart';
 import 'package:ecommerce_app/screens/place_order_screen/widgets/address_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,7 +38,7 @@ class AdjustableAddressCard extends StatelessWidget {
             ),
           ],
         ),
-        child: CartItemBackground(
+        child: PrimaryBackground(
             margin: const EdgeInsets.all(0),
             padding: const EdgeInsets.only(left: 20, top: 30, bottom: 30),
             borderRadius: 20,

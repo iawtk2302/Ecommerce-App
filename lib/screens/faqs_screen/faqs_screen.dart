@@ -5,7 +5,7 @@ import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/models/faq.dart';
 import 'package:ecommerce_app/repositories/faqs_repository.dart';
-import 'package:ecommerce_app/screens/cart_screen/widgets/cart_item_background.dart';
+import 'package:ecommerce_app/common_widgets/primary_background.dart';
 import 'package:flutter/material.dart';
 
 class FAQsScreen extends StatelessWidget {
@@ -36,7 +36,7 @@ class FAQsScreen extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: AppDimensions.defaultPadding),
-                        child: CartItemBackground(
+                        child: PrimaryBackground(
                           child: ExpansionTile(
                             shape: const RoundedRectangleBorder(),
                             title: Text(faq.question),

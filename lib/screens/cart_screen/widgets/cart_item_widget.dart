@@ -5,7 +5,7 @@ import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/extensions/screen_extensions.dart';
 import 'package:ecommerce_app/models/cart_item.dart';
-import 'package:ecommerce_app/screens/cart_screen/widgets/cart_item_background.dart';
+import 'package:ecommerce_app/common_widgets/primary_background.dart';
 import 'package:ecommerce_app/screens/detail_product_screen/detail_product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,7 +53,7 @@ class CartItemWidget extends StatelessWidget {
         ),
         child: InkWell(
           onTap: () => _navigateToProductDetailsScreen(context),
-          child: CartItemBackground(
+          child: PrimaryBackground(
             margin: const EdgeInsets.all(0),
             child: Row(
               children: [

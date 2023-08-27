@@ -1,14 +1,21 @@
+import 'package:ecommerce_app/models/e_wallet_transaction.dart';
 import 'package:ecommerce_app/models/order.dart';
 import 'package:ecommerce_app/models/order_product_detail.dart';
 import 'package:ecommerce_app/models/shipping_address.dart';
+import 'package:ecommerce_app/screens/all_transactions_history_screen/all_transactions_history_screen.dart';
+import 'package:ecommerce_app/screens/e_wallet_add_card_screen/e_wallet_add_card_screen.dart';
+import 'package:ecommerce_app/screens/e_wallet_cards_screen/e_wallet_cards_screen.dart';
+import 'package:ecommerce_app/screens/e_wallet_screen/e_wallet_screen.dart';
 import 'package:ecommerce_app/screens/add_address_screen/add_address_screen.dart';
 import 'package:ecommerce_app/screens/add_payment_card_screen/add_payment_card_screen.dart';
 import 'package:ecommerce_app/screens/cart_screen/cart_screen.dart';
 import 'package:ecommerce_app/screens/choose_address_screen/choose_address_screen.dart';
 import 'package:ecommerce_app/screens/choose_promotion_screen/choose_promotion_screen.dart';
+import 'package:ecommerce_app/screens/e_wallet_transaction_screen/e_wallet_transaction_screen.dart';
 import 'package:ecommerce_app/screens/faqs_screen/faqs_screen.dart';
 import 'package:ecommerce_app/screens/favorite_screen/favorite_screen.dart';
 import 'package:ecommerce_app/screens/main_screen/main_screen.dart';
+import 'package:ecommerce_app/screens/my_cards_screen/my_cards_screen.dart';
 import 'package:ecommerce_app/screens/my_order_screen/my_order_screen.dart';
 import 'package:ecommerce_app/screens/onboarding_screen/onboarding_screen.dart';
 import 'package:ecommerce_app/screens/order_tracking_screen/order_tracking_screen.dart';
@@ -33,6 +40,7 @@ import 'package:ecommerce_app/screens/shipping_addresses_screen/shipping_address
 import 'package:ecommerce_app/screens/sign_in_screen/sign_in_screen.dart';
 import 'package:ecommerce_app/screens/sign_up_screen/sign_up_screen.dart';
 import 'package:ecommerce_app/screens/sign_up_screen/sign_up_success_screen.dart';
+import 'package:ecommerce_app/screens/top_up_screen/top_up_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -57,6 +65,7 @@ class AppRouter {
       case MainScreen.routeName:
         return MaterialPageRoute(
           builder: (context) => const MainScreen(),
+          settings: const RouteSettings(name: MainScreen.routeName),
         );
       case PlaceOrderScreen.routeName:
         return MaterialPageRoute(
@@ -207,6 +216,36 @@ class AppRouter {
       case FAQsScreen.routeName:
         return MaterialPageRoute(
           builder: (context) => const FAQsScreen(),
+        );
+      case MyCardsScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => const MyCardsScreen(),
+        );
+      case EWalletScreen.routeName:
+        return MaterialPageRoute(
+            builder: (context) => const EWalletScreen(),
+            settings: const RouteSettings(name: EWalletScreen.routeName));
+      case TopUpScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => const TopUpScreen(),
+        );
+      case EWalletCardsScreen.routeName:
+        final args = settings.arguments as double;
+        return MaterialPageRoute(
+          builder: (context) => EWalletCardsScreen(amount: args),
+        );
+      case EWalletAddCardScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => const EWalletAddCardScreen(),
+        );
+      case TransactionDetailsScreen.routeName:
+        final args = settings.arguments as EWalletTransaction;
+        return MaterialPageRoute(
+          builder: (context) => TransactionDetailsScreen(transaction: args),
+        );
+      case AllTransactionHistoryScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => const AllTransactionHistoryScreen(),
         );
 
       default:
