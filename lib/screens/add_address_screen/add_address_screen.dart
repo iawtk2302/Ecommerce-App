@@ -198,6 +198,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
       } else {
         await AddressRepository().updateShippingAddress(
           address: newAddress,
+          setAsDefault: setAsDefaultAddress,
         );
       }
 

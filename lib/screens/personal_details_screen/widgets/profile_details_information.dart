@@ -9,12 +9,16 @@ class ProfileDetailsInformation extends StatelessWidget {
     required this.controller,
     required this.hintText,
     this.validator,
+    this.keyboardType,
+    this.onChanged,
   });
 
   final String label;
   final TextEditingController controller;
   final String hintText;
   final String? Function(String?)? validator;
+  final TextInputType? keyboardType;
+  final Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +35,7 @@ class ProfileDetailsInformation extends StatelessWidget {
           child: TextFormField(
             controller: controller,
             validator: validator,
+            keyboardType: keyboardType,
             decoration: InputDecoration(
               hintText: hintText,
               enabledBorder: const UnderlineInputBorder(
@@ -40,6 +45,7 @@ class ProfileDetailsInformation extends StatelessWidget {
                 borderSide: BorderSide(color: AppColors.greyColor),
               ),
             ),
+            onChanged: onChanged,
           ),
         )
       ],

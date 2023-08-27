@@ -1,6 +1,8 @@
+import 'package:ecommerce_app/common_widgets/my_button.dart';
 import 'package:ecommerce_app/common_widgets/my_icon.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
+import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/utils/local_auth_utils.dart';
 import 'package:flutter/material.dart';
@@ -230,6 +232,61 @@ class Utils {
                 color: AppColors.whiteColor,
                 borderRadius: BorderRadius.circular(20)),
             child: Lottie.asset(AppAssets.lottieTransactionProcess),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> showSuccessDialog(
+      {required BuildContext context,
+      required Widget icon,
+      required VoidCallback onButtonPressed,
+      required String buttonText,
+      required String description}) async {
+    await showDialog(
+      context: context,
+      builder: (_) {
+        return Dialog(
+          child: Container(
+            padding: const EdgeInsets.all(30),
+            decoration: BoxDecoration(
+                color: AppColors.whiteColor,
+                borderRadius: BorderRadius.circular(20)),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    height: 60,
+                    width: 60,
+                    decoration: BoxDecoration(
+                        color: AppColors.primaryColor,
+                        borderRadius: AppDimensions.circleCorners),
+                    alignment: Alignment.center,
+                    child: icon,
+                  ),
+                  const SizedBox(height: 20),
+                  const Text("Successful!",
+                      textAlign: TextAlign.center,
+                      style: AppStyles.displayLarge),
+                  const SizedBox(height: 20),
+                  Text(
+                    description,
+                    textAlign: TextAlign.center,
+                    style: AppStyles.bodyLarge,
+                  ),
+                  const SizedBox(height: 20),
+                  MyButton(
+                    onPressed: onButtonPressed,
+                    child: Text(
+                      buttonText,
+                      style: AppStyles.labelLarge
+                          .copyWith(color: AppColors.whiteColor),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         );
       },

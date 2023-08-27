@@ -47,13 +47,18 @@ class AddressRepository {
     }
   }
 
-  Future<void> updateShippingAddress({required ShippingAddress address}) async {
+  Future<void> updateShippingAddress(
+      {required ShippingAddress address, bool? setAsDefault}) async {
     try {
       await usersRef
           .doc(firebaseAuth.currentUser!.uid)
           .collection("addresses")
           .doc(address.id)
           .update(address.toMap());
+
+      if (setAsDefault == true) {
+        await updateDefaultShippingAddress(address: address);
+      }
     } catch (e) {
       throw Exception(e);
     }

@@ -52,6 +52,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       // Reload user
       final UserProfile user = await UserRepository().fetchUser();
       if (state is UserLoaded) {
+        emit(UserUpdated());
         emit(UserLoaded(user: user));
       }
     }

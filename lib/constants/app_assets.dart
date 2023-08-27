@@ -46,6 +46,7 @@ class AppAssets {
   static const String icNotification = "$iconPath/ic_notification.svg";
   static const String icMoon = "$iconPath/ic_moon.svg";
   static const String icTopUp = "$iconPath/ic_top_up.svg";
+  static const String icProfileTick = "$iconPath/ic_profile_tick.svg";
 
   // Images
   static const String imgSplashBackground =

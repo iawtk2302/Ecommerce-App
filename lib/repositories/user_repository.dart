@@ -44,8 +44,9 @@ class UserRepository {
         final url = await ref.getDownloadURL();
         data["imageUrl"] = url;
       }
-
-      await usersRef.doc(firebaseAuth.currentUser!.uid).update(data);
+      if (data.isNotEmpty) {
+        await usersRef.doc(firebaseAuth.currentUser!.uid).update(data);
+      }
     } catch (e) {
       throw Exception(e);
     }
