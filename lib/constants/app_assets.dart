@@ -3,12 +3,6 @@ class AppAssets {
   static const String iconPath = "assets/icons";
   static const String lottiePath = "assets/lotties";
 
-  static const String icArrowBack = "$iconPath/ic_arrow_back.svg";
-  static const String icSearch = "$iconPath/ic_search.svg";
-  static const String icFilter = "$iconPath/ic_filter.svg";
-  static const String icHeartBold = "$iconPath/ic_heart_bold.svg";
-  static const String icHeartOutline = "$iconPath/ic_heart_outline.svg";
-  static const String icBag = "$iconPath/ic_bag.svg";
   // Icons
   static const String icArrowLeft = "$iconPath/ic_arrow_left.svg";
   static const String icArrowRight = "$iconPath/ic_arrow_right.svg";
@@ -47,6 +41,17 @@ class AppAssets {
   static const String icMoon = "$iconPath/ic_moon.svg";
   static const String icTopUp = "$iconPath/ic_top_up.svg";
   static const String icProfileTick = "$iconPath/ic_profile_tick.svg";
+  static const String icSend = "$iconPath/ic_send.svg";
+  static const String icMic = "$iconPath/ic_mic.svg";
+  static const String icVideoCall = "$iconPath/ic_video_call.svg";
+  static const String icVoiceCall = "$iconPath/ic_voice_call.svg";
+  static const String icCamera = "$iconPath/ic_camera.svg";
+  static const String icArrowBack = "$iconPath/ic_arrow_back.svg";
+  static const String icSearch = "$iconPath/ic_search.svg";
+  static const String icFilter = "$iconPath/ic_filter.svg";
+  static const String icHeartBold = "$iconPath/ic_heart_bold.svg";
+  static const String icHeartOutline = "$iconPath/ic_heart_outline.svg";
+  static const String icBag = "$iconPath/ic_bag.svg";
 
   // Images
   static const String imgSplashBackground =
@@ -75,4 +80,5 @@ class AppAssets {
   static const String lottieWaiting = "$lottiePath/lottie_waiting.json";
   static const String lottieTransactionProcess =
       "$lottiePath/lottie_transaction_process.json";
+  static const String lottieAudio = "$lottiePath/lottie_audio.json";
 }

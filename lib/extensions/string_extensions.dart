@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/constants/enums/gender.dart';
 import 'package:ecommerce_app/models/e_wallet_transaction.dart';
+import 'package:ecommerce_app/constants/enums/message_type.dart';
 import 'package:ecommerce_app/models/order_status.dart';
 import 'package:ecommerce_app/models/promotion.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,19 @@ extension StringExtensions on String {
         return PromotionType.fixedAmount;
       default:
         return PromotionType.freeShipping;
+    }
+  }
+
+  MessageType toMessageType() {
+    switch (this) {
+      case "text":
+        return MessageType.text;
+      case "image":
+        return MessageType.image;
+      case "voice":
+        return MessageType.voice;
+      default:
+        return MessageType.text;
     }
   }
 

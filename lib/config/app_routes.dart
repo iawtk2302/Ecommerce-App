@@ -1,4 +1,6 @@
 import 'package:ecommerce_app/models/e_wallet_transaction.dart';
+import 'dart:developer';
+
 import 'package:ecommerce_app/models/order.dart';
 import 'package:ecommerce_app/models/order_product_detail.dart';
 import 'package:ecommerce_app/models/shipping_address.dart';
@@ -9,6 +11,7 @@ import 'package:ecommerce_app/screens/e_wallet_screen/e_wallet_screen.dart';
 import 'package:ecommerce_app/screens/add_address_screen/add_address_screen.dart';
 import 'package:ecommerce_app/screens/add_payment_card_screen/add_payment_card_screen.dart';
 import 'package:ecommerce_app/screens/cart_screen/cart_screen.dart';
+import 'package:ecommerce_app/screens/chat_screen/chat_screen.dart';
 import 'package:ecommerce_app/screens/choose_address_screen/choose_address_screen.dart';
 import 'package:ecommerce_app/screens/choose_promotion_screen/choose_promotion_screen.dart';
 import 'package:ecommerce_app/screens/e_wallet_transaction_screen/e_wallet_transaction_screen.dart';
@@ -24,6 +27,7 @@ import 'package:ecommerce_app/screens/order_processing_screen/order_processing_s
 import 'package:ecommerce_app/screens/personal_details_screen/personal_details_screen.dart';
 import 'package:ecommerce_app/screens/place_order_screen/place_order_screen.dart';
 import 'package:ecommerce_app/screens/promotion_screen/promotion_screen.dart';
+import 'package:ecommerce_app/screens/record_voice_screen/record_voice_screen.dart';
 import 'package:ecommerce_app/screens/review_screen/review_screen.dart';
 import 'package:ecommerce_app/screens/select_language_screen/select_language_screen.dart';
 import 'package:ecommerce_app/screens/set_passcode_screen/set_passcode_screen.dart';
@@ -110,7 +114,7 @@ class AppRouter {
               ),
             );
           } catch (e) {
-            print(e.toString());
+            log(e.toString());
           }
         }
       case DetailProductScreen.routeName:
@@ -123,7 +127,7 @@ class AppRouter {
               ),
             );
           } catch (e) {
-            print(e.toString());
+            log(e.toString());
           }
         }
       case FilterScreen.routeName:
@@ -140,7 +144,7 @@ class AppRouter {
               ),
             );
           } catch (e) {
-            print(e.toString());
+            log(e.toString());
           }
         }
       case ProductScreen.routeName:
@@ -155,7 +159,7 @@ class AppRouter {
               ),
             );
           } catch (e) {
-            print(e.toString());
+            log(e.toString());
           }
         }
       case OrderProcessingScreen.routeName:
@@ -187,7 +191,7 @@ class AppRouter {
             ),
           );
         } catch (e) {
-          print(e.toString());
+          log(e.toString());
         }
       case PersonalDetailsScreen.routeName:
         return MaterialPageRoute(
@@ -246,6 +250,14 @@ class AppRouter {
       case AllTransactionHistoryScreen.routeName:
         return MaterialPageRoute(
           builder: (context) => const AllTransactionHistoryScreen(),
+        );
+      case ChatScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => const ChatScreen(),
+        );
+      case RecordVoiceScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => const RecordVoiceScreen(),
         );
 
       default:
