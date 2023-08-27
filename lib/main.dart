@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/blocs/addresses_bloc/addresses_bloc.dart';
 import 'package:ecommerce_app/blocs/auth_bloc/auth_bloc.dart';
 import 'package:ecommerce_app/blocs/cart_bloc/cart_bloc.dart';
+import 'package:ecommerce_app/blocs/chat_bloc/chat_bloc.dart';
 import 'package:ecommerce_app/blocs/language_bloc/language_bloc.dart';
 import 'package:ecommerce_app/blocs/order_processing_bloc/order_processing_bloc.dart';
 import 'package:ecommerce_app/blocs/payment_methods_bloc/payment_methods_bloc.dart';
@@ -20,18 +21,26 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 import 'firebase_options.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const MyApp());
+  final navigatorKey = GlobalKey<NavigatorState>();
+  ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(MyApp(
+    navigatorKey: navigatorKey,
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  const MyApp({super.key, required this.navigatorKey});
+  final GlobalKey<NavigatorState> navigatorKey;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -55,6 +64,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => OrderProcessingBloc()),
         BlocProvider(create: (_) => AddressesBloc()),
         BlocProvider(create: (_) => ReviewScreenBloc()),
+        BlocProvider(create: (_) => ChatBloc()),
         BlocProvider(create: (_) => LanguageBloc()..add(const LoadLanguage())),
       ],
       child: BlocBuilder<LanguageBloc, LanguageState>(
@@ -65,6 +75,7 @@ class MyApp extends StatelessWidget {
           }
           return MaterialApp(
             title: 'Flutter Demo',
+            navigatorKey: navigatorKey,
             debugShowCheckedModeBanner: false,
             onGenerateRoute: AppRouter().onGenerateRoute,
             theme: ThemeData(

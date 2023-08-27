@@ -25,6 +25,11 @@ class AppAssets {
   static const String icAddRound = "$iconPath/ic_add_round.svg";
   static const String icNumber = "$iconPath/ic_number.svg";
   static const String icFingerprint = "$iconPath/ic_fingerprint.svg";
+  static const String icSend = "$iconPath/ic_send.svg";
+  static const String icMic = "$iconPath/ic_mic.svg";
+  static const String icVideoCall = "$iconPath/ic_video_call.svg";
+  static const String icVoiceCall = "$iconPath/ic_voice_call.svg";
+  static const String icCamera = "$iconPath/ic_camera.svg";
 
   // Images
   static const String imgSplashBackground =
@@ -46,4 +51,5 @@ class AppAssets {
   static const String lottieWaiting = "$lottiePath/lottie_waiting.json";
   static const String lottieTransactionProcess =
       "$lottiePath/lottie_transaction_process.json";
+  static const String lottieAudio = "$lottiePath/lottie_audio.json";
 }

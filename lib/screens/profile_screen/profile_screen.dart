@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/blocs/language_bloc/language_bloc.dart';
+import 'package:ecommerce_app/screens/chat_screen/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -20,9 +21,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           body: Center(
             child: TextButton(
                 onPressed: () {
-                  context
-                      .read<LanguageBloc>()
-                      .add(const ChangeLanguage(locate: 'vi'));
+                  // context
+                  //     .read<LanguageBloc>()
+                  //     .add(const ChangeLanguage(locate: 'vi'));
+                  Navigator.pushNamed(context, ChatScreen.routeName);
                 },
                 child: const Text('hihi')),
           ),

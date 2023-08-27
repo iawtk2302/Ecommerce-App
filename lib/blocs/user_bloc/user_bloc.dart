@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:ecommerce_app/models/user_profile.dart';
 import 'package:ecommerce_app/repositories/user_repository.dart';
+import 'package:ecommerce_app/services/call_service.dart';
 import 'package:equatable/equatable.dart';
 
 part 'user_event.dart';
@@ -16,6 +17,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     try {
       emit(UserLoading());
       final UserProfile user = await UserRepository().fetchUser();
+      await CallService().initCallService(user);
       emit(UserLoaded(user: user));
     } catch (e) {
       emit(UserError(message: e.toString()));
