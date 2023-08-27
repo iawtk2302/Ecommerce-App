@@ -90,6 +90,6 @@ final List<SettingsElement> contactSettingsElements = [
       }),
   SettingsElement(
       title: "Support", assetPath: AppAssets.icHeadphone, onTap: (context) {}),
-  SettingsElement(
-      title: "Logout", assetPath: AppAssets.icLogout, onTap: (context) {}),
+  // SettingsElement(
+  //     title: "Logout", assetPath: AppAssets.icLogout, onTap: (context) {}),
 ];
