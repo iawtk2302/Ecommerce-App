@@ -5,6 +5,7 @@ import 'package:ecommerce_app/common_widgets/my_app_bar.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/models/product.dart';
+import 'package:ecommerce_app/screens/cart_screen/cart_screen.dart';
 import 'package:ecommerce_app/screens/detail_product_screen/widgets/bottom_bar_product.dart';
 import 'package:ecommerce_app/screens/detail_product_screen/widgets/product_description.dart';
 import 'package:ecommerce_app/screens/detail_product_screen/widgets/product_image.dart';
@@ -57,7 +58,9 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
       appBar: MyAppBar(
         actions: [
           CartButton(
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, CartScreen.routeName);
+            },
           )
         ],
       ),
@@ -100,7 +103,9 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
                             ],
                           ),
                         ),
-                        const BottomBarProduct()
+                        BottomBarProduct(
+                          product: widget.product,
+                        )
                       ],
                     ),
                   ));
