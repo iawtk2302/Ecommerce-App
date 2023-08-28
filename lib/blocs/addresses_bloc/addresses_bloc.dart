@@ -1,7 +1,7 @@
-import 'package:bloc/bloc.dart';
 import 'package:ecommerce_app/models/shipping_address.dart';
 import 'package:ecommerce_app/repositories/address_repository.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'addresses_event.dart';
 part 'addresses_state.dart';
