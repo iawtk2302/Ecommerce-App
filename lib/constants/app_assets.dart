@@ -52,6 +52,7 @@ class AppAssets {
   static const String icHeartBold = "$iconPath/ic_heart_bold.svg";
   static const String icHeartOutline = "$iconPath/ic_heart_outline.svg";
   static const String icBag = "$iconPath/ic_bag.svg";
+  static const String icLocation = "$iconPath/ic_location.svg";
 
   // Images
   static const String imgSplashBackground =

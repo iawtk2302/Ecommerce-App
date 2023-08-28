@@ -2,16 +2,21 @@ import 'package:ecommerce_app/blocs/addresses_bloc/addresses_bloc.dart';
 import 'package:ecommerce_app/common_widgets/fill_information_text_field.dart';
 import 'package:ecommerce_app/common_widgets/loading_manager.dart';
 import 'package:ecommerce_app/common_widgets/my_app_bar.dart';
+import 'package:ecommerce_app/common_widgets/my_icon.dart';
 import 'package:ecommerce_app/common_widgets/screen_name_section.dart';
+import 'package:ecommerce_app/config/app_config.dart';
+import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/models/shipping_address.dart';
 import 'package:ecommerce_app/repositories/address_repository.dart';
 import 'package:ecommerce_app/screens/add_address_screen/add_address_confirm_button.dart';
 import 'package:ecommerce_app/utils/location_util.dart';
+import 'package:ecommerce_app/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 
 class AddAddressScreen extends StatefulWidget {
   final ShippingAddress? address;
@@ -39,7 +44,8 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
   final TextEditingController phoneNumberController = TextEditingController();
   bool setAsDefaultAddress = true;
   final formState = GlobalKey<FormState>();
-  Position? position;
+  LatLng? coordinates;
+  final MapController mapController = MapController();
 
   @override
   void initState() {
@@ -56,6 +62,16 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
     } else {
       _getPosition();
     }
+
+    KeyboardVisibilityController().onChange.listen((event) {
+      if (event) {
+        setState(() {
+          coordinates = null;
+        });
+      } else {
+        _getCoordinatesFromAddress();
+      }
+    });
   }
 
   @override
@@ -91,6 +107,45 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          if (coordinates != null)
+                            SizedBox(
+                              height: 300,
+                              child: Stack(
+                                children: [
+                                  FlutterMap(
+                                    mapController: mapController,
+                                    options: MapOptions(
+                                      minZoom: 5,
+                                      maxZoom: 30,
+                                      zoom: 18,
+                                      center: coordinates,
+                                      interactiveFlags: InteractiveFlag.all,
+                                    ),
+                                    children: [
+                                      TileLayer(
+                                        urlTemplate: AppConfig.mapUrlTemplate,
+                                        additionalOptions: const {
+                                          'mapStyleId': AppConfig.mapBoxStyleId,
+                                          'accessToken':
+                                              AppConfig.mapBoxAccessToken,
+                                        },
+                                      ),
+                                      MarkerLayer(
+                                        markers: [
+                                          Marker(
+                                              point: coordinates!,
+                                              builder: (_) {
+                                                return const MyIcon(
+                                                    icon: AppAssets.icLocation);
+                                              })
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          const SizedBox(height: 20),
                           FillInformationTextField(
                             label: "Full name",
                             controller: fullNameController,
@@ -136,13 +191,11 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                               Checkbox(
                                   value: setAsDefaultAddress,
                                   onChanged: (value) {
-                                    setState(() {
-                                      if (value != null) {
-                                        setState(() {
-                                          setAsDefaultAddress = value;
-                                        });
-                                      }
-                                    });
+                                    if (value != null) {
+                                      setState(() {
+                                        setAsDefaultAddress = value;
+                                      });
+                                    }
                                   }),
                               const Text("Use as default address.")
                             ],
@@ -170,9 +223,8 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
 
   _onConfirmPressed() async {
     if (formState.currentState!.validate()) {
-      setState(() {
-        isLoading = true;
-      });
+      _changeLoadingState(true);
+
       final ShippingAddress newAddress = ShippingAddress(
         id: widget.address != null ? widget.address!.id : "",
         recipientName: fullNameController.text,
@@ -185,10 +237,10 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
         phoneNumber: phoneNumberController.text,
         latitude: widget.address != null
             ? widget.address!.latitude
-            : position?.latitude,
+            : coordinates?.latitude,
         longitude: widget.address != null
             ? widget.address!.longitude
-            : position?.longitude,
+            : coordinates?.longitude,
       );
       if (widget.address == null) {
         await AddressRepository().addShippingAddress(
@@ -206,31 +258,44 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
       context.read<AddressesBloc>().add(LoadAddresses());
       Navigator.pop(context);
 
-      setState(() {
-        isLoading = false;
-      });
+      _changeLoadingState(false);
     }
   }
 
   _getPosition() async {
-    setState(() {
-      isLoading = true;
-    });
+    _changeLoadingState(true);
 
-    position = await LocationUtil().getCurrentPosition(context: context);
-    if (position == null) {
+    coordinates = await LocationUtil().getCurrentPosition(context: context);
+    if (coordinates == null) {
       return;
     }
     final location =
-        await LocationUtil().getLocationFromLatLng(position: position!);
+        await LocationUtil().getLocationFromLatLng(latLng: coordinates!);
     countryController.text = location.country ?? "";
     stateController.text = location.administrativeArea ?? "";
     cityController.text = location.locality ?? "";
     streetController.text = location.street ?? "";
     zipCodeController.text = location.postalCode ?? "";
 
+    _changeLoadingState(false);
+  }
+
+  _getCoordinatesFromAddress() async {
+    final String fullAddress =
+        "${streetController.text},  ${cityController.text},  ${stateController.text},  ${countryController.text}";
+    final newLatLng =
+        await LocationUtil().getCoordinatesFromAddress(fullAddress);
+    if (newLatLng == null && mounted) {
+      Utils.showSnackBar(context: context, message: "Can't get location");
+    }
     setState(() {
-      isLoading = false;
+      coordinates = newLatLng;
+    });
+  }
+
+  _changeLoadingState(bool isLoading) {
+    setState(() {
+      this.isLoading = isLoading;
     });
   }
 }
