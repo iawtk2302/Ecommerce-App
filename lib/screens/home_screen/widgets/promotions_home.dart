@@ -38,7 +38,8 @@ class PromotionsHome extends StatelessWidget {
                               child: GestureDetector(
                                 onTap: () {
                                   Navigator.pushNamed(
-                                      context, PromotionScreen.routeName);
+                                      context, PromotionScreen.routeName,
+                                      arguments: currentState.promotions);
                                 },
                                 child: Container(
                                   height: size.height * 0.2,

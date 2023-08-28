@@ -1,5 +1,3 @@
-import 'package:ecommerce_app/blocs/place_order_bloc/place_order_bloc.dart';
-import 'package:ecommerce_app/common_widgets/custom_loading_widget.dart';
 import 'package:ecommerce_app/common_widgets/my_app_bar.dart';
 import 'package:ecommerce_app/common_widgets/screen_name_section.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
@@ -8,13 +6,12 @@ import 'package:ecommerce_app/models/promotion.dart';
 import 'package:ecommerce_app/repositories/promotion_repository.dart';
 import 'package:ecommerce_app/screens/home_screen/widgets/promotion_item.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PromotionScreen extends StatelessWidget {
-  const PromotionScreen({super.key});
+  const PromotionScreen({super.key, required this.promotions});
 
   static const String routeName = "/promotion-screen";
-
+  final List<Promotion> promotions;
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -26,26 +23,13 @@ class PromotionScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const ScreenNameSection(label: "Discount Offer"),
-            FutureBuilder<List<Promotion>>(
-                future: PromotionRepository().fetchMyPromotions(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return Center(child: Text(snapshot.error.toString()));
-                  } else if (snapshot.connectionState ==
-                      ConnectionState.waiting) {
-                    return const CustomLoadingWidget();
-                  }
-
-                  final List<Promotion> promotions = snapshot.data!;
-                  if (promotions.isEmpty) {
-                    return const Align(
-                      alignment: Alignment.center,
-                      child: Text("You don't have any promotion yet.",
-                          style: AppStyles.bodyLarge),
-                    );
-                  }
-
-                  return Expanded(
+            promotions.isEmpty
+                ? const Align(
+                    alignment: Alignment.center,
+                    child: Text("You don't have any promotion yet.",
+                        style: AppStyles.bodyLarge),
+                  )
+                : Expanded(
                     child: ListView.separated(
                         padding: const EdgeInsets.symmetric(
                             horizontal: AppDimensions.defaultPadding),
@@ -60,20 +44,16 @@ class PromotionScreen extends StatelessWidget {
                             width:
                                 size.width - 2 * AppDimensions.defaultPadding,
                             height: size.height * 0.2,
-                            onGetPromotion: () => _onGetPromotion(
-                                context: context, promotion: promotions[index]),
+                            onGetPromotion: () =>
+                                _onGetPromotion(promotions[index]),
                           );
                         }),
-                  );
-                })
+                  )
           ]),
     );
   }
 
-  _onGetPromotion(
-      {required BuildContext context, required Promotion promotion}) {
-    context.read<PlaceOrderBloc>().add(UpdatePromotion(promotion));
-    context.read<PlaceOrderBloc>().add(ReloadBill());
-    Navigator.pop(context);
+  _onGetPromotion(Promotion promotion) async {
+    await PromotionRepository().addToMyPromotions(promotion: promotion);
   }
 }
