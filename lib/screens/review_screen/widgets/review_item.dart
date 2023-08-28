@@ -90,6 +90,7 @@ class _ReviewItemState extends State<ReviewItem> {
                 child: Padding(
               padding: const EdgeInsets.only(top: 12.0, bottom: 12, right: 12),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
@@ -143,7 +144,6 @@ class _ReviewItemState extends State<ReviewItem> {
                                       fontSize: 15,
                                       color: AppColors.primaryColor)),
                             ]))),
-                  // Text(content.sublist(0, maxLength).join(' '))
                 ],
               ),
             ))
