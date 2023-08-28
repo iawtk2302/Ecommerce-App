@@ -7,7 +7,6 @@ import 'package:ecommerce_app/services/chat_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:lottie/lottie.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class RecordVoiceScreen extends StatefulWidget {
   const RecordVoiceScreen({super.key});
@@ -34,10 +33,6 @@ class _RecordVoiceScreenState extends State<RecordVoiceScreen> {
   }
 
   void initRecorder() async {
-    final status = await Permission.microphone.request();
-    if (status != PermissionStatus.granted) {
-      throw 'Permission not granted';
-    }
     await _flutterSoundRecorder.openRecorder();
     _flutterSoundRecorder
         .setSubscriptionDuration(const Duration(milliseconds: 500));
