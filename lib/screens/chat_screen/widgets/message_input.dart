@@ -8,6 +8,7 @@ import 'package:ecommerce_app/services/chat_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class MessageInput extends StatefulWidget {
   const MessageInput({super.key});
@@ -84,22 +85,90 @@ class _MessageInputState extends State<MessageInput> {
   }
 
   Future<void> _getImageCamera() async {
-    final XFile? image =
-        await ImagePicker().pickImage(source: ImageSource.camera);
-    if (image == null) return;
-    final List<XFile> images = [image];
-    if (!context.mounted) return;
-    Navigator.of(context).pop();
-    await ChatService().sendImageMessage(images);
+    final status = await Permission.camera.request();
+    if (status.isGranted) {
+      final XFile? image =
+          await ImagePicker().pickImage(source: ImageSource.camera);
+      if (image == null) return;
+      final List<XFile> images = [image];
+      if (!context.mounted) return;
+      Navigator.of(context).pop();
+      await ChatService().sendImageMessage(images);
+    } else {
+      if (!context.mounted) return;
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Camera Access Required'),
+            content: const Text(
+                'To use camera features, please grant camera access.'),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text(
+                    'Cancel',
+                    style: AppStyles.labelMedium,
+                  )),
+              TextButton(
+                  onPressed: () async {
+                    await openAppSettings();
+                  },
+                  child: const Text(
+                    'Open settings',
+                    style: AppStyles.labelMedium,
+                  )),
+            ],
+          );
+        },
+      );
+    }
   }
 
   Future<void> _getImageGallery() async {
-    final List<XFile> images =
-        await ImagePicker().pickMultiImage(imageQuality: 70);
-    if (images.isEmpty) return;
-    if (!context.mounted) return;
-    Navigator.of(context).pop();
-    await ChatService().sendImageMessage(images);
+    final status = await Permission.storage.request();
+    if (status.isGranted) {
+      final List<XFile> images =
+          await ImagePicker().pickMultiImage(imageQuality: 70);
+      if (images.isEmpty) return;
+      if (!context.mounted) return;
+      Navigator.of(context).pop();
+      await ChatService().sendImageMessage(images);
+    } else {
+      if (!context.mounted) return;
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Storage Access Required'),
+            content: const Text(
+                'To use storage features, please grant storage access.'),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text(
+                    'Cancel',
+                    style: AppStyles.labelMedium,
+                  )),
+              TextButton(
+                  onPressed: () async {
+                    await openAppSettings();
+                  },
+                  child: const Text(
+                    'Open settings',
+                    style: AppStyles.labelMedium,
+                  )),
+            ],
+          );
+        },
+      );
+    }
   }
 
   _chooseImage() {
@@ -168,7 +237,42 @@ class _MessageInputState extends State<MessageInput> {
     }
   }
 
-  _navigateRecordVoiceScreen() {
-    Navigator.pushNamed(context, RecordVoiceScreen.routeName);
+  _navigateRecordVoiceScreen() async {
+    final status = await Permission.microphone.request();
+    if (status.isGranted) {
+      if (!context.mounted) return;
+      Navigator.pushNamed(context, RecordVoiceScreen.routeName);
+    } else if (status.isPermanentlyDenied) {
+      if (!context.mounted) return;
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Microphone Access Required'),
+            content: const Text(
+                'To use voice features, please grant microphone access.'),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text(
+                    'Cancel',
+                    style: AppStyles.labelMedium,
+                  )),
+              TextButton(
+                  onPressed: () async {
+                    await openAppSettings();
+                  },
+                  child: const Text(
+                    'Open settings',
+                    style: AppStyles.labelMedium,
+                  )),
+            ],
+          );
+        },
+      );
+    }
   }
 }
