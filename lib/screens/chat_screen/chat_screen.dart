@@ -51,7 +51,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   width: 20,
                   height: 20,
                 )),
-            resourceID: "zegouikit_call", // For offline call notification
+            timeoutSeconds: 60,
             invitees: [
               ZegoUIKitUser(
                 id: 'admin',
@@ -71,7 +71,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   icon: AppAssets.icVoiceCall,
                 )),
             isVideoCall: false,
-            resourceID: "zegouikit_call", // For offline call notification
+            timeoutSeconds: 60,
             invitees: [
               ZegoUIKitUser(
                 id: 'admin',
