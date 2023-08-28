@@ -1,8 +1,7 @@
 import 'package:ecommerce_app/models/e_wallet_transaction.dart';
-import 'dart:developer';
-
 import 'package:ecommerce_app/models/order.dart';
 import 'package:ecommerce_app/models/order_product_detail.dart';
+import 'package:ecommerce_app/models/promotion.dart';
 import 'package:ecommerce_app/models/shipping_address.dart';
 import 'package:ecommerce_app/screens/all_transactions_history_screen/all_transactions_history_screen.dart';
 import 'package:ecommerce_app/screens/e_wallet_add_card_screen/e_wallet_add_card_screen.dart';
@@ -105,62 +104,40 @@ class AppRouter {
           builder: (context) => const CategoryScreen(),
         );
       case CategoryProductScreen.routeName:
-        {
-          try {
-            final Category category = settings.arguments as Category;
-            return MaterialPageRoute(
-              builder: (context) => CategoryProductScreen(
-                category: category,
-              ),
-            );
-          } catch (e) {
-            log(e.toString());
-          }
-        }
+        final Category category = settings.arguments as Category;
+        return MaterialPageRoute(
+          builder: (context) => CategoryProductScreen(
+            category: category,
+          ),
+        );
       case DetailProductScreen.routeName:
-        {
-          try {
-            final Product product = settings.arguments as Product;
-            return MaterialPageRoute(
-              builder: (context) => DetailProductScreen(
-                product: product,
-              ),
-            );
-          } catch (e) {
-            log(e.toString());
-          }
-        }
+        final Product product = settings.arguments as Product;
+        return MaterialPageRoute(
+          builder: (context) => DetailProductScreen(
+            product: product,
+          ),
+        );
       case FilterScreen.routeName:
         return MaterialPageRoute(
           builder: (context) => const FilterScreen(),
         );
       case SearchScreen.routeName:
-        {
-          try {
-            final String query = settings.arguments as String;
-            return MaterialPageRoute(
-              builder: (context) => SearchScreen(
-                query: query,
-              ),
-            );
-          } catch (e) {
-            log(e.toString());
-          }
-        }
+        final String query = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (context) => SearchScreen(
+            query: query,
+          ),
+        );
       case ProductScreen.routeName:
         {
-          try {
-            final Map<String, dynamic> arg =
-                settings.arguments as Map<String, dynamic>;
-            return MaterialPageRoute(
-              builder: (context) => ProductScreen(
-                sectionName: arg['sectionName'],
-                products: arg['products'],
-              ),
-            );
-          } catch (e) {
-            log(e.toString());
-          }
+          final Map<String, dynamic> arg =
+              settings.arguments as Map<String, dynamic>;
+          return MaterialPageRoute(
+            builder: (context) => ProductScreen(
+              sectionName: arg['sectionName'],
+              products: arg['products'],
+            ),
+          );
         }
       case OrderProcessingScreen.routeName:
         return MaterialPageRoute(
@@ -183,16 +160,12 @@ class AppRouter {
           builder: (context) => const MyOrderScreen(),
         );
       case ReviewScreen.routeName:
-        try {
-          final String productId = settings.arguments as String;
-          return MaterialPageRoute(
-            builder: (context) => ReviewScreen(
-              productId: productId,
-            ),
-          );
-        } catch (e) {
-          log(e.toString());
-        }
+        final String productId = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (context) => ReviewScreen(
+            productId: productId,
+          ),
+        );
       case PersonalDetailsScreen.routeName:
         return MaterialPageRoute(
           builder: (context) => const PersonalDetailsScreen(),
@@ -206,8 +179,12 @@ class AppRouter {
           builder: (context) => const SettingsScreen(),
         );
       case PromotionScreen.routeName:
+        final List<Promotion> promotions =
+            settings.arguments as List<Promotion>;
         return MaterialPageRoute(
-          builder: (context) => const PromotionScreen(),
+          builder: (context) => PromotionScreen(
+            promotions: promotions,
+          ),
         );
       case SelectLanguageScreen.routeName:
         return MaterialPageRoute(
