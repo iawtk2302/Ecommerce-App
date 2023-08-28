@@ -41,25 +41,23 @@ class _ImageMessageItemState extends State<ImageMessageItem> {
         children: [
           GestureDetector(
             onTap: () => _onPressImage(),
-            child: Container(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: CachedNetworkImage(
-                  imageUrl: widget.message.imageUrl,
-                  width: size.width * 0.7,
-                  placeholder: (context, url) => Container(
-                    height: 60,
-                    alignment: Alignment.centerRight,
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: CircularProgressIndicator(),
-                    ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: CachedNetworkImage(
+                imageUrl: widget.message.imageUrl,
+                width: size.width * 0.7,
+                placeholder: (context, url) => Container(
+                  height: 60,
+                  alignment: Alignment.centerRight,
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: CircularProgressIndicator(),
                   ),
-
-                  /// Loading placeholder
-                  errorWidget: (context, url, error) =>
-                      const Center(child: Icon(Icons.error)), // Error widget
                 ),
+
+                /// Loading placeholder
+                errorWidget: (context, url, error) =>
+                    const Center(child: Icon(Icons.error)), // Error widget
               ),
             ),
           ),
