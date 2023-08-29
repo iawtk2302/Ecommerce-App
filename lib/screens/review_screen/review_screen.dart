@@ -3,6 +3,7 @@ import 'package:ecommerce_app/common_widgets/cart_button.dart';
 import 'package:ecommerce_app/common_widgets/custom_loading_widget.dart';
 import 'package:ecommerce_app/common_widgets/my_app_bar.dart';
 import 'package:ecommerce_app/common_widgets/screen_name_section.dart';
+import 'package:ecommerce_app/screens/cart_screen/cart_screen.dart';
 import 'package:ecommerce_app/screens/review_screen/widgets/list_reviews.dart';
 import 'package:ecommerce_app/screens/review_screen/widgets/no_review.dart';
 import 'package:flutter/material.dart';
@@ -31,8 +32,12 @@ class _ReviewScreenState extends State<ReviewScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: const MyAppBar(
-        actions: [CartButton()],
+      appBar: MyAppBar(
+        actions: [
+          CartButton(
+            onTap: () => Navigator.pushNamed(context, CartScreen.routeName),
+          )
+        ],
       ),
       body: BlocBuilder<ReviewScreenBloc, ReviewScreenState>(
         builder: (context, state) {
