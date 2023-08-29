@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/blocs/cart_bloc/cart_bloc.dart';
 import 'package:ecommerce_app/blocs/product_bloc/product_bloc.dart';
 import 'package:ecommerce_app/blocs/show_notification/show_notification_bloc.dart';
 import 'package:ecommerce_app/common_widgets/cart_button.dart';
@@ -31,6 +32,7 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
     context
         .read<ProductBloc>()
         .add(LoadProductDetails(product: widget.product));
+    context.read<CartBloc>().add(LoadCart());
     super.initState();
   }
 
