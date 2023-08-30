@@ -7,6 +7,7 @@ class NotificationRepository {
     final userId = FirebaseAuth.instance.currentUser!.uid;
     return notificationsRef
         .where('userId', whereIn: ['', userId])
+        .orderBy('createdAt', descending: true)
         .snapshots()
         .map((querySnapshot) => querySnapshot.docs
             .map((e) =>
