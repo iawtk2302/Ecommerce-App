@@ -23,52 +23,27 @@ class Message {
   });
 
   factory Message.fromMap(Map<String, dynamic> json) {
+    MessageType temp;
     switch ((json['type'] as String).toMessageType()) {
       case MessageType.text:
-        return Message(
-          id: json['id'],
-          isRead: json['isRead'],
-          senderId: json['senderId'],
-          content: json['content'],
-          imageUrl: json['imageUrl'],
-          audioUrl: json['audioUrl'],
-          type: MessageType.text,
-          timestamp: json['timestamp'].toDate(),
-        );
+        temp = MessageType.text;
       case MessageType.image:
-        return Message(
-          id: json['id'],
-          senderId: json['senderId'],
-          isRead: json['isRead'],
-          content: json['content'],
-          imageUrl: json['imageUrl'],
-          audioUrl: json['audioUrl'],
-          type: MessageType.image,
-          timestamp: json['timestamp'].toDate(),
-        );
+        temp = MessageType.image;
       case MessageType.voice:
-        return Message(
-          id: json['id'],
-          isRead: json['isRead'],
-          senderId: json['senderId'],
-          content: json['content'],
-          imageUrl: json['imageUrl'],
-          audioUrl: json['audioUrl'],
-          type: MessageType.voice,
-          timestamp: json['timestamp'].toDate(),
-        );
+        temp = MessageType.voice;
       default:
-        return Message(
-          id: json['id'],
-          senderId: json['senderId'],
-          isRead: json['isRead'],
-          content: json['content'],
-          imageUrl: json['imageUrl'],
-          audioUrl: json['audioUrl'],
-          type: MessageType.text,
-          timestamp: json['timestamp'].toDate(),
-        );
+        temp = MessageType.text;
     }
+    return Message(
+      id: json['id'],
+      isRead: json['isRead'],
+      senderId: json['senderId'],
+      content: json['content'],
+      imageUrl: json['imageUrl'],
+      audioUrl: json['audioUrl'],
+      type: temp,
+      timestamp: json['timestamp'].toDate(),
+    );
   }
 
   Map<String, dynamic> toMap() {

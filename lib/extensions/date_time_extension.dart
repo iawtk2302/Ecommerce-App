@@ -6,6 +6,31 @@ extension DateTimeExtensions on DateTime {
     return formatter.format(this);
   }
 
+  String formattedNotificationDate() {
+    final now = DateTime.now();
+    if (now.difference(this).inHours < 24) {
+      var hoursDifference = now.difference(this).inHours;
+      if (hoursDifference > 0) {
+        if (hoursDifference > 1) {
+          return '$hoursDifference hours ago';
+        } else if (hoursDifference == 1) {
+          return '$hoursDifference hour ago';
+        }
+      } else {
+        final minutesDifference = now.difference(this).inMinutes;
+        if (minutesDifference > 1) {
+          return '$minutesDifference minutes ago';
+        } else if (minutesDifference == 1) {
+          return '$minutesDifference minute ago';
+        } else {
+          return 'now';
+        }
+      }
+    }
+    final formatter = DateFormat('h:mm a, d MMM, yyyy');
+    return formatter.format(this);
+  }
+
   String toTransactionDateTimeFormat() {
     return DateFormat('MMM dd, yyyy | h:mm a').format(this);
   }

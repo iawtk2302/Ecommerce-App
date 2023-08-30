@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce_app/services/local_notification_service.dart';
 import 'package:flutter/material.dart';
 
 class PushDataScreen extends StatelessWidget {
@@ -14,11 +15,7 @@ class PushDataScreen extends StatelessWidget {
           children: [
             ElevatedButton(
                 onPressed: () async {
-                  await firestore
-                      .collection("users")
-                      .doc("uNZvuh8pXCWmTYgakZJYIKWyQ1B3")
-                      .collection("payment_cards ")
-                      .add({"test": "test"});
+                  // await LocalNotificationService.showNotification();
                 },
                 child: const Text("Push"))
           ],

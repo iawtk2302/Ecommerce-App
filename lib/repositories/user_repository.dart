@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_app/models/shipping_address.dart';
 import 'package:ecommerce_app/models/user_profile.dart';
 import 'package:ecommerce_app/utils/firebase_constants.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -78,6 +79,19 @@ class UserRepository {
       await usersRef
           .doc(firebaseAuth.currentUser!.uid)
           .update({"defaultShippingAddress": newDefaultAddress.toMap()});
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<void> updateFcmToken() async {
+    try {
+      final fcmToken = await FirebaseMessaging.instance.getToken();
+      if (fcmToken != null) {
+        await usersRef
+            .doc(firebaseAuth.currentUser!.uid)
+            .update({"fcmToken": fcmToken});
+      }
     } catch (e) {
       throw Exception(e);
     }

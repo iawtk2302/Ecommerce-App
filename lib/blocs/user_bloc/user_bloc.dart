@@ -19,6 +19,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   _onLoadUser(event, emit) async {
     try {
       final UserProfile user = await UserRepository().fetchUser();
+      await UserRepository().updateFcmToken();
       await CallService().initCallService(user);
       emit(UserLoaded(user: user));
     } catch (e) {

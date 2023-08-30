@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/constants/enums/gender.dart';
+import 'package:ecommerce_app/constants/enums/notification_type.dart';
 import 'package:ecommerce_app/models/e_wallet_transaction.dart';
 import 'package:ecommerce_app/constants/enums/message_type.dart';
 import 'package:ecommerce_app/models/order_status.dart';
@@ -42,6 +43,19 @@ extension StringExtensions on String {
         return MessageType.voice;
       default:
         return MessageType.text;
+    }
+  }
+
+  NotificationType toNotificationType() {
+    switch (this) {
+      case "promotion":
+        return NotificationType.promotion;
+      case "advertisement":
+        return NotificationType.advertisement;
+      case "statusOrder":
+        return NotificationType.statusOrder;
+      default:
+        return NotificationType.promotion;
     }
   }
 

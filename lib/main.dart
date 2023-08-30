@@ -18,7 +18,10 @@ import 'package:ecommerce_app/blocs/search_filter_bloc/search_filter_bloc.dart';
 import 'package:ecommerce_app/blocs/show_notification/show_notification_bloc.dart';
 import 'package:ecommerce_app/blocs/user_bloc/user_bloc.dart';
 import 'package:ecommerce_app/config/app_routes.dart';
+import 'package:ecommerce_app/screens/push_data_screen.dart';
 import 'package:ecommerce_app/screens/splash_screen/splash_screen.dart';
+import 'package:ecommerce_app/services/local_notification_service.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,9 +34,14 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final navigatorKey = GlobalKey<NavigatorState>();
   ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
+  await LocalNotificationService.initialize();
+  FirebaseMessaging.onMessage.listen(LocalNotificationService.handleMessage);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  String? token = await messaging.getToken();
+  print('fcm token:' + token!);
   runApp(MyApp(
     navigatorKey: navigatorKey,
   ));

@@ -14,17 +14,18 @@ class UserProfile {
   final int? age;
   final ShippingAddress? defaultShippingAddress;
   final double eWalletBalance;
+  final String? fcmToken;
 
-  UserProfile({
-    required this.id,
-    required this.name,
-    this.imageUrl = "",
-    required this.gender,
-    required this.age,
-    required this.email,
-    this.defaultShippingAddress,
-    required this.eWalletBalance,
-  });
+  UserProfile(
+      {required this.id,
+      required this.name,
+      this.imageUrl = "",
+      required this.gender,
+      required this.age,
+      required this.email,
+      this.defaultShippingAddress,
+      required this.eWalletBalance,
+      this.fcmToken});
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -36,26 +37,28 @@ class UserProfile {
       'age': age,
       'defaultShippingAddress': defaultShippingAddress,
       'eWalletBalance': eWalletBalance,
+      'fcmToken': fcmToken
     };
   }
 
   factory UserProfile.fromMap(Map<String, dynamic> map) {
     return UserProfile(
-      id: map['id'] as String,
-      name: map['name'] as String,
-      email: map['email'] as String,
-      imageUrl: map['imageUrl'] as String,
-      gender: map['gender'] == null
-          ? Gender.notHave
-          : (map['gender'] as String).toGender(),
-      age: map['age'] != null ? map['age'] as int : null,
-      defaultShippingAddress: map['defaultShippingAddress'] != null
-          ? ShippingAddress.fromMap(
-              map['defaultShippingAddress'] as Map<String, dynamic>)
-          : null,
-      eWalletBalance:
-          map['eWalletBalance'] == null ? 0 : map['eWalletBalance'].toDouble(),
-    );
+        id: map['id'] as String,
+        name: map['name'] as String,
+        email: map['email'] as String,
+        imageUrl: map['imageUrl'] as String,
+        gender: map['gender'] == null
+            ? Gender.notHave
+            : (map['gender'] as String).toGender(),
+        age: map['age'] != null ? map['age'] as int : null,
+        defaultShippingAddress: map['defaultShippingAddress'] != null
+            ? ShippingAddress.fromMap(
+                map['defaultShippingAddress'] as Map<String, dynamic>)
+            : null,
+        eWalletBalance: map['eWalletBalance'] == null
+            ? 0
+            : map['eWalletBalance'].toDouble(),
+        fcmToken: map['fcmToken'] != null ? map['fcmToken'] as String : null);
   }
 
   String toJson() => json.encode(toMap());
