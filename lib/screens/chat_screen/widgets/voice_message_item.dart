@@ -45,7 +45,10 @@ class _VoiceMessageItemState extends State<VoiceMessageItem> {
     });
 
     player.onPlayerComplete.listen((_) {
-      setState(() => _position = _duration);
+      setState(() {
+        isPlaying = false;
+        _position = const Duration();
+      });
     });
   }
 

@@ -77,7 +77,7 @@ class ChatService {
           FirebaseStorage.instance.ref().child('chat/chat_voice');
       final task = await storageRef
           .child(
-              '$userId${DateTime.now().millisecondsSinceEpoch.toString()}.acc')
+              '$userId${DateTime.now().millisecondsSinceEpoch.toString()}.mp3')
           .putFile(File(filePath));
       final linkAudio = await task.ref.getDownloadURL();
       Message message = Message(
