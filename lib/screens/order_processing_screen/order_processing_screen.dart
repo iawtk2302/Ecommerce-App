@@ -148,6 +148,7 @@ class _OrderProcessingScreenState extends State<OrderProcessingScreen> {
               OrderUtil().generateOrderNumber(firebaseAuth.currentUser!.uid),
           customerId: firebaseAuth.currentUser!.uid,
           customerName: user.name,
+          customerPhoneNumber: placeOrderState.address!.phoneNumber,
           address: placeOrderState.address!,
           orderSummary: OrderSummary(
             amount: placeOrderState.amount!,
