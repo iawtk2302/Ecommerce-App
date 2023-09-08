@@ -46,4 +46,13 @@ class PromotionRepository {
       throw Exception(e);
     }
   }
+
+  Stream<bool> isPromotionReceived(String promotionCode) {
+    return usersRef
+        .doc(firebaseAuth.currentUser!.uid)
+        .collection("promotions")
+        .where('code', isEqualTo: promotionCode)
+        .snapshots()
+        .map((querySnapshot) => querySnapshot.docs.isNotEmpty);
+  }
 }

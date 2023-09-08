@@ -35,9 +35,9 @@ class PaymentRepository {
           .collection("payment_cards")
           .get();
       List<PaymentInformation> paymentCards = [];
-      snapshot.docs.forEach((element) {
+      for (var element in snapshot.docs) {
         print(element.data());
-      });
+      }
       paymentCards = snapshot.docs
           .map((e) => PaymentInformation.fromMap(e.data()))
           .toList();

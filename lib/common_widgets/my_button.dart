@@ -31,7 +31,7 @@ class MyButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           elevation: 0,
           padding: padding,
-          minimumSize: Size(0, 0),
+          minimumSize: const Size(0, 0),
           backgroundColor: backgroundColor,
           shape: RoundedRectangleBorder(
             side: borderSide,

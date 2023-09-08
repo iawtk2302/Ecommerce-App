@@ -30,7 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  flutter_localizations:
+    sdk: flutter
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
@@ -44,7 +45,6 @@ dependencies:
   cloud_firestore: ^4.8.4
   shared_preferences: ^2.2.0
   google_sign_in: ^6.1.4
-  flutter_facebook_auth: ^6.0.0
   badges: ^3.1.1
   dotted_border: ^2.0.0+3
   geolocator: ^9.0.2
@@ -56,12 +56,29 @@ dependencies:
   cached_network_image: ^3.2.3
   shimmer: ^3.0.0
   syncfusion_flutter_sliders: ^22.2.8
-  intl: ^0.18.1
+  intl: ^0.18.0
   flutter_slidable: ^3.0.0
   uuid: ^3.0.7
-  flash: ^3.0.5+1
-  another_flushbar: ^1.12.30
   local_auth: ^2.1.6
+  flutter_rating_bar: ^4.0.1
+  url_launcher: ^6.1.12
+  flutter_keyboard_visibility: ^5.4.1
+  image_size_getter: ^2.1.2
+  firebase_storage: ^11.2.6
+  audioplayers: ^4.1.0
+  image_picker: ^1.0.2
+  flutter_sound: ^9.2.13
+  permission_handler: ^10.4.3
+  zego_uikit_prebuilt_call: ^3.12.3
+  zego_uikit_signaling_plugin: ^2.3.2
+  flutter_image_compress: ^2.0.4
+  path_provider: ^2.1.0
+  dio: ^5.3.2
+  image_gallery_saver: ^2.0.3
+  flutter_map: ^4.0.0
+  latlong2: ^0.8.0
+  firebase_messaging: ^14.6.7
+  flutter_local_notifications: ^15.1.1
 
 dev_dependencies:
   flutter_test:
@@ -73,7 +90,13 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: "^0.13.1"
 
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/logo/logo1.png"
+  min_sdk_android: 21
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -83,7 +106,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
+  generate: true
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
@@ -91,6 +114,7 @@ flutter:
     - assets/icons/
     - assets/lotties/
     - assets/data/
+    - assets/logo/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

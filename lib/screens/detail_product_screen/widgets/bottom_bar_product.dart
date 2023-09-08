@@ -3,12 +3,15 @@ import 'package:ecommerce_app/common_widgets/my_icon.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
+import 'package:ecommerce_app/models/product.dart';
+import 'package:ecommerce_app/repositories/favorite_repository.dart';
+import 'package:ecommerce_app/repositories/product_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BottomBarProduct extends StatelessWidget {
-  const BottomBarProduct({super.key});
-
+  const BottomBarProduct({super.key, required this.product});
+  final Product product;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -22,19 +25,43 @@ class BottomBarProduct extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
-                  height: size.height * 0.07,
-                  width: size.height * 0.07,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: AppColors.greyColor),
-                  child: const Center(
-                    child: MyIcon(
-                      icon: AppAssets.icHeartOutline,
-                      colorFilter: ColorFilter.mode(
-                          AppColors.primaryColor, BlendMode.srcIn),
-                    ),
-                  ),
+                StreamBuilder(
+                  stream: ProductRepository().checkIsFavorite(product.id),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const SizedBox();
+                    } else if (snapshot.hasData) {
+                      return GestureDetector(
+                        onTap: () async {
+                          if (snapshot.data!) {
+                            await FavoriteRepository()
+                                .removeFavoriteProduct(product.id);
+                          } else {
+                            await FavoriteRepository()
+                                .addFavoriteProduct(product);
+                          }
+                        },
+                        child: Container(
+                          height: size.height * 0.07,
+                          width: size.height * 0.07,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: AppColors.greyColor),
+                          child: Center(
+                            child: MyIcon(
+                              icon: snapshot.data!
+                                  ? AppAssets.icHeartBold
+                                  : AppAssets.icHeartOutline,
+                              colorFilter: const ColorFilter.mode(
+                                  AppColors.primaryColor, BlendMode.srcIn),
+                            ),
+                          ),
+                        ),
+                      );
+                    } else {
+                      return Container();
+                    }
+                  },
                 ),
                 InkWell(
                   onTap: () {

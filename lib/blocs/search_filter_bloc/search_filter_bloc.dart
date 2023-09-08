@@ -196,7 +196,7 @@ class SearchFilterBloc extends Bloc<SearchFilterEvent, SearchFilterState> {
     DateTime startOfWeek = today.subtract(Duration(days: today.weekday - 1));
 
     // Lấy ngày cuối tuần (ngày chủ nhật)
-    DateTime endOfWeek = startOfWeek.add(Duration(days: 6));
+    DateTime endOfWeek = startOfWeek.add(const Duration(days: 6));
 
     // So sánh ngày ra mắt sản phẩm với khoảng thời gian trong tuần
     if (productLaunchDate.isAfter(startOfWeek) &&

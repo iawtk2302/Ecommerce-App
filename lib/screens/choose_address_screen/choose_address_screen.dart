@@ -51,7 +51,7 @@ class _ChooseAddressScreenState extends State<ChooseAddressScreen> {
                         return InkWell(
                             onTap: () => _onChooseAddress(
                                 context: context, address: address),
-                            child: AddressCard(defaultAddress: address));
+                            child: AddressCard(address: address));
                       });
                 } else {
                   return const SizedBox();

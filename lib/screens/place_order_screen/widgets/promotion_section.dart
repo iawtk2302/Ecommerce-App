@@ -5,7 +5,7 @@ import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
-import 'package:ecommerce_app/screens/cart_screen/widgets/cart_item_background.dart';
+import 'package:ecommerce_app/common_widgets/primary_background.dart';
 import 'package:ecommerce_app/screens/choose_promotion_screen/choose_promotion_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +21,7 @@ class PromotionSection extends StatelessWidget {
         const SectionLabel(label: "Promo Code"),
         InkWell(
           onTap: () => _navigateToChoosePromotion(context),
-          child: CartItemBackground(
+          child: PrimaryBackground(
               margin: const EdgeInsets.symmetric(
                   horizontal: AppDimensions.defaultPadding),
               child: Row(

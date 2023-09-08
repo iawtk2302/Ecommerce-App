@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecommerce_app/common_widgets/custom_loading_widget.dart';
 import 'package:ecommerce_app/common_widgets/my_ink_well.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/models/promotion.dart';
+import 'package:ecommerce_app/repositories/promotion_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -86,16 +88,40 @@ class PromotionItem extends StatelessWidget {
                   style: AppStyles.displayMedium.copyWith(fontSize: 12),
                 ),
               ),
-              MyInkWell(
-                onTap: onGetPromotion,
-                width: size.width * 0.25,
-                height: size.height * 0.04,
-                child: const Text(
-                  "Get now",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600, color: Colors.white),
-                ),
-              )
+              StreamBuilder<bool>(
+                stream:
+                    PromotionRepository().isPromotionReceived(promotion.code),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CustomLoadingWidget();
+                  } else if (snapshot.hasData) {
+                    if (snapshot.data!) {
+                      return MyInkWell(
+                        width: size.width * 0.25,
+                        height: size.height * 0.04,
+                        child: const Text(
+                          "Received",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, color: Colors.white),
+                        ),
+                      );
+                    } else {
+                      return MyInkWell(
+                        onTap: onGetPromotion,
+                        width: size.width * 0.25,
+                        height: size.height * 0.04,
+                        child: const Text(
+                          "Get now",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, color: Colors.white),
+                        ),
+                      );
+                    }
+                  } else {
+                    return const SizedBox();
+                  }
+                },
+              ),
             ],
           ),
         ),

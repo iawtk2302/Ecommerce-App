@@ -3,7 +3,6 @@ import 'package:ecommerce_app/models/user_profile.dart';
 import 'package:ecommerce_app/repositories/user_repository.dart';
 import 'package:ecommerce_app/utils/firebase_constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepository {
@@ -15,13 +14,15 @@ class AuthRepository {
     try {
       await firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
+
       // Create user profile on Firestore
       UserProfile user = UserProfile(
           id: firebaseAuth.currentUser!.uid,
           name: name,
           gender: null,
           age: null,
-          email: email);
+          email: email,
+          eWalletBalance: 0);
       await currentUserRef.set(user.toMap());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -87,17 +88,17 @@ class AuthRepository {
     return userCredential;
   }
 
-  Future<UserCredential> signInWithFacebook() async {
-    // Trigger the sign-in flow
-    final LoginResult loginResult = await FacebookAuth.instance.login();
-
-    // Create a credential from the access token
-    final OAuthCredential facebookAuthCredential =
-        FacebookAuthProvider.credential(loginResult.accessToken!.token);
-
-    // Once signed in, return the UserCredential
-    return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
-  }
+  // Future<UserCredential> signInWithFacebook() async {
+  //   // Trigger the sign-in flow
+  //   // final LoginResult loginResult = await FacebookAuth.instance.login();
+  //
+  //   // Create a credential from the access token
+  //   // final OAuthCredential facebookAuthCredential =
+  //   //     FacebookAuthProvider.credential(loginResult.accessToken!.token);
+  //   //
+  //   // // Once signed in, return the UserCredential
+  //   return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+  // }
 
   Future<void> logOut() async {
     await firebaseAuth.signOut();

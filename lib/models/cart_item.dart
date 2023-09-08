@@ -1,9 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
-
-import 'package:ecommerce_app/extensions/string_extensions.dart';
-import 'package:ecommerce_app/models/product.dart';
 import 'package:flutter/material.dart';
+import 'package:ecommerce_app/models/product.dart';
 
 class CartItem {
   final String id;
@@ -26,7 +24,7 @@ class CartItem {
       product: Product.fromMap(map['product'] as Map<String, dynamic>),
       quantity: map['quantity'] as int,
       size: map['size'] as String,
-      color: (map['color'] as String).toColor(),
+      color: Color(map['color'] as int),
     );
   }
 
@@ -48,4 +46,16 @@ class CartItem {
       color: color ?? this.color,
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'id': id,
+      'product': product.toMap(),
+      'quantity': quantity,
+      'size': size,
+      'color': color.value,
+    };
+  }
+
+  String toJson() => json.encode(toMap());
 }

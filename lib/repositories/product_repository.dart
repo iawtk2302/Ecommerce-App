@@ -107,4 +107,11 @@ class ProductRepository {
       throw Exception(e);
     }
   }
+
+  Stream<bool> checkIsFavorite(String productId) {
+    return favoritesRef
+        .where('id', isEqualTo: productId)
+        .snapshots()
+        .map((querySnapshot) => querySnapshot.docs.isNotEmpty);
+  }
 }

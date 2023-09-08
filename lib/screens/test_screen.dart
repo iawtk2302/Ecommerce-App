@@ -27,7 +27,7 @@ class TestScreen extends StatelessWidget {
                 onPressed: () {
                   context.read<AuthBloc>().add(LogOut());
                 },
-                child: Text("Sign out"))
+                child: const Text("Sign out"))
           ],
         ),
       ),

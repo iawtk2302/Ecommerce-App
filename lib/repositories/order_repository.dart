@@ -38,6 +38,13 @@ class OrderRepository {
     }
   }
 
+  Stream<List<OrderProductDetail>> streamOrderItem({required String orderId}) {
+    return ordersRef.doc(orderId).collection("items").snapshots().map(
+        (snapshot) => snapshot.docs
+            .map((doc) => OrderProductDetail.fromMap(doc.data()))
+            .toList());
+  }
+
   Future<String> addOrder(
       {required OrderModel order, required List<CartItem> items}) async {
     final DateTime createdTime = DateTime.now();

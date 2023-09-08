@@ -2,6 +2,7 @@ import 'dart:convert';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class ShippingAddress {
+  final String id;
   final String recipientName;
   final String street;
   final String city;
@@ -14,6 +15,7 @@ class ShippingAddress {
   final double? longitude;
 
   ShippingAddress({
+    required this.id,
     required this.recipientName,
     required this.street,
     required this.city,
@@ -43,6 +45,7 @@ class ShippingAddress {
 
   factory ShippingAddress.fromMap(Map<String, dynamic> map) {
     return ShippingAddress(
+      id: "",
       recipientName: map['recipientName'] as String,
       street: map['street'] as String,
       city: map['city'] as String,
@@ -60,4 +63,32 @@ class ShippingAddress {
 
   factory ShippingAddress.fromJson(String source) =>
       ShippingAddress.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  ShippingAddress copyWith({
+    String? id,
+    String? recipientName,
+    String? street,
+    String? city,
+    String? state,
+    String? country,
+    String? zipCode,
+    String? countryCallingCode,
+    String? phoneNumber,
+    double? latitude,
+    double? longitude,
+  }) {
+    return ShippingAddress(
+      id: id ?? this.id,
+      recipientName: recipientName ?? this.recipientName,
+      street: street ?? this.street,
+      city: city ?? this.city,
+      state: state ?? this.state,
+      country: country ?? this.country,
+      zipCode: zipCode ?? this.zipCode,
+      countryCallingCode: countryCallingCode ?? this.countryCallingCode,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      latitude: latitude ?? this.latitude,
+      longitude: longitude ?? this.longitude,
+    );
+  }
 }

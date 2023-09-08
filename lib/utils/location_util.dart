@@ -2,6 +2,7 @@ import 'package:ecommerce_app/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:latlong2/latlong.dart';
 
 class LocationUtil {
   Future<bool> _handleLocationPermission(
@@ -36,25 +37,37 @@ class LocationUtil {
     return true;
   }
 
-  Future<Position?> getCurrentPosition({required BuildContext context}) async {
+  Future<LatLng?> getCurrentPosition({required BuildContext context}) async {
     final hasPermission = await _handleLocationPermission(context: context);
     if (!hasPermission) return null;
 
     try {
       final location = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
-      return location;
+      return LatLng(location.latitude, location.longitude);
     } catch (e) {
       throw Exception(e);
     }
   }
 
-  Future<Placemark> getLocationFromLatLng({required Position position}) async {
+  Future<Placemark> getLocationFromLatLng({required LatLng latLng}) async {
     try {
       List<Placemark> placemarks =
-          await placemarkFromCoordinates(position.latitude, position.longitude);
+          await placemarkFromCoordinates(latLng.latitude, latLng.longitude);
       Placemark place = placemarks[0];
       return place;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<LatLng?> getCoordinatesFromAddress(String address) async {
+    try {
+      List<Location> locations = await locationFromAddress(address);
+      if (locations.isEmpty) {
+        return null;
+      }
+      return LatLng(locations.first.latitude, locations.first.longitude);
     } catch (e) {
       throw Exception(e);
     }

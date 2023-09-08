@@ -1,3 +1,7 @@
+import 'package:ecommerce_app/constants/enums/gender.dart';
+import 'package:ecommerce_app/constants/enums/notification_type.dart';
+import 'package:ecommerce_app/models/e_wallet_transaction.dart';
+import 'package:ecommerce_app/constants/enums/message_type.dart';
 import 'package:ecommerce_app/models/order_status.dart';
 import 'package:ecommerce_app/models/promotion.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +33,32 @@ extension StringExtensions on String {
     }
   }
 
+  MessageType toMessageType() {
+    switch (this) {
+      case "text":
+        return MessageType.text;
+      case "image":
+        return MessageType.image;
+      case "voice":
+        return MessageType.voice;
+      default:
+        return MessageType.text;
+    }
+  }
+
+  NotificationType toNotificationType() {
+    switch (this) {
+      case "promotion":
+        return NotificationType.promotion;
+      case "advertisement":
+        return NotificationType.advertisement;
+      case "statusOrder":
+        return NotificationType.statusOrder;
+      default:
+        return NotificationType.promotion;
+    }
+  }
+
   String maskCardNumber() {
     int start = 4;
     int end = length - 4;
@@ -41,5 +71,13 @@ extension StringExtensions on String {
 
   OrderStatus toOrderStatus() {
     return stringToOrderStatus[this] ?? OrderStatus.pending;
+  }
+
+  Gender toGender() {
+    return stringToGender[this] ?? Gender.notHave;
+  }
+
+  EWalletTransactionType toEWalletTransactionType() {
+    return stringToEWalletTransactionType[this] ?? EWalletTransactionType.topUp;
   }
 }
