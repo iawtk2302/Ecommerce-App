@@ -5,6 +5,7 @@ import 'package:ecommerce_app/models/order.dart';
 import 'package:ecommerce_app/models/order_product_detail.dart';
 import 'package:ecommerce_app/models/order_status.dart';
 import 'package:ecommerce_app/models/tracking_status.dart';
+import 'package:ecommerce_app/repositories/statistics_repository.dart';
 import 'package:ecommerce_app/utils/firebase_constants.dart';
 
 class OrderRepository {
@@ -39,6 +40,7 @@ class OrderRepository {
 
   Future<String> addOrder(
       {required OrderModel order, required List<CartItem> items}) async {
+    final DateTime createdTime = DateTime.now();
     try {
       // add order
       final orderDoc = ordersRef.doc();
@@ -69,11 +71,18 @@ class OrderRepository {
       final trackingDoc =
           ordersRef.doc(orderDoc.id).collection("tracking").doc();
       futures.add(trackingDoc.set(TrackingStatus(
-          id: trackingDoc.id,
-          status: OrderStatus.pending,
-          createAt: Timestamp.fromDate(
-            DateTime.now(),
-          )).toMap()));
+              id: trackingDoc.id,
+              status: OrderStatus.pending,
+              createAt: Timestamp.fromDate(createdTime))
+          .toMap()));
+
+      // Update orders statistics
+      futures.add(StatisticsRepository()
+          .updateStatistics(orderValue: order.orderSummary.total));
+
+      // Update monthly sales
+      futures.add(StatisticsRepository().updateMonthlySales(
+          time: createdTime, orderValue: order.orderSummary.total));
 
       // wait for all tasks to complete
       await Future.wait(futures);
