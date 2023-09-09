@@ -5,16 +5,23 @@ import 'package:ecommerce_app/utils/firebase_constants.dart';
 class PromotionRepository {
   Future<List<Promotion>> fetchMyPromotions() async {
     try {
-      final QuerySnapshot snaps = await usersRef
+      List<Promotion> promotions = [];
+
+      final QuerySnapshot snapshot = await usersRef
           .doc(firebaseAuth.currentUser!.uid)
           .collection("promotions")
-          .where("startTime", isLessThan: Timestamp.fromDate(DateTime.now()))
           .where("endTime", isGreaterThan: Timestamp.fromDate(DateTime.now()))
           .get();
 
-      return snaps.docs
-          .map((e) => Promotion.fromMap(e.data() as Map<String, dynamic>))
-          .toList();
+      promotions.addAll(snapshot.docs
+          .map((e) => Promotion.fromMap(e.data() as Map<String, dynamic>)));
+      promotions
+          .removeWhere((element) => element.startTime.isAfter(DateTime.now()));
+      promotions.removeWhere((element) =>
+          element.quantity != null &&
+          element.usedQuantity >= element.quantity!);
+
+      return promotions;
     } catch (e) {
       throw Exception(e);
     }
