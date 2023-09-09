@@ -4,6 +4,7 @@ import 'package:ecommerce_app/models/cart_item.dart';
 import 'package:ecommerce_app/models/order.dart';
 import 'package:ecommerce_app/models/order_product_detail.dart';
 import 'package:ecommerce_app/models/order_status.dart';
+import 'package:ecommerce_app/models/promotion.dart';
 import 'package:ecommerce_app/models/tracking_status.dart';
 import 'package:ecommerce_app/repositories/statistics_repository.dart';
 import 'package:ecommerce_app/utils/firebase_constants.dart';
@@ -46,7 +47,9 @@ class OrderRepository {
   }
 
   Future<String> addOrder(
-      {required OrderModel order, required List<CartItem> items}) async {
+      {required OrderModel order,
+      required List<CartItem> items,
+      required Promotion? promotion}) async {
     final DateTime createdTime = DateTime.now();
     try {
       // add order
@@ -90,6 +93,13 @@ class OrderRepository {
       // Update monthly sales
       futures.add(StatisticsRepository().updateMonthlySales(
           time: createdTime, orderValue: order.orderSummary.total));
+
+      // Update number of promotions if user used promotion in order
+      if (promotion != null) {
+        futures.add(promotionsRef.doc(promotion.id).update({
+          "usedQuantity": FieldValue.increment(1),
+        }));
+      }
 
       // wait for all tasks to complete
       await Future.wait(futures);

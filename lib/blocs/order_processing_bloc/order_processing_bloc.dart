@@ -3,6 +3,7 @@ import 'package:ecommerce_app/extensions/payment_method_extension.dart';
 import 'package:ecommerce_app/models/cart_item.dart';
 import 'package:ecommerce_app/models/e_wallet_transaction.dart';
 import 'package:ecommerce_app/models/order.dart';
+import 'package:ecommerce_app/models/promotion.dart';
 import 'package:ecommerce_app/repositories/e_wallet_repository.dart';
 import 'package:ecommerce_app/repositories/order_repository.dart';
 import 'package:ecommerce_app/repositories/payment_methods_repository.dart';
@@ -21,8 +22,8 @@ class OrderProcessingBloc
   void _onAddOrder(AddOrder event, Emitter<OrderProcessingState> emit) async {
     emit(OrderProcessingAdding());
     try {
-      final String orderId = await OrderRepository()
-          .addOrder(order: event.order, items: event.items);
+      final String orderId = await OrderRepository().addOrder(
+          order: event.order, items: event.items, promotion: event.promotion);
 
       if (event.order.paymentMethod == PaymentMethods.eWallet.code) {
         await EWalletRepository().payOrder(

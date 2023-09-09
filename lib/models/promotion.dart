@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:ecommerce_app/extensions/promotion_type_extensions.dart';
+import 'package:ecommerce_app/extensions/screen_extensions.dart';
 import 'package:ecommerce_app/extensions/string_extensions.dart';
 
 class Promotion {
@@ -14,6 +15,9 @@ class Promotion {
   final double? maximumDiscountValue;
   final DateTime startTime;
   final DateTime endTime;
+  final int? quantity; // if it is null, it means unlimited
+  final int usedQuantity;
+  final bool isDeleted;
 
   Promotion({
     required this.id,
@@ -25,6 +29,9 @@ class Promotion {
     this.maximumDiscountValue,
     required this.startTime,
     required this.endTime,
+    required this.quantity,
+    required this.usedQuantity,
+    required this.isDeleted,
   });
 
   Map<String, dynamic> toMap() {
@@ -38,6 +45,9 @@ class Promotion {
       'maximumDiscountValue': maximumDiscountValue,
       'startTime': startTime,
       'endTime': endTime,
+      'quantity': quantity,
+      'usedQuantity': usedQuantity,
+      'isDeleted': isDeleted,
     };
   }
 
@@ -51,6 +61,88 @@ class Promotion {
         return FixedAmountPromotion.fromMap(map);
       default:
         return FreeShippingPromotion.fromMap(map);
+    }
+  }
+
+  factory Promotion.create({
+    required PromotionType type,
+    required String id,
+    required String code,
+    required String content,
+    double? minimumOrderValue,
+    double? maximumDiscountValue,
+    required String imgUrl,
+    required DateTime startTime,
+    required DateTime endTime,
+    required int? quantity,
+    required int usedQuantity,
+    required double
+        discountAmount, // represent for percentage or fixed amount and 0 for free shipping
+    required bool isDeleted,
+  }) {
+    switch (type) {
+      case PromotionType.freeShipping:
+        return FreeShippingPromotion(
+          id: id,
+          code: code,
+          content: content,
+          imgUrl: imgUrl,
+          type: type,
+          maximumDiscountValue: maximumDiscountValue,
+          minimumOrderValue: minimumOrderValue,
+          startTime: startTime,
+          endTime: endTime,
+          quantity: quantity,
+          usedQuantity: usedQuantity,
+          isDeleted: isDeleted,
+        );
+      case PromotionType.percentage:
+        return PercentagePromotion(
+          id: id,
+          code: code,
+          content: content,
+          imgUrl: imgUrl,
+          type: type,
+          maximumDiscountValue: maximumDiscountValue,
+          minimumOrderValue: minimumOrderValue,
+          startTime: startTime,
+          endTime: endTime,
+          quantity: quantity,
+          usedQuantity: usedQuantity,
+          percentage: discountAmount.toInt(),
+          isDeleted: isDeleted,
+        );
+      case PromotionType.fixedAmount:
+        return FixedAmountPromotion(
+          id: id,
+          code: code,
+          content: content,
+          imgUrl: imgUrl,
+          type: type,
+          maximumDiscountValue: maximumDiscountValue,
+          minimumOrderValue: minimumOrderValue,
+          startTime: startTime,
+          endTime: endTime,
+          quantity: quantity,
+          usedQuantity: usedQuantity,
+          amount: discountAmount.toDouble(),
+          isDeleted: isDeleted,
+        );
+      default:
+        return FreeShippingPromotion(
+          id: id,
+          code: code,
+          content: content,
+          imgUrl: imgUrl,
+          type: type,
+          maximumDiscountValue: maximumDiscountValue,
+          minimumOrderValue: minimumOrderValue,
+          startTime: startTime,
+          endTime: endTime,
+          quantity: quantity,
+          usedQuantity: usedQuantity,
+          isDeleted: isDeleted,
+        );
     }
   }
 
@@ -69,6 +161,9 @@ class Promotion {
     double? maximumDiscountValue,
     DateTime? startTime,
     DateTime? endTime,
+    int? quantity,
+    int? usedQuantity,
+    bool? isDeleted,
   }) {
     return Promotion(
       id: id ?? this.id,
@@ -80,21 +175,31 @@ class Promotion {
       maximumDiscountValue: maximumDiscountValue ?? this.maximumDiscountValue,
       startTime: startTime ?? this.startTime,
       endTime: endTime ?? this.endTime,
+      quantity: quantity ?? this.quantity,
+      usedQuantity: usedQuantity ?? this.usedQuantity,
+      isDeleted: isDeleted ?? this.isDeleted,
     );
   }
+
+  double get amount => 0;
+  String get amountString => "";
 }
 
 class FreeShippingPromotion extends Promotion {
-  FreeShippingPromotion(
-      {required super.id,
-      required super.code,
-      required super.content,
-      required super.imgUrl,
-      required super.type,
-      super.minimumOrderValue,
-      super.maximumDiscountValue,
-      required super.startTime,
-      required super.endTime});
+  FreeShippingPromotion({
+    required super.id,
+    required super.code,
+    required super.content,
+    required super.imgUrl,
+    required super.type,
+    super.minimumOrderValue,
+    super.maximumDiscountValue,
+    required super.startTime,
+    required super.endTime,
+    required super.quantity,
+    required super.usedQuantity,
+    required super.isDeleted,
+  });
 
   factory FreeShippingPromotion.fromMap(Map<String, dynamic> map) {
     return FreeShippingPromotion(
@@ -107,28 +212,41 @@ class FreeShippingPromotion extends Promotion {
       maximumDiscountValue: map['maximumDiscountValue']?.toDouble(),
       startTime: map['startTime'].toDate(),
       endTime: map['endTime'].toDate(),
+      quantity: map['quantity'] ?? 0,
+      usedQuantity: map['usedQuantity'] ?? 0,
+      isDeleted: map['isDeleted'] ?? false,
     );
   }
 
   factory FreeShippingPromotion.fromJson(String source) =>
       FreeShippingPromotion.fromMap(
           json.decode(source) as Map<String, dynamic>);
+
+  @override
+  String get amountString => "0";
+
+  @override
+  double get amount => 0;
 }
 
 class PercentagePromotion extends Promotion {
   final int percentage;
 
-  PercentagePromotion(
-      {required super.id,
-      required super.code,
-      required super.content,
-      required super.imgUrl,
-      required super.type,
-      super.minimumOrderValue,
-      super.maximumDiscountValue,
-      required super.startTime,
-      required super.endTime,
-      required this.percentage});
+  PercentagePromotion({
+    required super.id,
+    required super.code,
+    required super.content,
+    required super.imgUrl,
+    required super.type,
+    super.minimumOrderValue,
+    super.maximumDiscountValue,
+    required super.startTime,
+    required super.endTime,
+    required super.quantity,
+    required super.usedQuantity,
+    required super.isDeleted,
+    required this.percentage,
+  });
 
   @override
   Map<String, dynamic> toMap() {
@@ -142,6 +260,9 @@ class PercentagePromotion extends Promotion {
       'maximumDiscountValue': maximumDiscountValue,
       'startTime': startTime,
       'endTime': endTime,
+      'quantity': quantity,
+      'usedQuantity': usedQuantity,
+      'isDeleted': isDeleted,
       'percentage': percentage,
     };
   }
@@ -157,6 +278,9 @@ class PercentagePromotion extends Promotion {
       maximumDiscountValue: map['maximumDiscountValue']?.toDouble(),
       startTime: map['startTime'].toDate(),
       endTime: map['endTime'].toDate(),
+      quantity: map['quantity'] ?? 0,
+      usedQuantity: map['usedQuantity'] ?? 0,
+      isDeleted: map['isDeleted'] ?? false,
       percentage: map['percentage'] as int,
     );
   }
@@ -166,9 +290,49 @@ class PercentagePromotion extends Promotion {
 
   factory PercentagePromotion.fromJson(String source) =>
       PercentagePromotion.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  @override
+  String get amountString => "$percentage%";
+
+  @override
+  double get amount => percentage.toDouble();
+
+  @override
+  PercentagePromotion copyWith({
+    int? percentage,
+    String? id,
+    String? code,
+    String? content,
+    String? imgUrl,
+    PromotionType? type,
+    double? minimumOrderValue,
+    double? maximumDiscountValue,
+    DateTime? startTime,
+    DateTime? endTime,
+    int? quantity,
+    int? usedQuantity,
+    bool? isDeleted,
+  }) {
+    return PercentagePromotion(
+      percentage: percentage ?? this.percentage,
+      id: id ?? this.id,
+      code: code ?? this.code,
+      content: content ?? this.content,
+      imgUrl: imgUrl ?? this.imgUrl,
+      type: type ?? this.type,
+      minimumOrderValue: minimumOrderValue ?? this.minimumOrderValue,
+      maximumDiscountValue: maximumDiscountValue ?? this.maximumDiscountValue,
+      startTime: startTime ?? this.startTime,
+      endTime: endTime ?? this.endTime,
+      quantity: quantity ?? this.quantity,
+      usedQuantity: usedQuantity ?? this.usedQuantity,
+      isDeleted: isDeleted ?? this.isDeleted,
+    );
+  }
 }
 
 class FixedAmountPromotion extends Promotion {
+  @override
   final double amount;
 
   FixedAmountPromotion(
@@ -181,6 +345,9 @@ class FixedAmountPromotion extends Promotion {
       super.minimumOrderValue,
       required super.startTime,
       required super.endTime,
+      required super.quantity,
+      required super.usedQuantity,
+      required super.isDeleted,
       required this.amount});
 
   @override
@@ -195,6 +362,9 @@ class FixedAmountPromotion extends Promotion {
       'maximumDiscountValue': maximumDiscountValue,
       'startTime': startTime,
       'endTime': endTime,
+      'quantity': quantity,
+      'usedQuantity': usedQuantity,
+      'isDeleted': isDeleted,
       'amount': amount,
     };
   }
@@ -210,6 +380,9 @@ class FixedAmountPromotion extends Promotion {
       maximumDiscountValue: map['maximumDiscountValue']?.toDouble(),
       startTime: map['startTime'].toDate(),
       endTime: map['endTime'].toDate(),
+      quantity: map['quantity'] ?? 0,
+      usedQuantity: map['usedQuantity'] ?? 0,
+      isDeleted: map['isDeleted'] ?? false,
       amount: map['amount'].toDouble(),
     );
   }
@@ -219,6 +392,42 @@ class FixedAmountPromotion extends Promotion {
 
   factory FixedAmountPromotion.fromJson(String source) =>
       FixedAmountPromotion.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  @override
+  String get amountString => amount.toPriceString();
+
+  @override
+  FixedAmountPromotion copyWith({
+    double? amount,
+    String? id,
+    String? code,
+    String? content,
+    String? imgUrl,
+    PromotionType? type,
+    double? minimumOrderValue,
+    double? maximumDiscountValue,
+    DateTime? startTime,
+    DateTime? endTime,
+    int? quantity,
+    int? usedQuantity,
+    bool? isDeleted,
+  }) {
+    return FixedAmountPromotion(
+      amount: amount ?? this.amount,
+      id: id ?? this.id,
+      code: code ?? this.code,
+      content: content ?? this.content,
+      imgUrl: imgUrl ?? this.imgUrl,
+      type: type ?? this.type,
+      minimumOrderValue: minimumOrderValue ?? this.minimumOrderValue,
+      maximumDiscountValue: maximumDiscountValue ?? this.maximumDiscountValue,
+      startTime: startTime ?? this.startTime,
+      endTime: endTime ?? this.endTime,
+      quantity: quantity ?? this.quantity,
+      usedQuantity: usedQuantity ?? this.usedQuantity,
+      isDeleted: isDeleted ?? this.isDeleted,
+    );
+  }
 }
 
 enum PromotionType { freeShipping, percentage, fixedAmount }

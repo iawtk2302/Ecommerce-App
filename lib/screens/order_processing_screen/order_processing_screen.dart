@@ -170,6 +170,7 @@ class _OrderProcessingScreenState extends State<OrderProcessingScreen> {
               items: placeOrderState.cart!.cartItems,
               cartItems: placeOrderState.cart?.cartItems ?? [],
               cardNumber: placeOrderState.paymentInformation?.cardNumber ?? "",
+              promotion: placeOrderState.promotion,
             ),
           );
     } else {
