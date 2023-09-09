@@ -8,7 +8,6 @@ class PromotionRepository {
       final QuerySnapshot snaps = await usersRef
           .doc(firebaseAuth.currentUser!.uid)
           .collection("promotions")
-          .where("startTime", isLessThan: Timestamp.fromDate(DateTime.now()))
           .where("endTime", isGreaterThan: Timestamp.fromDate(DateTime.now()))
           .get();
 
