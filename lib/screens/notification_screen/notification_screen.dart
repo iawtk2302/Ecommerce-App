@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/common_widgets/custom_loading_widget.dart';
 import 'package:ecommerce_app/common_widgets/screen_name_section.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
+import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/models/user_notification.dart';
 import 'package:ecommerce_app/repositories/notification_repository.dart';
 import 'package:ecommerce_app/screens/notification_screen/widgets/notification_item.dart';
@@ -18,22 +19,34 @@ class _NotificationScreenState extends State<NotificationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const ScreenNameSection(label: 'Notification'),
-            StreamBuilder<List<UserNotification>>(
-                stream: NotificationRepository().fetchNotifications(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CustomLoadingWidget();
-                  } else if (snapshot.hasData) {
-                    return ListView.separated(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const ScreenNameSection(label: 'Notification'),
+          StreamBuilder<List<UserNotification>>(
+              stream: NotificationRepository().fetchNotifications(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return const Center(
+                    child: Text("Something went wrong"),
+                  );
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const CustomLoadingWidget();
+                }
+                if (snapshot.hasData) {
+                  if (snapshot.data!.isEmpty) {
+                    return const Center(
+                      child: Text('No notification yet',
+                          style: AppStyles.bodyMedium),
+                    );
+                  }
+                  return Expanded(
+                    child: ListView.separated(
                       padding: const EdgeInsets.symmetric(
                           horizontal: AppDimensions.defaultPadding),
                       shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
+                      // physics: const NeverScrollableScrollPhysics(),
                       separatorBuilder: (context, index) => const Divider(),
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
@@ -41,13 +54,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           userNotification: snapshot.data![index],
                         );
                       },
-                    );
-                  } else {
-                    return const SizedBox();
-                  }
-                }),
-          ],
-        ),
+                    ),
+                  );
+                }
+                return const SizedBox();
+              }),
+        ],
       ),
     ));
   }
