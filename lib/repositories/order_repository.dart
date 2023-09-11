@@ -110,6 +110,13 @@ class OrderRepository {
         });
       }
 
+      // Update product statistics
+      final soldCount = items.fold(
+          0, (previousValue, element) => previousValue + element.quantity);
+      batch.update(productsStatisticsDocRef, {
+        "soldQuantity": FieldValue.increment(soldCount),
+      });
+
       // wait for all tasks to complete
       futures.add(batch.commit());
       await Future.wait(futures);
@@ -138,13 +145,10 @@ class OrderRepository {
 
   Future<OrderModel?> getOrderByOrderNumber(String orderNumber) async {
     try {
-      print(orderNumber);
       final snapshot = await ordersRef
           .where("orderNumber", isEqualTo: orderNumber.trim())
           .get();
-      print(snapshot.docs.length);
       if (snapshot.docs.isNotEmpty) {
-        print("IS NOT EMPTY");
         return OrderModel.fromMap(
             snapshot.docs.first.data() as Map<String, dynamic>);
       } else {
