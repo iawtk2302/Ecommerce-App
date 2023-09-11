@@ -17,6 +17,7 @@ class AppAssets {
   static const String icPromotion = "$iconPath/ic_discount.svg";
   static const String icAddAddress = "$iconPath/ic_add_item.svg";
   static const String icScan = "$iconPath/ic_scan.svg";
+  static const String icScanQr = "$iconPath/ic_scan_qr.svg";
   static const String icEdit = "$iconPath/ic_edit.svg";
   static const String icEditBold = "$iconPath/ic_edit_bold.svg";
   static const String icAddRound = "$iconPath/ic_add_round.svg";
