@@ -135,17 +135,19 @@ class OrderTrackingScreen extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(width: 10),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "${trackingStatusTitle[status.status]}",
-                              style: AppStyles.labelMedium,
-                            ),
-                            if (status.currentLocation != null)
-                              Text("${status.currentLocation}",
-                                  style: AppStyles.bodyMedium),
-                          ],
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "${trackingStatusTitle[status.status]}",
+                                style: AppStyles.labelMedium,
+                              ),
+                              if (status.currentLocation != null)
+                                Text("${status.currentLocation}",
+                                    style: AppStyles.bodyMedium),
+                            ],
+                          ),
                         ),
                       ],
                     );

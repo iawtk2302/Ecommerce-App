@@ -125,4 +125,23 @@ class OrderRepository {
       throw Exception(e);
     }
   }
+
+  Future<OrderModel?> getOrderByOrderNumber(String orderNumber) async {
+    try {
+      print(orderNumber);
+      final snapshot = await ordersRef
+          .where("orderNumber", isEqualTo: orderNumber.trim())
+          .get();
+      print(snapshot.docs.length);
+      if (snapshot.docs.isNotEmpty) {
+        print("IS NOT EMPTY");
+        return OrderModel.fromMap(
+            snapshot.docs.first.data() as Map<String, dynamic>);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }
