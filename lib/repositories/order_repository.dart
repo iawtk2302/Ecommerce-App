@@ -57,13 +57,15 @@ class OrderRepository {
       order = order.copyWith(id: orderDoc.id);
       await orderDoc.set(order.toMap());
 
-      // this list is used to hold 2 tasks (adding items and adding tracking list)
+      // this list is used to hold tasks
       // purpose: run these tasks concurrently and only finish when both of them finish
       List<Future> futures = [];
+      WriteBatch batch = firestore.batch();
 
       // add order items
       for (var item in items) {
         final itemDoc = ordersRef.doc(orderDoc.id).collection("items").doc();
+        final productDoc = productsRef.doc(item.product.id);
         final convertedItem = OrderProductDetail(
             id: itemDoc.id,
             productId: item.product.id,
@@ -74,17 +76,24 @@ class OrderRepository {
             color: item.color.toColorCode(),
             size: item.size,
             quantity: item.quantity);
-        futures.add(itemDoc.set(convertedItem.toMap()));
+        batch.set(itemDoc, convertedItem.toMap());
+        // Update number of products in stock and sold
+        batch.update(productDoc, {
+          "stockCount": FieldValue.increment(-item.quantity),
+          "soldCount": FieldValue.increment(item.quantity),
+        });
       }
 
       // add tracking list
       final trackingDoc =
           ordersRef.doc(orderDoc.id).collection("tracking").doc();
-      futures.add(trackingDoc.set(TrackingStatus(
-              id: trackingDoc.id,
-              status: OrderStatus.pending,
-              createAt: Timestamp.fromDate(createdTime))
-          .toMap()));
+      batch.set(
+          trackingDoc,
+          TrackingStatus(
+                  id: trackingDoc.id,
+                  status: OrderStatus.pending,
+                  createAt: Timestamp.fromDate(createdTime))
+              .toMap());
 
       // Update orders statistics
       futures.add(StatisticsRepository()
@@ -96,12 +105,13 @@ class OrderRepository {
 
       // Update number of promotions if user used promotion in order
       if (promotion != null) {
-        futures.add(promotionsRef.doc(promotion.id).update({
+        batch.update(promotionsRef.doc(promotion.id), {
           "usedQuantity": FieldValue.increment(1),
-        }));
+        });
       }
 
       // wait for all tasks to complete
+      futures.add(batch.commit());
       await Future.wait(futures);
       return orderDoc.id;
     } catch (e) {
