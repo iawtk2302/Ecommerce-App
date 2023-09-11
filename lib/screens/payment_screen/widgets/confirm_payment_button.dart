@@ -5,6 +5,7 @@ import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/models/payment_method_resource.dart';
 import 'package:ecommerce_app/screens/order_processing_screen/order_processing_screen.dart';
+import 'package:ecommerce_app/screens/set_passcode_screen/set_passcode_screen.dart';
 import 'package:ecommerce_app/utils/passcode_utils.dart';
 import 'package:ecommerce_app/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,8 @@ class ConfirmPaymentButton extends StatelessWidget {
             passcode: passcode,
             onTruePasscode: () => _onTruePasscode(context: context),
           );
+        } else {
+          Navigator.pushNamed(context, SetPasscodeScreen.routeName);
         }
       });
     }
