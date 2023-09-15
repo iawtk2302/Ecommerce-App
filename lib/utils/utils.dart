@@ -1,5 +1,9 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:ecommerce_app/common_widgets/my_button.dart';
 import 'package:ecommerce_app/common_widgets/my_icon.dart';
+import 'package:ecommerce_app/config/zalopay_config.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
@@ -7,9 +11,11 @@ import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/utils/local_auth_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sprintf/sprintf.dart';
 import 'package:url_launcher/url_launcher.dart' as url_launcher;
 
 class Utils {
@@ -291,5 +297,36 @@ class Utils {
         );
       },
     );
+  }
+
+  int transIdDefault = 1;
+  String getAppTransId() {
+    if (transIdDefault >= 100000) {
+      transIdDefault = 1;
+    }
+
+    transIdDefault += 1;
+    var timeString = formatDateTime(DateTime.now(), "yyMMdd_hhmmss");
+    return sprintf("%s%06d", [timeString, transIdDefault]);
+  }
+
+  String getBankCode() => "zalopayapp";
+  String getDescription(String apptransid) =>
+      "Ecommerce App thanh toán cho đơn hàng  #$apptransid";
+
+  String getMacCreateOrder(String data) {
+    var hmac = Hmac(sha256, utf8.encode(ZaloPayConfig.key1));
+    return hmac.convert(utf8.encode(data)).toString();
+  }
+
+  /// Function Format DateTime to String with layout string
+  String formatNumber(double value) {
+    final f = NumberFormat("#,###", "vi_VN");
+    return f.format(value);
+  }
+
+  /// Function Format DateTime to String with layout string
+  String formatDateTime(DateTime dateTime, String layout) {
+    return DateFormat(layout).format(dateTime).toString();
   }
 }

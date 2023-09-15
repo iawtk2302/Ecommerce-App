@@ -1,3 +1,5 @@
+import 'package:flutter/services.dart';
+
 class AppConfig {
   static const int appIDCallService = 873318300;
   static const String appSignCallService =
@@ -7,4 +9,6 @@ class AppConfig {
   static const String mapBoxAccessToken =
       "pk.eyJ1IjoidmluZ3V5ZW4xOTA3IiwiYSI6ImNsbHRubXN3bDB0a3MzbHBobGt2OGNuNm8ifQ.6oNaNr-WUHZSqDfsefLG3Q";
   static const String mapBoxStyleId = "clltnt5bi00bc01pf7ede43ab";
+  static const MethodChannel platform =
+      MethodChannel('flutter.native/channelPayOrder');
 }
