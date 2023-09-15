@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:ecommerce_app/common_widgets/my_app_bar.dart';
 import 'package:ecommerce_app/common_widgets/my_icon.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
@@ -5,7 +7,7 @@ import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/services/chat_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sound/flutter_sound.dart';
+import 'package:flutter_sound_record/flutter_sound_record.dart';
 import 'package:lottie/lottie.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -17,45 +19,61 @@ class RecordVoiceScreen extends StatefulWidget {
 }
 
 class _RecordVoiceScreenState extends State<RecordVoiceScreen> {
-  final FlutterSoundRecorder _flutterSoundRecorder = FlutterSoundRecorder();
+  final FlutterSoundRecord _flutterSoundRecorder = FlutterSoundRecord();
   bool _isRecording = false;
   bool _isAnimated = false;
   String _filePath = '';
-  @override
-  void initState() {
-    super.initState();
-    initRecorder();
-  }
+  int _recordDuration = 0;
+  Timer? _timer;
+  Timer? _ampTimer;
 
   @override
   void dispose() {
-    _flutterSoundRecorder.closeRecorder();
+    _timer?.cancel();
+    _ampTimer?.cancel();
+    _flutterSoundRecorder.dispose();
     super.dispose();
   }
 
-  void initRecorder() async {
-    await _flutterSoundRecorder.openRecorder();
-    _flutterSoundRecorder
-        .setSubscriptionDuration(const Duration(milliseconds: 500));
-  }
-
   void startRecording() async {
-    await _flutterSoundRecorder.startRecorder(
-      toFile: 'audio',
+    final path = await getTemporaryDirectory();
+    await _flutterSoundRecorder.start(
+      path:
+          '${path.path}/${DateTime.now().millisecondsSinceEpoch.toString()}.m4a', // required
+      encoder: AudioEncoder.AAC, // by default
+      bitRate: 128000, // by default
+      samplingRate: 44100, // by default
     );
-    _filePath = '';
     setState(() {
       _isRecording = true;
       _isAnimated = true;
+      _recordDuration = 0;
+    });
+    _startTimer();
+  }
+
+  void _startTimer() {
+    _timer?.cancel();
+    _ampTimer?.cancel();
+
+    _timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
+      setState(() => _recordDuration++);
+    });
+
+    _ampTimer =
+        Timer.periodic(const Duration(milliseconds: 200), (Timer t) async {
+      setState(() {});
     });
   }
 
   void stopRecording() async {
-    _filePath = (await _flutterSoundRecorder.stopRecorder())!;
+    _filePath = (await _flutterSoundRecorder.stop())!;
     setState(() {
       _isRecording = false;
       _isAnimated = false;
     });
+    _timer?.cancel();
+    _ampTimer?.cancel();
   }
 
   @override
@@ -70,22 +88,7 @@ class _RecordVoiceScreenState extends State<RecordVoiceScreen> {
               icon: AppAssets.icMic,
               height: 150,
             ),
-            StreamBuilder<RecordingDisposition>(
-              stream: _flutterSoundRecorder.onProgress,
-              builder: (context, snapshot) {
-                final Duration duration =
-                    snapshot.hasData ? snapshot.data!.duration : Duration.zero;
-                String twoDigit(int n) => n.toString().padLeft(2, '0');
-                String twoDigitMinutes =
-                    twoDigit(duration.inMinutes.remainder(60));
-                String twoDigitSeconds =
-                    twoDigit(duration.inSeconds.remainder(60));
-                return Text(
-                  '$twoDigitMinutes:$twoDigitSeconds',
-                  style: AppStyles.displayLarge,
-                );
-              },
-            ),
+            _buildTimer(),
             LottieBuilder.asset(
               AppAssets.lottieAudio,
               animate: _isAnimated,
@@ -138,5 +141,24 @@ class _RecordVoiceScreenState extends State<RecordVoiceScreen> {
       Navigator.of(context).pop();
       await ChatService().sendVoiceMessage(_filePath);
     }
+  }
+
+  Widget _buildTimer() {
+    final String minutes = _formatNumber(_recordDuration ~/ 60);
+    final String seconds = _formatNumber(_recordDuration % 60);
+
+    return Text(
+      '$minutes : $seconds',
+      style: AppStyles.displayLarge,
+    );
+  }
+
+  String _formatNumber(int number) {
+    String numberStr = number.toString();
+    if (number < 10) {
+      numberStr = '0$numberStr';
+    }
+
+    return numberStr;
   }
 }

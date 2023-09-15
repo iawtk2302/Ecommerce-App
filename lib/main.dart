@@ -41,7 +41,6 @@ Future<void> main() async {
   );
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   String? token = await messaging.getToken();
-  print('fcm token:' + token!);
   runApp(MyApp(
     navigatorKey: navigatorKey,
   ));

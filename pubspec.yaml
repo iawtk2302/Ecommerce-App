@@ -41,7 +41,7 @@ dependencies:
   flutter_svg: ^2.0.7
   smooth_page_indicator: ^1.1.0
   firebase_auth: ^4.7.2
-  lottie: ^2.5.0
+  lottie: ^2.6.0
   cloud_firestore: ^4.8.4
   shared_preferences: ^2.2.0
   google_sign_in: ^6.1.4
@@ -67,7 +67,6 @@ dependencies:
   firebase_storage: ^11.2.6
   audioplayers: ^4.1.0
   image_picker: ^1.0.2
-  flutter_sound: ^9.2.13
   permission_handler: ^10.4.3
   zego_uikit_prebuilt_call: ^3.12.3
   zego_uikit_signaling_plugin: ^2.3.2
@@ -79,6 +78,7 @@ dependencies:
   latlong2: ^0.8.0
   firebase_messaging: ^14.6.7
   flutter_local_notifications: ^15.1.1
+  flutter_sound_record: ^3.3.2
 
 dev_dependencies:
   flutter_test:

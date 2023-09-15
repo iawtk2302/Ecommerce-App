@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/extensions/date_time_extension.dart';
 import 'package:ecommerce_app/models/message.dart';
 import 'package:ecommerce_app/utils/firebase_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class VoiceMessageItem extends StatefulWidget {
   const VoiceMessageItem({super.key, required this.message});
@@ -17,9 +19,8 @@ class _VoiceMessageItemState extends State<VoiceMessageItem> {
   bool isPlaying = false;
   late final AudioPlayer player;
   late final UrlSource path;
-  Duration _duration = const Duration();
-  Duration _position = const Duration();
   bool isShowTime = false;
+  bool isAnimated = false;
   @override
   void initState() {
     initPlayer();
@@ -35,19 +36,10 @@ class _VoiceMessageItemState extends State<VoiceMessageItem> {
   Future initPlayer() async {
     player = AudioPlayer();
     path = UrlSource(widget.message.audioUrl);
-
-    player.onDurationChanged.listen((Duration d) {
-      setState(() => _duration = d);
-    });
-
-    player.onPositionChanged.listen((Duration p) {
-      setState(() => _position = p);
-    });
-
     player.onPlayerComplete.listen((_) {
       setState(() {
         isPlaying = false;
-        _position = const Duration();
+        isAnimated = false;
       });
     });
   }
@@ -56,9 +48,11 @@ class _VoiceMessageItemState extends State<VoiceMessageItem> {
     if (isPlaying) {
       player.pause();
       isPlaying = false;
+      isAnimated = false;
     } else {
       player.play(path);
       isPlaying = true;
+      isAnimated = true;
     }
     setState(() {});
   }
@@ -107,29 +101,16 @@ class _VoiceMessageItemState extends State<VoiceMessageItem> {
                           : AppColors.whiteColor,
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                    width: 110,
-                    child: Slider(
-                      value: _position.inSeconds.toDouble(),
-                      onChanged: (value) async {
-                        await player.seek(Duration(seconds: value.toInt()));
-                        setState(() {});
-                      },
-                      min: 0,
-                      max: _duration.inSeconds.toDouble(),
-                      inactiveColor: Colors.grey,
-                      activeColor: isUser
-                          ? AppColors.primaryColor
-                          : AppColors.whiteColor,
+                  ColorFiltered(
+                    colorFilter: ColorFilter.mode(
+                        isUser ? AppColors.primaryColor : AppColors.whiteColor,
+                        BlendMode.srcIn),
+                    child: LottieBuilder.asset(
+                      AppAssets.lottieAudio1,
+                      animate: isAnimated,
+                      height: 40,
+                      fit: BoxFit.contain,
                     ),
-                  ),
-                  Text(
-                    (_duration - _position).toString().substring(2, 7),
-                    style: TextStyle(
-                        color: isUser
-                            ? AppColors.primaryColor
-                            : AppColors.whiteColor),
                   ),
                 ],
               ),

@@ -20,7 +20,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   bool firstTime =
       true; // It is used for marking this is the first time load user for whole app.
-
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

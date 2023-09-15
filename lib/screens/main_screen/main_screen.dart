@@ -6,6 +6,7 @@ import 'package:ecommerce_app/screens/main_screen/widgets/nav_bar.dart';
 import 'package:ecommerce_app/screens/notification_screen/notification_screen.dart';
 import 'package:ecommerce_app/screens/profile_screen/profile_screen.dart';
 import 'package:ecommerce_app/screens/sign_in_screen/sign_in_screen.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,11 +24,23 @@ class _MainScreenState extends State<MainScreen> {
     const NotificationScreen(),
     const ProfileScreen()
   ];
+  // final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   int currentIndex = 0;
 
   void onTap(int index) {
     setState(() {
       currentIndex = index;
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FirebaseMessaging.onMessageOpenedApp.listen((event) {
+      setState(() {
+        currentIndex = 2;
+      });
     });
   }
 
