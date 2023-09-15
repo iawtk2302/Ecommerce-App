@@ -80,6 +80,8 @@ dependencies:
   firebase_messaging: ^14.6.7
   flutter_local_notifications: ^15.1.1
   qr_code_scanner: ^1.0.1
+  sprintf: ^7.0.0
+  crypto: ^3.0.3
 
 dev_dependencies:
   flutter_test:

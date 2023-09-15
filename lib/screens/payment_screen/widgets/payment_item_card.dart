@@ -64,7 +64,7 @@ class PaymentItemCard extends StatelessWidget {
                               ? AppColors.whiteColor
                               : AppColors.primaryColor),
                     ),
-                    if (paymentCard != null)
+                    if (paymentCard != null && paymentCard!.cardNumber != null)
                       Text(
                         paymentCard!.cardNumber?.maskCardNumber() ?? "",
                         style: AppStyles.bodyLarge.copyWith(
