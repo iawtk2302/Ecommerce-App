@@ -62,13 +62,18 @@ class ChoosePromotionScreen extends StatelessWidget {
                           return const SizedBox(height: 10);
                         },
                         itemBuilder: (_, index) {
-                          return PromotionItem(
-                            promotion: promotions[index],
-                            width:
-                                size.width - 2 * AppDimensions.defaultPadding,
-                            height: size.height * 0.2,
-                            onGetPromotion: () => _onGetPromotion(
+                          return InkWell(
+                            onTap: () => _onGetPromotion(
                                 context: context, promotion: promotions[index]),
+                            child: PromotionItem(
+                              promotion: promotions[index],
+                              width:
+                                  size.width - 2 * AppDimensions.defaultPadding,
+                              height: size.height * 0.2,
+                              onGetPromotion: () => _onGetPromotion(
+                                  context: context,
+                                  promotion: promotions[index]),
+                            ),
                           );
                         }),
                   );
