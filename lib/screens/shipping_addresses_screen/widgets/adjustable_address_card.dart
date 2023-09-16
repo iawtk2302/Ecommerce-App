@@ -1,5 +1,4 @@
 import 'package:ecommerce_app/blocs/addresses_bloc/addresses_bloc.dart';
-import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/models/shipping_address.dart';
 import 'package:ecommerce_app/screens/add_address_screen/add_address_screen.dart';
@@ -30,8 +29,8 @@ class AdjustableAddressCard extends StatelessWidget {
             SlidableAction(
               autoClose: true,
               onPressed: (context) => _onDeleteAddress(context),
-              backgroundColor: AppColors.primaryColor,
-              foregroundColor: AppColors.whiteColor,
+              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+              foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
               icon: Icons.delete,
               borderRadius: BorderRadius.circular(12),
               padding: const EdgeInsets.symmetric(horizontal: 12),
