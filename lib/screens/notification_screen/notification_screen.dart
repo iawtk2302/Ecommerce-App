@@ -1,7 +1,6 @@
 import 'package:ecommerce_app/common_widgets/custom_loading_widget.dart';
 import 'package:ecommerce_app/common_widgets/screen_name_section.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/models/user_notification.dart';
 import 'package:ecommerce_app/repositories/notification_repository.dart';
 import 'package:ecommerce_app/screens/notification_screen/widgets/notification_item.dart';
@@ -36,9 +35,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 }
                 if (snapshot.hasData) {
                   if (snapshot.data!.isEmpty) {
-                    return const Center(
+                    return Center(
                       child: Text('No notification yet',
-                          style: AppStyles.bodyMedium),
+                          style: Theme.of(context).textTheme.bodyMedium),
                     );
                   }
                   return Expanded(

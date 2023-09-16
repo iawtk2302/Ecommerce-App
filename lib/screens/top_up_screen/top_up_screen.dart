@@ -46,18 +46,26 @@ class _TopUpScreenState extends State<TopUpScreen> {
               style: const TextStyle(fontSize: 34, fontWeight: FontWeight.w500),
               validator: _validator,
               decoration: InputDecoration(
-                enabledBorder: AppStyles.topUpEnabledBorder,
-                focusedBorder: AppStyles.topUpEnabledBorder,
+                enabledBorder: AppStyles.topUpEnabledBorder.copyWith(
+                  borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                      width: 2),
+                ),
+                focusedBorder: AppStyles.topUpEnabledBorder.copyWith(
+                  borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                      width: 2),
+                ),
                 errorBorder: AppStyles.topUpErrorBorder,
                 focusedErrorBorder: AppStyles.topUpErrorBorder,
                 hintText: "\$0.00",
                 hintStyle: const TextStyle(
                   color: AppColors.darkGreyColor,
                 ),
-                errorStyle: AppStyles.labelMedium.copyWith(
-                  color: AppColors.errorColor,
-                  fontWeight: FontWeight.w400,
-                ),
+                errorStyle: Theme.of(context).textTheme.labelMedium!.copyWith(
+                      color: AppColors.errorColor,
+                      fontWeight: FontWeight.w400,
+                    ),
               ),
             ),
           ),
@@ -76,13 +84,17 @@ class _TopUpScreenState extends State<TopUpScreen> {
               return OutlinedButton(
                   style: OutlinedButton.styleFrom(
                       foregroundColor: AppColors.primaryColor,
-                      side: const BorderSide(
-                          color: AppColors.primaryColor, width: 2)),
+                      side: BorderSide(
+                          color: Theme.of(context).colorScheme.primaryContainer,
+                          width: 2)),
                   onPressed: () {
                     _amountController.text =
                         defaultTopUpAmounts[index].toString();
                   },
-                  child: Text("\$${defaultTopUpAmounts[index]}"));
+                  child: Text(
+                    "\$${defaultTopUpAmounts[index]}",
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ));
             }),
         const Spacer(),
         MyButton(
@@ -93,7 +105,9 @@ class _TopUpScreenState extends State<TopUpScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text("Continue",
-                    style: AppStyles.labelLarge
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelLarge!
                         .copyWith(color: AppColors.whiteColor))
               ],
             )),

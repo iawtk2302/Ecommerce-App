@@ -1,5 +1,4 @@
 import 'package:ecommerce_app/constants/app_colors.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:flutter/material.dart';
 
 class ProfileDetailsInformation extends StatelessWidget {
@@ -28,8 +27,10 @@ class ProfileDetailsInformation extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(label,
-            style:
-                AppStyles.labelMedium.copyWith(color: AppColors.greyTextColor)),
+            style: Theme.of(context)
+                .textTheme
+                .labelMedium!
+                .copyWith(color: AppColors.greyTextColor)),
         SizedBox(
           width: size.width * 0.6,
           child: TextFormField(

@@ -16,10 +16,10 @@ class CartButton extends StatelessWidget {
         return GestureDetector(
           onTap: onTap,
           child: Badge(
-            label: Text(
-              "${state is CartLoaded ? state.cart.itemsCount : 0}",
-            ),
-            backgroundColor: AppColors.primaryColor,
+            label: Text("${state is CartLoaded ? state.cart.itemsCount : 0}",
+                style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                    color: Theme.of(context).colorScheme.onPrimaryContainer)),
+            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
             child: Container(
                 height: 30,
                 width: 30,

@@ -3,7 +3,6 @@ import 'package:ecommerce_app/common_widgets/my_app_bar.dart';
 import 'package:ecommerce_app/common_widgets/my_button.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/screens/filter_screen/widgets/categories_bar.dart';
 import 'package:ecommerce_app/screens/filter_screen/widgets/price_range_bar.dart';
 import 'package:ecommerce_app/screens/filter_screen/widgets/rating_bar.dart';
@@ -42,7 +41,9 @@ class _FilterScreenState extends State<FilterScreen> {
                 child: MyButton(
                     child: Text(
                       "Apply Now",
-                      style: AppStyles.labelMedium
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelMedium!
                           .copyWith(color: AppColors.whiteColor),
                     ),
                     onPressed: () => context

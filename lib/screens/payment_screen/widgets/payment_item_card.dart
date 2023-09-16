@@ -39,8 +39,9 @@ class PaymentItemCard extends StatelessWidget {
         opacity: isEnabled ? 1 : 0.5,
         child: PrimaryBackground(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            backgroundColor:
-                isSelected ? AppColors.primaryColor : AppColors.whiteColor,
+            backgroundColor: isSelected
+                ? Theme.of(context).colorScheme.tertiaryContainer
+                : Theme.of(context).colorScheme.secondaryContainer,
             child: Row(
               children: [
                 Container(
@@ -61,24 +62,36 @@ class PaymentItemCard extends StatelessWidget {
                       paymentMethod.name,
                       style: AppStyles.labelMedium.copyWith(
                           color: isSelected
-                              ? AppColors.whiteColor
-                              : AppColors.primaryColor),
+                              ? Theme.of(context)
+                                  .colorScheme
+                                  .onTertiaryContainer
+                              : Theme.of(context)
+                                  .colorScheme
+                                  .onSecondaryContainer),
                     ),
                     if (paymentCard != null && paymentCard!.cardNumber != null)
                       Text(
                         paymentCard!.cardNumber?.maskCardNumber() ?? "",
                         style: AppStyles.bodyLarge.copyWith(
                             color: isSelected
-                                ? AppColors.whiteColor
-                                : AppColors.primaryColor),
+                                ? Theme.of(context)
+                                    .colorScheme
+                                    .onTertiaryContainer
+                                : Theme.of(context)
+                                    .colorScheme
+                                    .onSecondaryContainer),
                       ),
                     if (subTitle != null)
                       Text(
                         subTitle!,
                         style: AppStyles.bodyLarge.copyWith(
                             color: isSelected
-                                ? AppColors.whiteColor
-                                : AppColors.primaryColor),
+                                ? Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer
+                                : Theme.of(context)
+                                    .colorScheme
+                                    .onTertiaryContainer),
                       ),
                   ],
                 ),
@@ -88,7 +101,10 @@ class PaymentItemCard extends StatelessWidget {
                     paymentMethod.code != PaymentMethods.cashOnDelivery.code)
                   TextButton(
                       onPressed: () => _navigateToAddPaymentCardScreen(context),
-                      child: const Text("Add")),
+                      child: Text(
+                        "Add",
+                        style: Theme.of(context).textTheme.labelMedium,
+                      )),
                 if (action != null) action!,
               ],
             )),

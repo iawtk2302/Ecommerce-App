@@ -1,5 +1,4 @@
 import 'package:ecommerce_app/constants/app_assets.dart';
-import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -31,11 +30,15 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                   onPressed: () => _popToPreviousScreen(context),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(0),
-                    backgroundColor: AppColors.primaryColor,
+                    backgroundColor:
+                        Theme.of(context).colorScheme.primaryContainer,
                   ),
                   child: SvgPicture.asset(
                     AppAssets.icArrowLeft,
                     width: 20,
+                    colorFilter: ColorFilter.mode(
+                        Theme.of(context).colorScheme.onPrimaryContainer,
+                        BlendMode.srcIn),
                   ),
                 ),
               ),

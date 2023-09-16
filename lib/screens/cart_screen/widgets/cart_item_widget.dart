@@ -121,9 +121,12 @@ class CartItemWidget extends StatelessWidget {
                                   ),
                                   Text(
                                     cartItem.quantity.toString(),
-                                    style: AppStyles.bodyLarge.copyWith(
-                                        fontWeight: FontWeight.w500,
-                                        color: AppColors.primaryColor),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(
+                                            fontWeight: FontWeight.w500,
+                                            color: AppColors.primaryColor),
                                   ),
                                   SizedBox(
                                     height: 30,

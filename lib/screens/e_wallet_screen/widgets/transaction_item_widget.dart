@@ -45,8 +45,8 @@ class TransactionItemWidget extends StatelessWidget {
           horizontal: AppDimensions.defaultPadding, vertical: 10),
       child: ListTile(
         contentPadding: const EdgeInsets.all(0),
-        title: Text(title, style: AppStyles.labelLarge),
-        subtitle: Text(subtitle, style: AppStyles.bodyLarge),
+        title: Text(title, style: Theme.of(context).textTheme.labelLarge),
+        subtitle: Text(subtitle, style: Theme.of(context).textTheme.bodyLarge),
         leading: Container(
           height: 50,
           width: 50,

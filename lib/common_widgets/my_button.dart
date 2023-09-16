@@ -1,8 +1,7 @@
-import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class MyButton extends StatelessWidget {
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final VoidCallback onPressed;
   final EdgeInsetsGeometry? margin;
   final EdgeInsets padding;
@@ -15,7 +14,7 @@ class MyButton extends StatelessWidget {
     super.key,
     required this.onPressed,
     this.margin,
-    this.backgroundColor = AppColors.primaryColor,
+    this.backgroundColor,
     this.borderRadius = 50,
     this.padding = const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
     this.isEnable = true,
@@ -32,7 +31,8 @@ class MyButton extends StatelessWidget {
           elevation: 0,
           padding: padding,
           minimumSize: const Size(0, 0),
-          backgroundColor: backgroundColor,
+          backgroundColor: backgroundColor ??
+              Theme.of(context).colorScheme.tertiaryContainer,
           shape: RoundedRectangleBorder(
             side: borderSide,
             borderRadius: BorderRadius.circular(borderRadius),

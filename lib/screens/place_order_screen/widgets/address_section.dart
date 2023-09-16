@@ -4,7 +4,6 @@ import 'package:ecommerce_app/common_widgets/my_icon.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/screens/choose_address_screen/choose_address_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,7 +49,9 @@ class AddressSection extends StatelessWidget {
                     const SizedBox(width: 10),
                     Text(
                       "Choose Address",
-                      style: AppStyles.titleSmall
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall!
                           .copyWith(color: AppColors.greyTextColor),
                     ),
                   ],

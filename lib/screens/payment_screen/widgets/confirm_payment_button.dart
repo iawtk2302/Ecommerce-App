@@ -2,7 +2,6 @@ import 'package:ecommerce_app/blocs/place_order_bloc/place_order_bloc.dart';
 import 'package:ecommerce_app/common_widgets/my_button.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/models/payment_method_resource.dart';
 import 'package:ecommerce_app/screens/order_processing_screen/order_processing_screen.dart';
 import 'package:ecommerce_app/screens/set_passcode_screen/set_passcode_screen.dart';
@@ -29,7 +28,10 @@ class ConfirmPaymentButton extends StatelessWidget {
             isEnable: state.paymentMethod != null,
             child: Text(
               "Confirm payment",
-              style: AppStyles.labelLarge.copyWith(color: AppColors.whiteColor),
+              style: Theme.of(context)
+                  .textTheme
+                  .labelLarge!
+                  .copyWith(color: AppColors.whiteColor),
             ));
       },
     );
