@@ -34,8 +34,10 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
           actions: [
             IconButton(
                 onPressed: _navigateToQrScannerScreen,
-                icon: const MyIcon(
+                icon: MyIcon(
                   icon: AppAssets.icScanQr,
+                  colorFilter: ColorFilter.mode(
+                      Theme.of(context).colorScheme.primary, BlendMode.srcIn),
                 ))
           ],
         ),

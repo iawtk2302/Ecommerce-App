@@ -131,19 +131,38 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                                         )
                                       : BorderSide.none,
                                   backgroundColor: isSelected
-                                      ? AppColors.primaryColor
-                                      : AppColors.whiteColor,
+                                      ? Theme.of(context)
+                                          .colorScheme
+                                          .primaryContainer
+                                      : Theme.of(context)
+                                          .colorScheme
+                                          .secondaryContainer,
                                   child: Row(
                                     children: [
                                       Radio(
                                           visualDensity: const VisualDensity(
-                                              horizontal:
-                                                  VisualDensity.minimumDensity,
-                                              vertical:
-                                                  VisualDensity.minimumDensity),
+                                              horizontal: VisualDensity
+                                                  .minimumDensity,
+                                              vertical: VisualDensity
+                                                  .minimumDensity),
                                           materialTapTargetSize:
                                               MaterialTapTargetSize.shrinkWrap,
-                                          activeColor: Colors.white,
+                                          // activeColor: isSelected
+                                          //     ? Theme.of(context)
+                                          //         .colorScheme
+                                          //         .onPrimaryContainer
+                                          //     : Theme.of(context)
+                                          //         .colorScheme
+                                          //         .onSecondaryContainer,
+                                          fillColor:
+                                              MaterialStateColor.resolveWith(
+                                                  (states) => isSelected
+                                                      ? Theme.of(context)
+                                                          .colorScheme
+                                                          .onPrimaryContainer
+                                                      : Theme.of(context)
+                                                          .colorScheme
+                                                          .onSecondaryContainer),
                                           value: gender,
                                           groupValue: thisGender,
                                           onChanged: (value) {}),
@@ -153,9 +172,12 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                                               .labelMedium!
                                               .copyWith(
                                                   color: isSelected
-                                                      ? AppColors.whiteColor
-                                                      : AppColors
-                                                          .darkGreyColor)),
+                                                      ? Theme.of(context)
+                                                          .colorScheme
+                                                          .onPrimaryContainer
+                                                      : Theme.of(context)
+                                                          .colorScheme
+                                                          .onSecondaryContainer)),
                                     ],
                                   ));
                             }),

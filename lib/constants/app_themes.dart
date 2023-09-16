@@ -7,6 +7,9 @@ class AppThemes {
     fontFamily: 'Poppins',
     useMaterial3: true,
     scaffoldBackgroundColor: AppColors.whiteColor,
+    hintColor: AppColors.primaryHintColor,
+    primaryColorDark: AppColors.darkTextColor,
+    primaryColorLight: AppColors.lightTextColor,
     colorScheme: const ColorScheme.light(
       primaryContainer: AppColors.primaryColor,
       onPrimaryContainer: AppColors.lightTextColor,
@@ -15,7 +18,7 @@ class AppThemes {
       tertiaryContainer: AppColors.primaryColor,
       onTertiaryContainer: AppColors.lightTextColor,
       primary: AppColors.primaryColor,
-      secondary: AppColors.primaryColor,
+      secondary: AppColors.whiteColor,
       surface: AppColors.primaryColor,
       background: AppColors.whiteColor,
       error: AppColors.primaryColor,
@@ -50,6 +53,9 @@ class AppThemes {
     fontFamily: 'Poppins',
     useMaterial3: true,
     scaffoldBackgroundColor: AppColors.primaryColor,
+    hintColor: AppColors.primaryHintColor,
+    primaryColorDark: AppColors.darkTextColor,
+    primaryColorLight: AppColors.lightTextColor,
     textTheme: TextTheme(
       headlineLarge:
           AppStyles.headlineLarge.copyWith(color: AppColors.lightTextColor),
@@ -79,7 +85,7 @@ class AppThemes {
       onSecondaryContainer: AppColors.lightTextColor,
       tertiaryContainer: AppColors.greyTextColor,
       onTertiaryContainer: AppColors.lightTextColor,
-      primary: AppColors.primaryColor,
+      primary: AppColors.whiteColor,
       secondary: AppColors.primaryColor,
       surface: AppColors.primaryColor,
       background: AppColors.primaryColor,

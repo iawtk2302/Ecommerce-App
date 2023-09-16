@@ -53,18 +53,11 @@ class ProfileInformationCard extends StatelessWidget {
                               .titleMedium!
                               .copyWith(
                                   fontWeight: FontWeight.bold,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onPrimaryContainer),
+                                  color: AppColors.primaryColor),
                         ),
                         Text(state.user.email,
                             overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.bodyLarge
-                            // .copyWith(
-                            //     color: Theme.of(context)
-                            //         .colorScheme
-                            //         .onPrimaryContainer),
-                            ),
+                            style: Theme.of(context).textTheme.bodyLarge),
                       ],
                     ),
                   )
