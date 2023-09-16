@@ -119,7 +119,9 @@ class _AddPaymentCardScreenState extends State<AddPaymentCardScreen> {
                     borderRadius: 12,
                     child: Text(
                       "Add card",
-                      style: AppStyles.labelLarge
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelLarge!
                           .copyWith(color: AppColors.whiteColor),
                     )),
               ],

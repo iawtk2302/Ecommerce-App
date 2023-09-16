@@ -17,8 +17,24 @@ class TransactionItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label),
-          Text(number),
+          Text(
+            label,
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge!
+                .copyWith(color: Theme.of(context).colorScheme.onPrimary),
+          ),
+          Expanded(
+            child: Text(
+              number,
+              overflow: TextOverflow.ellipsis,
+              textDirection: TextDirection.rtl,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge!
+                  .copyWith(color: Theme.of(context).colorScheme.onPrimary),
+            ),
+          ),
         ],
       ),
     );

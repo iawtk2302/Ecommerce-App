@@ -2,7 +2,6 @@ import 'package:ecommerce_app/blocs/product_bloc/product_bloc.dart';
 import 'package:ecommerce_app/common_widgets/my_icon.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/models/product.dart';
 import 'package:ecommerce_app/repositories/favorite_repository.dart';
 import 'package:ecommerce_app/repositories/product_repository.dart';
@@ -18,7 +17,7 @@ class BottomBarProduct extends StatelessWidget {
     return BlocBuilder<ProductBloc, ProductState>(
       builder: (context, state) {
         return Container(
-          color: AppColors.whiteColor,
+          color: Theme.of(context).colorScheme.background,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Row(
@@ -71,18 +70,29 @@ class BottomBarProduct extends StatelessWidget {
                     height: size.height * 0.07,
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     decoration: BoxDecoration(
-                        color: AppColors.primaryColor,
+                        color: Theme.of(context).colorScheme.primaryContainer,
                         borderRadius: BorderRadius.circular(20)),
                     child: Row(
                       children: [
-                        const MyIcon(icon: AppAssets.icBag),
+                        MyIcon(
+                            icon: AppAssets.icBag,
+                            colorFilter: ColorFilter.mode(
+                                Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                                BlendMode.srcIn)),
                         const SizedBox(
                           width: 10,
                         ),
                         Text(
                           "Add to cart",
-                          style: AppStyles.headlineMedium
-                              .copyWith(color: Colors.white),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onPrimaryContainer),
                         )
                       ],
                     ),

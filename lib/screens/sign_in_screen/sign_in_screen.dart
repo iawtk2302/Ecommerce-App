@@ -5,7 +5,6 @@ import 'package:ecommerce_app/common_widgets/my_button.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/screens/sign_in_screen/widgets/or_text_divider.dart';
 import 'package:ecommerce_app/screens/sign_up_screen/sign_up_screen.dart';
 import 'package:flutter/material.dart';
@@ -49,19 +48,21 @@ class _SignInScreenState extends State<SignInScreen> {
                 children: [
                   SvgPicture.asset(AppAssets.icAppLogo),
                   SizedBox(height: size.height * 0.05),
-                  const Text("Welcome!", style: AppStyles.headlineLarge),
+                  Text("Welcome!",
+                      style: Theme.of(context).textTheme.headlineLarge),
                   const SizedBox(height: 5),
-                  const Text("Please login or sign up to continue our app",
-                      style: AppStyles.bodyLarge),
+                  Text("Please login or sign up to continue our app",
+                      style: Theme.of(context).textTheme.bodyLarge),
                   SizedBox(height: size.height * 0.07),
-                  const Text("Email", style: AppStyles.labelLarge),
+                  Text("Email", style: Theme.of(context).textTheme.labelLarge),
                   LoginTextField(
                       hint: "Email",
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       obscureText: false),
                   const SizedBox(height: 15),
-                  const Text("Password", style: AppStyles.labelLarge),
+                  Text("Password",
+                      style: Theme.of(context).textTheme.labelLarge),
                   LoginTextField(
                       hint: "Password",
                       controller: _passwordController,
@@ -72,9 +73,9 @@ class _SignInScreenState extends State<SignInScreen> {
                       onPressed: _onSignInWithEmailAndPassword,
                       child: Text(
                         "Login",
-                        style: AppStyles.labelLarge.copyWith(
-                          color: AppColors.whiteColor,
-                        ),
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                              color: AppColors.whiteColor,
+                            ),
                       )),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 8.0),
@@ -90,9 +91,10 @@ class _SignInScreenState extends State<SignInScreen> {
                         const SizedBox(width: 5),
                         Text(
                           "Continue with Facebook",
-                          style: AppStyles.labelLarge.copyWith(
-                            color: AppColors.whiteColor,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.labelLarge!.copyWith(
+                                    color: AppColors.whiteColor,
+                                  ),
                         ),
                       ],
                     ),
@@ -115,9 +117,10 @@ class _SignInScreenState extends State<SignInScreen> {
                         const SizedBox(width: 5),
                         Text(
                           "Continue with Google",
-                          style: AppStyles.labelLarge.copyWith(
-                            color: AppColors.greyTextColor,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.labelLarge!.copyWith(
+                                    color: AppColors.greyTextColor,
+                                  ),
                         ),
                       ],
                     ),
@@ -126,12 +129,14 @@ class _SignInScreenState extends State<SignInScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("You don't have an account? ",
-                          style: AppStyles.bodyLarge),
+                      Text("You don't have an account? ",
+                          style: Theme.of(context).textTheme.bodyLarge),
                       InkWell(
                         onTap: _navigateToSignUpScreen,
                         child: Text("Sign up",
-                            style: AppStyles.bodyLarge
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge!
                                 .copyWith(color: AppColors.primaryColor)),
                       ),
                     ],

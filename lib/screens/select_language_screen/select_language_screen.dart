@@ -1,9 +1,7 @@
 import 'package:ecommerce_app/blocs/language_bloc/language_bloc.dart';
 import 'package:ecommerce_app/common_widgets/my_app_bar.dart';
 import 'package:ecommerce_app/common_widgets/screen_name_section.dart';
-import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/constants/enums/language.dart';
 import 'package:ecommerce_app/extensions/language_extension.dart';
 import 'package:ecommerce_app/common_widgets/primary_background.dart';
@@ -35,8 +33,8 @@ class SelectLanguageScreen extends StatelessWidget {
                           horizontal: AppDimensions.defaultPadding,
                           vertical: 10),
                       backgroundColor: isSelected
-                          ? AppColors.primaryColor
-                          : AppColors.whiteColor,
+                          ? Theme.of(context).colorScheme.primaryContainer
+                          : Theme.of(context).colorScheme.tertiaryContainer,
                       child: ListTile(
                         leading: ClipRRect(
                           borderRadius: AppDimensions.circleCorners,
@@ -49,10 +47,17 @@ class SelectLanguageScreen extends StatelessWidget {
                         ),
                         title: Text(
                           languageToLanguageName[language]!,
-                          style: AppStyles.titleSmall.copyWith(
-                              color: isSelected
-                                  ? AppColors.whiteColor
-                                  : AppColors.primaryColor),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall!
+                              .copyWith(
+                                  color: isSelected
+                                      ? Theme.of(context)
+                                          .colorScheme
+                                          .onPrimaryContainer
+                                      : Theme.of(context)
+                                          .colorScheme
+                                          .onTertiaryContainer),
                         ),
                         onTap: () => _onSelectLanguage(context, language.code),
                       ),

@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/models/product.dart';
 import 'package:ecommerce_app/screens/detail_product_screen/widgets/product_clipper.dart';
 import 'package:ecommerce_app/screens/review_screen/review_screen.dart';
@@ -54,7 +53,7 @@ class ProductImage extends StatelessWidget {
                 height: size.height * 0.45 * 1 / 5 * 0.9,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: Colors.black),
+                    color: Theme.of(context).colorScheme.primaryContainer),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,14 +67,22 @@ class ProductImage extends StatelessWidget {
                         ),
                         Text(
                           product.averageRating.toStringAsFixed(1),
-                          style: AppStyles.bodyLarge.copyWith(
-                              color: Colors.white, fontWeight: FontWeight.w600),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onPrimaryContainer,
+                                  fontWeight: FontWeight.w600),
                         )
                       ],
                     ),
                     Text("${product.reviewCount.toStringAsFixed(0)} Reviews",
-                        style:
-                            AppStyles.bodyMedium.copyWith(color: Colors.white)),
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer)),
                   ],
                 ),
               ),

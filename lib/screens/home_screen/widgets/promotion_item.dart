@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_app/common_widgets/custom_loading_widget.dart';
 import 'package:ecommerce_app/common_widgets/my_ink_well.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/models/promotion.dart';
 import 'package:ecommerce_app/repositories/promotion_repository.dart';
 import 'package:flutter/material.dart';
@@ -74,18 +73,23 @@ class PromotionItem extends StatelessWidget {
             children: [
               Text(
                 name,
-                style: AppStyles.displayLarge,
+                style: Theme.of(context).textTheme.displayLarge,
               ),
               Text(
                 promotion.content,
-                style: AppStyles.headlineLarge
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineLarge!
                     .copyWith(fontWeight: FontWeight.w500),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Text(
                   "With code: ${promotion.code}",
-                  style: AppStyles.displayMedium.copyWith(fontSize: 12),
+                  style: Theme.of(context)
+                      .textTheme
+                      .displayMedium!
+                      .copyWith(fontSize: 12),
                 ),
               ),
               StreamBuilder<bool>(

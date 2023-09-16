@@ -5,7 +5,6 @@ import 'package:ecommerce_app/common_widgets/screen_name_section.dart';
 import 'package:ecommerce_app/common_widgets/transaction_item.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/extensions/date_time_extension.dart';
 import 'package:ecommerce_app/extensions/screen_extensions.dart';
 import 'package:ecommerce_app/models/cart_item.dart';
@@ -49,6 +48,8 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
             PrimaryBackground(
                 margin: const EdgeInsets.symmetric(
                     horizontal: AppDimensions.defaultPadding),
+                backgroundColor:
+                    Theme.of(context).colorScheme.secondaryContainer,
                 child: Column(
                   children: [
                     SizedBox(
@@ -82,7 +83,13 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(item.product.name,
-                                        style: AppStyles.labelLarge),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge!
+                                            .copyWith(
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onSecondaryContainer)),
                                     Row(
                                       children: [
                                         Text("Quantity: ${item.quantity}"),

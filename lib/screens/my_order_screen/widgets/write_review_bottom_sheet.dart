@@ -5,7 +5,6 @@ import 'package:ecommerce_app/common_widgets/my_icon.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/extensions/screen_extensions.dart';
 import 'package:ecommerce_app/extensions/string_extensions.dart';
 import 'package:ecommerce_app/models/order_product_detail.dart';
@@ -63,9 +62,9 @@ class _WriteReviewBottomSheetState extends State<WriteReviewBottomSheet> {
                   const SizedBox(height: 10),
                   Container(height: 5, width: 40, color: AppColors.greyColor),
                   const SizedBox(height: 10),
-                  const Text(
+                  Text(
                     "Leave a Review",
-                    style: AppStyles.headlineLarge,
+                    style: Theme.of(context).textTheme.headlineLarge,
                   ),
                   const SizedBox(height: 10),
                   const Divider(color: AppColors.greyColor),
@@ -90,28 +89,28 @@ class _WriteReviewBottomSheetState extends State<WriteReviewBottomSheet> {
                               widget.orderItem.productName,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
-                              style: AppStyles.labelLarge,
+                              style: Theme.of(context).textTheme.labelLarge,
                             ),
                             if (widget.orderItem.productBrand.isNotEmpty)
                               Text(
                                 widget.orderItem.productBrand,
-                                style: AppStyles.bodyLarge,
+                                style: Theme.of(context).textTheme.bodyLarge,
                               ),
                             Row(
                               children: [
                                 Text(
                                   "Quantity: ${widget.orderItem.quantity}",
-                                  style: AppStyles.bodyMedium,
+                                  style: Theme.of(context).textTheme.bodyMedium,
                                 ),
                                 const SizedBox(width: 10),
                                 Text(
                                   "Size: ${widget.orderItem.size}",
-                                  style: AppStyles.bodyMedium,
+                                  style: Theme.of(context).textTheme.bodyMedium,
                                 ),
                                 const SizedBox(width: 10),
-                                const Text(
+                                Text(
                                   "Color: ",
-                                  style: AppStyles.bodyMedium,
+                                  style: Theme.of(context).textTheme.bodyMedium,
                                 ),
                                 ColorDotWidget(
                                     color: widget.orderItem.color.toColor())
@@ -119,7 +118,7 @@ class _WriteReviewBottomSheetState extends State<WriteReviewBottomSheet> {
                             ),
                             Text(
                               widget.orderItem.productPrice.toPriceString(),
-                              style: AppStyles.headlineLarge,
+                              style: Theme.of(context).textTheme.headlineLarge,
                             ),
                           ],
                         ),
@@ -129,11 +128,11 @@ class _WriteReviewBottomSheetState extends State<WriteReviewBottomSheet> {
                   const SizedBox(height: 10),
                   const Divider(color: AppColors.greyColor),
                   const SizedBox(height: 10),
-                  const Text("How is your order?",
-                      style: AppStyles.titleMedium),
+                  Text("How is your order?",
+                      style: Theme.of(context).textTheme.titleMedium),
                   const SizedBox(height: 10),
-                  const Text("Please give your rating & also your review...",
-                      style: AppStyles.bodyMedium),
+                  Text("Please give your rating & also your review...",
+                      style: Theme.of(context).textTheme.bodyMedium),
                   const SizedBox(height: 10),
                   RatingBar(
                     itemCount: 5,
@@ -155,7 +154,7 @@ class _WriteReviewBottomSheetState extends State<WriteReviewBottomSheet> {
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(12),
                       hintText: "Write your review here...",
-                      hintStyle: AppStyles.bodyLarge,
+                      hintStyle: Theme.of(context).textTheme.bodyLarge,
                       suffixIcon: IconButton(
                           onPressed: () {},
                           icon: const MyIcon(icon: AppAssets.icGallery)),
@@ -186,8 +185,8 @@ class _WriteReviewBottomSheetState extends State<WriteReviewBottomSheet> {
                               Navigator.pop(context);
                             },
                             backgroundColor: AppColors.greyColor,
-                            child: const Text("Cancel",
-                                style: AppStyles.labelLarge)),
+                            child: Text("Cancel",
+                                style: Theme.of(context).textTheme.labelLarge)),
                       ),
                       const SizedBox(width: 10),
                       Expanded(
@@ -196,7 +195,9 @@ class _WriteReviewBottomSheetState extends State<WriteReviewBottomSheet> {
                               await _onAddReview();
                             },
                             child: Text("Submit",
-                                style: AppStyles.labelLarge
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelLarge!
                                     .copyWith(color: AppColors.whiteColor))),
                       )
                     ],

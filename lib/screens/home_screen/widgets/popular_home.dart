@@ -1,6 +1,5 @@
 import 'package:ecommerce_app/blocs/home_bloc/home_bloc.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/models/product.dart';
 import 'package:ecommerce_app/screens/home_screen/widgets/popular_product_item.dart';
 import 'package:ecommerce_app/screens/product_screen/product_screen.dart';
@@ -26,16 +25,18 @@ class PopularHome extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const Text(
+                      Text(
                         "Popular",
-                        style: AppStyles.titleMedium,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                       GestureDetector(
                         onTap: () =>
                             _navigateToProductScreen(context, state.popular),
                         child: Text(
                           "View All",
-                          style: AppStyles.bodyMedium
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
                               .copyWith(fontWeight: FontWeight.w600),
                         ),
                       )

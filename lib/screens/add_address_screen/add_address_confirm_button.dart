@@ -1,6 +1,5 @@
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:flutter/material.dart';
 
 class AddAddressConfirmButton extends StatelessWidget {
@@ -31,8 +30,10 @@ class AddAddressConfirmButton extends StatelessWidget {
             children: [
               Text(
                 "Confirm",
-                style:
-                    AppStyles.labelLarge.copyWith(color: AppColors.whiteColor),
+                style: Theme.of(context)
+                    .textTheme
+                    .labelLarge!
+                    .copyWith(color: AppColors.whiteColor),
               ),
             ],
           )),

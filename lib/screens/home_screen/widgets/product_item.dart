@@ -4,7 +4,6 @@ import 'package:ecommerce_app/common_widgets/my_icon_button.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/extensions/screen_extensions.dart';
 import 'package:ecommerce_app/models/product.dart';
 import 'package:ecommerce_app/repositories/favorite_repository.dart';
@@ -96,18 +95,18 @@ class ProductItem extends StatelessWidget {
               children: [
                 Text(
                   product.brand,
-                  style: AppStyles.labelLarge,
+                  style: Theme.of(context).textTheme.labelLarge,
                   textAlign: TextAlign.center,
                 ),
                 Text(
                   product.name,
-                  style: AppStyles.bodyMedium,
+                  style: Theme.of(context).textTheme.bodyMedium,
                   maxLines: 1,
                   textAlign: TextAlign.center,
                 ),
                 Text(
                   product.price.toPriceString(),
-                  style: AppStyles.labelLarge,
+                  style: Theme.of(context).textTheme.labelLarge,
                 ),
               ],
             ),

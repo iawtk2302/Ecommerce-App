@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/models/category.dart';
 import 'package:ecommerce_app/screens/category_product_screen/category_product_screen.dart';
 import 'package:flutter/material.dart';
@@ -57,13 +56,18 @@ class CategoryItem extends StatelessWidget {
                 children: [
                   Text(
                     category.name,
-                    style: AppStyles.labelLarge
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelLarge!
                         .copyWith(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
                   Text(
                     "${category.productCount} Product",
-                    style: AppStyles.labelMedium.copyWith(fontSize: 11),
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelMedium!
+                        .copyWith(fontSize: 11),
                     textAlign: TextAlign.center,
                   ),
                 ],

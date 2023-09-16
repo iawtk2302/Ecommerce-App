@@ -9,4 +9,6 @@ class AppColors {
   static const Color primaryHintColor = Color(0xFFAAAAAA);
   static const Color greyTextColor = Color(0xFF666666);
   static const Color errorColor = Color.fromARGB(255, 195, 35, 35);
+  static const Color darkTextColor = primaryColor;
+  static const Color lightTextColor = whiteColor;
 }

@@ -54,13 +54,17 @@ class Utils {
                     children: [
                       Text(
                         title,
-                        style:
-                            AppStyles.labelMedium.copyWith(color: Colors.white),
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelMedium!
+                            .copyWith(color: Colors.white),
                       ),
                       Text(
                         message,
-                        style:
-                            AppStyles.bodyMedium.copyWith(color: Colors.white),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .copyWith(color: Colors.white),
                       )
                     ],
                   ),
@@ -286,7 +290,9 @@ class Utils {
                     onPressed: onButtonPressed,
                     child: Text(
                       buttonText,
-                      style: AppStyles.labelLarge
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelLarge!
                           .copyWith(color: AppColors.whiteColor),
                     ),
                   ),

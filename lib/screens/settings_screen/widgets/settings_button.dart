@@ -1,6 +1,5 @@
 import 'package:ecommerce_app/common_widgets/my_icon.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:flutter/material.dart';
 
 class SettingButton extends StatelessWidget {
@@ -43,7 +42,7 @@ class SettingButton extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 10),
-            Text(title, style: AppStyles.labelLarge),
+            Text(title, style: Theme.of(context).textTheme.labelLarge),
             const Spacer(),
             action,
           ],

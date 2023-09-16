@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/extensions/date_time_extension.dart';
 import 'package:ecommerce_app/extensions/string_extensions.dart';
 import 'package:ecommerce_app/models/review.dart';
@@ -100,13 +99,13 @@ class _ReviewItemState extends State<ReviewItem> {
                           children: [
                             Text(
                               widget.review.nameUser.formatName(),
-                              style: AppStyles.labelLarge,
+                              style: Theme.of(context).textTheme.labelLarge,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
                             Text(
                               widget.review.createdAt.formattedDate(),
-                              style: AppStyles.bodyMedium,
+                              style: Theme.of(context).textTheme.bodyMedium,
                             )
                           ],
                         ),
@@ -129,20 +128,26 @@ class _ReviewItemState extends State<ReviewItem> {
                               text: TextSpan(children: [
                               TextSpan(
                                   text: content.sublist(0, maxLength).join(' '),
-                                  style: AppStyles.bodyLarge.copyWith(
-                                      fontSize: 15,
-                                      color: AppColors.primaryColor)),
-                              const TextSpan(
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                          fontSize: 15,
+                                          color: AppColors.primaryColor)),
+                              TextSpan(
                                   text: '...See more',
-                                  style: AppStyles.bodyLarge)
+                                  style: Theme.of(context).textTheme.bodyLarge)
                             ]))
                           : RichText(
                               text: TextSpan(children: [
                               TextSpan(
                                   text: content.join(' '),
-                                  style: AppStyles.bodyLarge.copyWith(
-                                      fontSize: 15,
-                                      color: AppColors.primaryColor)),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                          fontSize: 15,
+                                          color: AppColors.primaryColor)),
                             ]))),
                 ],
               ),
