@@ -5,15 +5,23 @@ import 'package:ecommerce_app/utils/firebase_constants.dart';
 class PromotionRepository {
   Future<List<Promotion>> fetchMyPromotions() async {
     try {
-      final QuerySnapshot snaps = await usersRef
+      List<Promotion> promotions = [];
+
+      final QuerySnapshot snapshot = await usersRef
           .doc(firebaseAuth.currentUser!.uid)
           .collection("promotions")
           .where("endTime", isGreaterThan: Timestamp.fromDate(DateTime.now()))
           .get();
 
-      return snaps.docs
-          .map((e) => Promotion.fromMap(e.data() as Map<String, dynamic>))
-          .toList();
+      promotions.addAll(snapshot.docs
+          .map((e) => Promotion.fromMap(e.data() as Map<String, dynamic>)));
+      promotions
+          .removeWhere((element) => element.startTime.isAfter(DateTime.now()));
+      promotions.removeWhere((element) =>
+          element.quantity != null &&
+          element.usedQuantity >= element.quantity!);
+
+      return promotions;
     } catch (e) {
       throw Exception(e);
     }
@@ -32,16 +40,21 @@ class PromotionRepository {
     }
   }
 
-  Future<List<Promotion>> fetchPromotionsInHome() async {
+  Future<List<Promotion>> fetchValidPromotions() async {
     try {
       List<Promotion> promotions = [];
-      await promotionsRef.get().then((value) {
-        promotions.addAll(value.docs
-            .map((e) => Promotion.fromMap(e.data() as Map<String, dynamic>)));
-      });
-      return promotions
-          .where((element) => element.endTime.isAfter(DateTime.now()))
-          .toList();
+      final snapshot = await promotionsRef
+          .where("endTime", isGreaterThan: DateTime.now())
+          .get();
+      promotions.addAll(snapshot.docs
+          .map((e) => Promotion.fromMap(e.data() as Map<String, dynamic>)));
+      promotions
+          .removeWhere((element) => element.startTime.isAfter(DateTime.now()));
+      promotions.removeWhere((element) =>
+          element.quantity != null &&
+          element.usedQuantity >= element.quantity!);
+
+      return promotions;
     } catch (e) {
       throw Exception(e);
     }

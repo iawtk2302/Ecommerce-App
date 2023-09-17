@@ -26,6 +26,7 @@ import 'package:ecommerce_app/screens/order_processing_screen/order_processing_s
 import 'package:ecommerce_app/screens/personal_details_screen/personal_details_screen.dart';
 import 'package:ecommerce_app/screens/place_order_screen/place_order_screen.dart';
 import 'package:ecommerce_app/screens/promotion_screen/promotion_screen.dart';
+import 'package:ecommerce_app/screens/qr_scanner_screen/qr_scanner_screen.dart';
 import 'package:ecommerce_app/screens/record_voice_screen/record_voice_screen.dart';
 import 'package:ecommerce_app/screens/review_screen/review_screen.dart';
 import 'package:ecommerce_app/screens/select_language_screen/select_language_screen.dart';
@@ -236,6 +237,10 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (context) => const RecordVoiceScreen(),
         );
+      case QrScannerScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => const QrScannerScreen(),
+        );
 
       default:
         return MaterialPageRoute(
@@ -246,7 +251,6 @@ class AppRouter {
           ),
         );
     }
-    return null;
   }
 }
 

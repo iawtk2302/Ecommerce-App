@@ -1,7 +1,9 @@
 import 'package:ecommerce_app/common_widgets/custom_loading_widget.dart';
 import 'package:ecommerce_app/common_widgets/my_app_bar.dart';
+import 'package:ecommerce_app/common_widgets/my_icon.dart';
 import 'package:ecommerce_app/common_widgets/screen_name_section.dart';
 import 'package:ecommerce_app/config/app_routes.dart';
+import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
 import 'package:ecommerce_app/models/order.dart';
 import 'package:ecommerce_app/models/order_product_detail.dart';
@@ -10,6 +12,7 @@ import 'package:ecommerce_app/screens/my_order_screen/widgets/my_order_tab_selec
 import 'package:ecommerce_app/screens/my_order_screen/widgets/my_order_tab_selections.dart';
 import 'package:ecommerce_app/screens/my_order_screen/widgets/order_item_widget.dart';
 import 'package:ecommerce_app/screens/order_tracking_screen/order_tracking_screen.dart';
+import 'package:ecommerce_app/screens/qr_scanner_screen/qr_scanner_screen.dart';
 import 'package:flutter/material.dart';
 
 class MyOrderScreen extends StatefulWidget {
@@ -27,7 +30,17 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const MyAppBar(),
+        appBar: MyAppBar(
+          actions: [
+            IconButton(
+                onPressed: _navigateToQrScannerScreen,
+                icon: MyIcon(
+                  icon: AppAssets.icScanQr,
+                  colorFilter: ColorFilter.mode(
+                      Theme.of(context).colorScheme.primary, BlendMode.srcIn),
+                ))
+          ],
+        ),
         body: Column(
           children: [
             Wrap(
@@ -120,5 +133,9 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
       BuildContext context, OrderModel order, OrderProductDetail orderItem) {
     Navigator.pushNamed(context, OrderTrackingScreen.routeName,
         arguments: OrderTrackingArguments(order: order, orderItem: orderItem));
+  }
+
+  void _navigateToQrScannerScreen() {
+    Navigator.pushNamed(context, QrScannerScreen.routeName);
   }
 }

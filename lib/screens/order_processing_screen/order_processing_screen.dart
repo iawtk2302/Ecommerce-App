@@ -8,7 +8,6 @@ import 'package:ecommerce_app/config/app_routes.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/models/order.dart';
 import 'package:ecommerce_app/models/order_status.dart';
 import 'package:ecommerce_app/models/order_summary.dart';
@@ -69,13 +68,14 @@ class _OrderProcessingScreenState extends State<OrderProcessingScreen> {
 
                   // Description section
                   if (state is OrderProcessingSuccessfully)
-                    const Text("Order successfully",
-                        style: AppStyles.displayMedium),
+                    Text("Order successfully",
+                        style: Theme.of(context).textTheme.displayMedium),
                   if (state is OrderProcessingFailed)
-                    const Text("Order failed. Please try again.",
-                        style: AppStyles.displayMedium),
+                    Text("Order failed. Please try again.",
+                        style: Theme.of(context).textTheme.displayMedium),
                   if (state is OrderProcessingAdding)
-                    const Text("Waiting...", style: AppStyles.displayMedium),
+                    Text("Waiting...",
+                        style: Theme.of(context).textTheme.displayMedium),
                   const Spacer(),
 
                   // Actions section
@@ -89,10 +89,12 @@ class _OrderProcessingScreenState extends State<OrderProcessingScreen> {
                             child: MyOutlinedButton(
                                 onPressed: () =>
                                     _navigateToOrderTrackingScreen(state.order),
-                                child: const Row(
+                                child: Row(
                                   children: [
                                     Text("View order",
-                                        style: AppStyles.labelMedium),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelMedium),
                                   ],
                                 )),
                           ),
@@ -106,9 +108,12 @@ class _OrderProcessingScreenState extends State<OrderProcessingScreen> {
                               borderRadius: 12,
                               child: Text(
                                 "Home",
-                                style: AppStyles.labelMedium.copyWith(
-                                  color: AppColors.whiteColor,
-                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelMedium!
+                                    .copyWith(
+                                      color: AppColors.whiteColor,
+                                    ),
                               ),
                             ),
                           ),
@@ -120,10 +125,11 @@ class _OrderProcessingScreenState extends State<OrderProcessingScreen> {
                         margin: const EdgeInsets.symmetric(
                             horizontal: AppDimensions.defaultPadding),
                         onPressed: _onFailBackButton,
-                        child: const Row(
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("Back", style: AppStyles.labelLarge),
+                            Text("Back",
+                                style: Theme.of(context).textTheme.labelLarge),
                           ],
                         )),
                   const SizedBox(height: 30),
@@ -148,6 +154,7 @@ class _OrderProcessingScreenState extends State<OrderProcessingScreen> {
               OrderUtil().generateOrderNumber(firebaseAuth.currentUser!.uid),
           customerId: firebaseAuth.currentUser!.uid,
           customerName: user.name,
+          customerPhoneNumber: placeOrderState.address!.phoneNumber,
           address: placeOrderState.address!,
           orderSummary: OrderSummary(
             amount: placeOrderState.amount!,
@@ -169,6 +176,7 @@ class _OrderProcessingScreenState extends State<OrderProcessingScreen> {
               items: placeOrderState.cart!.cartItems,
               cartItems: placeOrderState.cart?.cartItems ?? [],
               cardNumber: placeOrderState.paymentInformation?.cardNumber ?? "",
+              promotion: placeOrderState.promotion,
             ),
           );
     } else {

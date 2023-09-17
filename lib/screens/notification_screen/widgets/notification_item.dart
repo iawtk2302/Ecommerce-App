@@ -2,7 +2,6 @@ import 'package:ecommerce_app/common_widgets/my_icon.dart';
 import 'package:ecommerce_app/common_widgets/my_icon_button.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/constants/enums/notification_type.dart';
 import 'package:ecommerce_app/extensions/date_time_extension.dart';
 import 'package:ecommerce_app/models/user_notification.dart';
@@ -33,11 +32,12 @@ class NotificationItem extends StatelessWidget {
               onPressed: () {},
               icon: MyIcon(
                 icon: icon,
-                colorFilter: const ColorFilter.mode(
-                    AppColors.whiteColor, BlendMode.srcIn),
+                colorFilter: ColorFilter.mode(
+                    Theme.of(context).colorScheme.onPrimaryContainer,
+                    BlendMode.srcIn),
               ),
               size: 50,
-              color: AppColors.primaryColor),
+              color: Theme.of(context).colorScheme.primaryContainer),
           const SizedBox(
             width: 10,
           ),
@@ -47,18 +47,18 @@ class NotificationItem extends StatelessWidget {
               children: [
                 Text(
                   userNotification.title,
-                  style: AppStyles.labelLarge,
+                  style: Theme.of(context).textTheme.labelLarge,
                 ),
                 Text(
                   userNotification.content,
-                  style: AppStyles.bodyLarge,
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 const SizedBox(
                   height: 4,
                 ),
                 Text(
                   userNotification.createdAt.formattedNotificationDate(),
-                  style: AppStyles.bodyLarge.copyWith(
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       color: AppColors.greyTextColor.withOpacity(0.6)),
                 )
               ],

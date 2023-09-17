@@ -2,7 +2,6 @@ import 'package:ecommerce_app/blocs/search_filter_bloc/search_filter_bloc.dart';
 import 'package:ecommerce_app/common_widgets/screen_name_section.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/screens/filter_screen/filter_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,13 +48,15 @@ class NotFound extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Text(
               "Not Found",
-              style:
-                  AppStyles.displayLarge.copyWith(fontWeight: FontWeight.w600),
+              style: Theme.of(context)
+                  .textTheme
+                  .displayLarge!
+                  .copyWith(fontWeight: FontWeight.w600),
             ),
           ),
-          const Text(
+          Text(
             "Sorry, the keyword you entered cannot be found, please check again or search with another keyword.",
-            style: AppStyles.bodyLarge,
+            style: Theme.of(context).textTheme.bodyLarge,
             textAlign: TextAlign.center,
           )
         ],

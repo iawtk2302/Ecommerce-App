@@ -127,6 +127,23 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               );
                             },
                           );
+                        case PaymentMethods.zaloPay:
+                          return BlocBuilder<PlaceOrderBloc, PlaceOrderState>(
+                            builder: (context, state) {
+                              return PaymentItemCard(
+                                isSelected: state.paymentMethod?.code ==
+                                    paymentMethod.code,
+                                paymentMethod:
+                                    paymentMethodsResource[paymentMethod]!,
+                                paymentCard: PaymentInformation(
+                                    id: "zalo_pay", type: "zalo_pay"),
+                                onTap: () => _onSelectPayment(
+                                    paymentMethod:
+                                        paymentMethodsResource[paymentMethod]!,
+                                    paymentInformation: thisPaymentInformation),
+                              );
+                            },
+                          );
                         case PaymentMethods.cashOnDelivery:
                           return BlocBuilder<PlaceOrderBloc, PlaceOrderState>(
                             builder: (context, state) {

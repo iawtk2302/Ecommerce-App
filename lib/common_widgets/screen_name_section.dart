@@ -1,5 +1,4 @@
 import 'package:ecommerce_app/constants/app_dimensions.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:flutter/material.dart';
 
 class ScreenNameSection extends StatelessWidget {
@@ -18,7 +17,7 @@ class ScreenNameSection extends StatelessWidget {
       margin: margin,
       child: Text(
         label,
-        style: AppStyles.headlineLarge,
+        style: Theme.of(context).textTheme.headlineLarge,
       ),
     );
   }

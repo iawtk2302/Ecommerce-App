@@ -1,9 +1,7 @@
 import 'package:ecommerce_app/common_widgets/custom_loading_widget.dart';
 import 'package:ecommerce_app/common_widgets/my_app_bar.dart';
 import 'package:ecommerce_app/common_widgets/section_label.dart';
-import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/extensions/timestamp_extensions.dart';
 import 'package:ecommerce_app/models/order.dart';
 import 'package:ecommerce_app/models/order_product_detail.dart';
@@ -36,8 +34,10 @@ class OrderTrackingScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(order.orderNumber, style: AppStyles.headlineLarge),
-            const Text("Washington - Geiorgia", style: AppStyles.bodyMedium),
+            Text(order.orderNumber,
+                style: Theme.of(context).textTheme.headlineLarge),
+            Text("Washington - Geiorgia",
+                style: Theme.of(context).textTheme.bodyMedium),
             if (orderItem != null)
               OrderItemWidget(
                   margin: const EdgeInsets.symmetric(vertical: 20),
@@ -106,11 +106,12 @@ class OrderTrackingScreen extends StatelessWidget {
                             children: [
                               Text(
                                 "${status.createAt.getMonth()} ${status.createAt.toDate().day}",
-                                style: AppStyles.labelMedium,
+                                style: Theme.of(context).textTheme.labelMedium,
                               ),
                               Text(
                                   "${status.createAt.toDate().hour}:${status.createAt.toDate().minute}",
-                                  style: AppStyles.bodyMedium),
+                                  style:
+                                      Theme.of(context).textTheme.bodyMedium),
                             ],
                           ),
                         ),
@@ -122,7 +123,9 @@ class OrderTrackingScreen extends StatelessWidget {
                               width: 10,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(50),
-                                  color: AppColors.primaryColor),
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primaryContainer),
                             ),
                             if (index < statuses.length - 1)
                               Container(
@@ -130,22 +133,27 @@ class OrderTrackingScreen extends StatelessWidget {
                                 width: 3,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
-                                    color: AppColors.primaryColor),
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .primaryContainer),
                               ),
                           ],
                         ),
                         const SizedBox(width: 10),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "${trackingStatusTitle[status.status]}",
-                              style: AppStyles.labelMedium,
-                            ),
-                            if (status.currentLocation != null)
-                              Text("${status.currentLocation}",
-                                  style: AppStyles.bodyMedium),
-                          ],
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "${trackingStatusTitle[status.status]}",
+                                style: Theme.of(context).textTheme.labelMedium,
+                              ),
+                              if (status.currentLocation != null)
+                                Text("${status.currentLocation}",
+                                    style:
+                                        Theme.of(context).textTheme.bodyMedium),
+                            ],
+                          ),
                         ),
                       ],
                     );

@@ -5,7 +5,6 @@ import 'package:ecommerce_app/common_widgets/my_button.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/screens/sign_up_screen/sign_up_success_screen.dart';
 import 'package:ecommerce_app/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -68,12 +67,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     children: [
                       SvgPicture.asset(AppAssets.icAppLogo),
                       SizedBox(height: size.height * 0.05),
-                      const Text("Sign Up", style: AppStyles.headlineLarge),
+                      Text("Sign Up",
+                          style: Theme.of(context).textTheme.headlineLarge),
                       const SizedBox(height: 5),
-                      const Text("Create an new account",
-                          style: AppStyles.bodyLarge),
+                      Text("Create an new account",
+                          style: Theme.of(context).textTheme.bodyLarge),
                       SizedBox(height: size.height * 0.07),
-                      const Text("User Name", style: AppStyles.labelLarge),
+                      Text("User Name",
+                          style: Theme.of(context).textTheme.labelLarge),
                       LoginTextField(
                         hint: "User Name",
                         controller: _userNameController,
@@ -86,7 +87,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           return null;
                         },
                       ),
-                      const Text("Email", style: AppStyles.labelLarge),
+                      Text("Email",
+                          style: Theme.of(context).textTheme.labelLarge),
                       LoginTextField(
                         hint: "Email",
                         controller: _emailController,
@@ -102,7 +104,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         },
                       ),
                       const SizedBox(height: 15),
-                      const Text("Password", style: AppStyles.labelLarge),
+                      Text("Password",
+                          style: Theme.of(context).textTheme.labelLarge),
                       LoginTextField(
                         hint: "Password",
                         controller: _passwordController,
@@ -127,8 +130,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               : SvgPicture.asset(AppAssets.icVisible),
                         ),
                       ),
-                      const Text("Confirm Password",
-                          style: AppStyles.labelLarge),
+                      Text("Confirm Password",
+                          style: Theme.of(context).textTheme.labelLarge),
                       LoginTextField(
                         hint: "Confirm Password",
                         controller: _confirmPasswordController,
@@ -170,10 +173,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           ),
                           const SizedBox(width: 12),
-                          const Expanded(
+                          Expanded(
                             child: Text(
                               "By creating an account you have to agree with our Terms and Conditions",
-                              style: AppStyles.bodyLarge,
+                              style: Theme.of(context).textTheme.bodyLarge,
                             ),
                           )
                         ],
@@ -182,19 +185,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       MyButton(
                         onPressed: _onSignUp,
                         child: Text("Sign Up",
-                            style: AppStyles.labelLarge
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelLarge!
                                 .copyWith(color: Colors.white)),
                       ),
                       const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text("You already have an account? ",
-                              style: AppStyles.bodyLarge),
+                          Text("You already have an account? ",
+                              style: Theme.of(context).textTheme.bodyLarge),
                           InkWell(
                             onTap: _navigateToSignInScreen,
                             child: Text("Sign in",
-                                style: AppStyles.bodyLarge
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
                                     .copyWith(color: AppColors.primaryColor)),
                           ),
                         ],

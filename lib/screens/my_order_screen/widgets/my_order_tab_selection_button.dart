@@ -26,15 +26,17 @@ class MyOrderTabSelectionButton extends StatelessWidget {
             )
           : BorderSide.none,
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-      backgroundColor:
-          isSelected ? AppColors.primaryColor : AppColors.whiteColor,
+      backgroundColor: isSelected
+          ? Theme.of(context).colorScheme.primaryContainer
+          : Theme.of(context).colorScheme.secondaryContainer,
       onPressed: onPressed,
       child: Text(label,
           style: AppStyles.labelMedium.copyWith(
               fontSize: 12,
               height: 1,
-              color:
-                  isSelected ? AppColors.whiteColor : AppColors.darkGreyColor)),
+              color: isSelected
+                  ? Theme.of(context).colorScheme.onPrimaryContainer
+                  : AppColors.darkGreyColor)),
     );
   }
 }

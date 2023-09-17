@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecommerce_app/services/local_notification_service.dart';
 import 'package:flutter/material.dart';
 
 class PushDataScreen extends StatelessWidget {

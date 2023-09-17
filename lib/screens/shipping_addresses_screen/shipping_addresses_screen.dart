@@ -3,9 +3,7 @@ import 'package:ecommerce_app/common_widgets/my_app_bar.dart';
 import 'package:ecommerce_app/common_widgets/my_icon.dart';
 import 'package:ecommerce_app/common_widgets/my_outlined_button.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
-import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/screens/add_address_screen/add_address_screen.dart';
 import 'package:ecommerce_app/screens/shipping_addresses_screen/widgets/adjustable_address_card.dart';
 import 'package:flutter/material.dart';
@@ -68,8 +66,7 @@ class _ShippingAddressesScreenState extends State<ShippingAddressesScreen> {
                     const SizedBox(width: 10),
                     Text(
                       "Add New Address",
-                      style: AppStyles.labelLarge
-                          .copyWith(color: AppColors.primaryColor),
+                      style: Theme.of(context).textTheme.labelLarge!,
                     )
                   ],
                 )),

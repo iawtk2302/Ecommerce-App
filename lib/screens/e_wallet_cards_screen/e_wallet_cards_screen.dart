@@ -61,18 +61,25 @@ class _EWalletCardsScreenState extends State<EWalletCardsScreen> {
                         onTap: () => _onSelectCard(card: card),
                         child: PrimaryBackground(
                           backgroundColor: isSelected
-                              ? AppColors.primaryColor
-                              : AppColors.whiteColor,
+                              ? Theme.of(context).colorScheme.primaryContainer
+                              : Theme.of(context).colorScheme.tertiaryContainer,
                           margin: const EdgeInsets.symmetric(
                               horizontal: AppDimensions.defaultPadding,
                               vertical: 10),
                           child: ListTile(
                             title: Text(
                               card.cardNumber!.maskCardNumber(),
-                              style: AppStyles.bodyLarge.copyWith(
-                                  color: isSelected
-                                      ? AppColors.whiteColor
-                                      : AppColors.primaryColor),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                      color: isSelected
+                                          ? Theme.of(context)
+                                              .colorScheme
+                                              .onPrimaryContainer
+                                          : Theme.of(context)
+                                              .colorScheme
+                                              .onTertiaryContainer),
                             ),
                           ),
                         ),
@@ -108,7 +115,9 @@ class _EWalletCardsScreenState extends State<EWalletCardsScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text("Continue",
-                    style: AppStyles.labelLarge
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelLarge!
                         .copyWith(color: AppColors.whiteColor)),
               ],
             ),

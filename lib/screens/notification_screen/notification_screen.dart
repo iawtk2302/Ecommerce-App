@@ -18,22 +18,34 @@ class _NotificationScreenState extends State<NotificationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const ScreenNameSection(label: 'Notification'),
-            StreamBuilder<List<UserNotification>>(
-                stream: NotificationRepository().fetchNotifications(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CustomLoadingWidget();
-                  } else if (snapshot.hasData) {
-                    return ListView.separated(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const ScreenNameSection(label: 'Notification'),
+          StreamBuilder<List<UserNotification>>(
+              stream: NotificationRepository().fetchNotifications(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return const Center(
+                    child: Text("Something went wrong"),
+                  );
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const CustomLoadingWidget();
+                }
+                if (snapshot.hasData) {
+                  if (snapshot.data!.isEmpty) {
+                    return Center(
+                      child: Text('No notification yet',
+                          style: Theme.of(context).textTheme.bodyMedium),
+                    );
+                  }
+                  return Expanded(
+                    child: ListView.separated(
                       padding: const EdgeInsets.symmetric(
                           horizontal: AppDimensions.defaultPadding),
                       shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
+                      // physics: const NeverScrollableScrollPhysics(),
                       separatorBuilder: (context, index) => const Divider(),
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
@@ -41,13 +53,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           userNotification: snapshot.data![index],
                         );
                       },
-                    );
-                  } else {
-                    return const SizedBox();
-                  }
-                }),
-          ],
-        ),
+                    ),
+                  );
+                }
+                return const SizedBox();
+              }),
+        ],
       ),
     ));
   }

@@ -6,7 +6,6 @@ import 'package:ecommerce_app/common_widgets/my_icon.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/constants/enums/gender.dart';
 import 'package:ecommerce_app/screens/personal_details_screen/widgets/profile_details_information.dart';
 import 'package:ecommerce_app/screens/personal_details_screen/widgets/profile_image.dart';
@@ -105,8 +104,11 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                               width:
                                   MediaQuery.of(context).size.width * 0.4 - 60,
                               child: Text("Gender",
-                                  style: AppStyles.labelMedium.copyWith(
-                                      color: AppColors.greyTextColor)),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelMedium!
+                                      .copyWith(
+                                          color: AppColors.greyTextColor)),
                             ),
                             ...List.generate(2, (index) {
                               final thisGender =
@@ -129,27 +131,53 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                                         )
                                       : BorderSide.none,
                                   backgroundColor: isSelected
-                                      ? AppColors.primaryColor
-                                      : AppColors.whiteColor,
+                                      ? Theme.of(context)
+                                          .colorScheme
+                                          .primaryContainer
+                                      : Theme.of(context)
+                                          .colorScheme
+                                          .secondaryContainer,
                                   child: Row(
                                     children: [
                                       Radio(
                                           visualDensity: const VisualDensity(
-                                              horizontal:
-                                                  VisualDensity.minimumDensity,
-                                              vertical:
-                                                  VisualDensity.minimumDensity),
+                                              horizontal: VisualDensity
+                                                  .minimumDensity,
+                                              vertical: VisualDensity
+                                                  .minimumDensity),
                                           materialTapTargetSize:
                                               MaterialTapTargetSize.shrinkWrap,
-                                          activeColor: Colors.white,
+                                          // activeColor: isSelected
+                                          //     ? Theme.of(context)
+                                          //         .colorScheme
+                                          //         .onPrimaryContainer
+                                          //     : Theme.of(context)
+                                          //         .colorScheme
+                                          //         .onSecondaryContainer,
+                                          fillColor:
+                                              MaterialStateColor.resolveWith(
+                                                  (states) => isSelected
+                                                      ? Theme.of(context)
+                                                          .colorScheme
+                                                          .onPrimaryContainer
+                                                      : Theme.of(context)
+                                                          .colorScheme
+                                                          .onSecondaryContainer),
                                           value: gender,
                                           groupValue: thisGender,
                                           onChanged: (value) {}),
                                       Text(genderToString[thisGender]!,
-                                          style: AppStyles.labelMedium.copyWith(
-                                              color: isSelected
-                                                  ? AppColors.whiteColor
-                                                  : AppColors.darkGreyColor)),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelMedium!
+                                              .copyWith(
+                                                  color: isSelected
+                                                      ? Theme.of(context)
+                                                          .colorScheme
+                                                          .onPrimaryContainer
+                                                      : Theme.of(context)
+                                                          .colorScheme
+                                                          .onSecondaryContainer)),
                                     ],
                                   ));
                             }),
@@ -190,7 +218,9 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text("Save",
-                                  style: AppStyles.labelLarge
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelLarge!
                                       .copyWith(color: AppColors.whiteColor)),
                             ],
                           ),

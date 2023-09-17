@@ -184,7 +184,9 @@ class _MessageInputState extends State<MessageInput> {
             children: [
               Text(
                 'Choose Image',
-                style: AppStyles.displayMedium
+                style: Theme.of(context)
+                    .textTheme
+                    .displayMedium!
                     .copyWith(color: AppColors.primaryColor),
               ),
               InkWell(
@@ -199,7 +201,9 @@ class _MessageInputState extends State<MessageInput> {
                   child: Center(
                     child: Text(
                       'Take A Photo',
-                      style: AppStyles.labelMedium
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelMedium!
                           .copyWith(color: AppColors.whiteColor),
                     ),
                   ),
@@ -216,7 +220,9 @@ class _MessageInputState extends State<MessageInput> {
                   child: Center(
                     child: Text(
                       'Choose From Library',
-                      style: AppStyles.labelMedium
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelMedium!
                           .copyWith(color: AppColors.whiteColor),
                     ),
                   ),

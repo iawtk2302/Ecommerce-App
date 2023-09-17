@@ -3,8 +3,6 @@ import 'package:ecommerce_app/blocs/product_bloc/product_bloc.dart';
 import 'package:ecommerce_app/blocs/show_notification/show_notification_bloc.dart';
 import 'package:ecommerce_app/common_widgets/cart_button.dart';
 import 'package:ecommerce_app/common_widgets/my_app_bar.dart';
-import 'package:ecommerce_app/constants/app_colors.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/models/product.dart';
 import 'package:ecommerce_app/screens/cart_screen/cart_screen.dart';
 import 'package:ecommerce_app/screens/detail_product_screen/widgets/bottom_bar_product.dart';
@@ -48,7 +46,10 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
             },
             child: Text(
               "Undo",
-              style: AppStyles.labelMedium.copyWith(color: Colors.white),
+              style: Theme.of(context)
+                  .textTheme
+                  .labelMedium!
+                  .copyWith(color: Colors.white),
             )));
   }
 
@@ -56,7 +57,6 @@ class _DetailProductScreenState extends State<DetailProductScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
       appBar: MyAppBar(
         actions: [
           CartButton(

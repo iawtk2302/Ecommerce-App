@@ -16,8 +16,10 @@ import 'package:ecommerce_app/blocs/product_screen_bloc/product_screen_bloc.dart
 import 'package:ecommerce_app/blocs/review_screen_bloc/review_screen_bloc.dart';
 import 'package:ecommerce_app/blocs/search_filter_bloc/search_filter_bloc.dart';
 import 'package:ecommerce_app/blocs/show_notification/show_notification_bloc.dart';
+import 'package:ecommerce_app/blocs/theme_bloc/theme_bloc.dart';
 import 'package:ecommerce_app/blocs/user_bloc/user_bloc.dart';
 import 'package:ecommerce_app/config/app_routes.dart';
+import 'package:ecommerce_app/constants/app_themes.dart';
 import 'package:ecommerce_app/screens/splash_screen/splash_screen.dart';
 import 'package:ecommerce_app/services/local_notification_service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -31,16 +33,23 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final navigatorKey = GlobalKey<NavigatorState>();
-  ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
-  await LocalNotificationService.initialize();
-  FirebaseMessaging.onMessage.listen(LocalNotificationService.handleMessage);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  final navigatorKey = GlobalKey<NavigatorState>();
+  ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
+  await setUpNotification();
+
   runApp(MyApp(
     navigatorKey: navigatorKey,
   ));
+}
+
+Future<void> setUpNotification() async {
+  await LocalNotificationService.initialize();
+  FirebaseMessaging.onMessage.listen(LocalNotificationService.handleMessage);
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  messaging.subscribeToTopic('all');
 }
 
 class MyApp extends StatelessWidget {
@@ -51,6 +60,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (_) => ThemeBloc()..add(const LoadTheme())),
         BlocProvider(create: (_) => AuthBloc()..add(CheckAuthentication())),
         BlocProvider(create: (_) => UserBloc()),
         BlocProvider(create: (_) => ShowNotificationBloc()),
@@ -85,10 +95,9 @@ class MyApp extends StatelessWidget {
             navigatorKey: navigatorKey,
             debugShowCheckedModeBanner: false,
             onGenerateRoute: AppRouter().onGenerateRoute,
-            theme: ThemeData(
-              fontFamily: 'Poppins',
-              useMaterial3: true,
-            ),
+            theme: AppThemes().lightTheme,
+            darkTheme: AppThemes().darkTheme,
+            themeMode: context.watch<ThemeBloc>().state.themeMode,
             localizationsDelegates: const [
               AppLocalizations.delegate, // Generated delegate
               GlobalMaterialLocalizations.delegate,

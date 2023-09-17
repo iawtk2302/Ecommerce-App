@@ -17,7 +17,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     try {
       emit(HomeLoading());
       final List<Promotion> promotions =
-          await PromotionRepository().fetchPromotionsInHome();
+          await PromotionRepository().fetchValidPromotions();
       final List<Product> newArrivals =
           await ProductRepository().fetchNewArrivals();
       final List<Product> popular = await ProductRepository().fetchPopular();

@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/blocs/auth_bloc/auth_bloc.dart';
 import 'package:ecommerce_app/blocs/language_bloc/language_bloc.dart';
+import 'package:ecommerce_app/blocs/theme_bloc/theme_bloc.dart';
 import 'package:ecommerce_app/common_widgets/my_app_bar.dart';
 import 'package:ecommerce_app/common_widgets/my_button.dart';
 import 'package:ecommerce_app/common_widgets/my_icon.dart';
@@ -28,13 +29,11 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   bool notificationMode = true;
-  bool darkMode = true;
 
   @override
   void initState() {
     super.initState();
     _getNotificationMode();
-    _getDarkMode();
   }
 
   @override
@@ -79,13 +78,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         value: notificationMode,
                         onChanged: (value) => _onChangeNotificationMode(),
                       )),
-                  SettingButton(
-                      title: "Dark mode",
-                      iconAsset: AppAssets.icMoon,
-                      action: MySwitchButton(
-                        value: darkMode,
-                        onChanged: (value) => _onChangeDarkMode(),
-                      )),
+                  BlocBuilder<ThemeBloc, ThemeState>(
+                    builder: (context, state) {
+                      return SettingButton(
+                          title: "Dark mode",
+                          iconAsset: AppAssets.icMoon,
+                          action: MySwitchButton(
+                            value: state.themeMode == ThemeMode.dark,
+                            onChanged: (value) =>
+                                _onChangeDarkMode(value, context),
+                          ));
+                    },
+                  ),
                   const SettingButton(
                       title: "Help Center",
                       iconAsset: AppAssets.icInfo,
@@ -108,7 +112,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 const SizedBox(width: 10),
                 Text("Log out",
-                    style: AppStyles.labelLarge
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelLarge!
                         .copyWith(color: AppColors.whiteColor)),
               ],
             ),
@@ -133,18 +139,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
     });
   }
 
-  _getDarkMode() async {
-    final darkMode = await Utils().getDarkMode();
-    setState(() {
-      this.darkMode = darkMode;
-    });
-  }
-
-  void _onChangeDarkMode() {
-    setState(() {
-      darkMode = !darkMode;
-    });
-    Utils().changeDarkMode();
+  void _onChangeDarkMode(bool isDark, BuildContext context) {
+    context
+        .read<ThemeBloc>()
+        .add(ChangeTheme(themeMode: isDark ? ThemeMode.dark : ThemeMode.light));
   }
 
   void _onLogOut() {

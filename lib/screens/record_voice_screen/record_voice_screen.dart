@@ -9,7 +9,6 @@ import 'package:ecommerce_app/services/chat_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sound_record/flutter_sound_record.dart';
 import 'package:lottie/lottie.dart';
-import 'package:path_provider/path_provider.dart';
 
 class RecordVoiceScreen extends StatefulWidget {
   const RecordVoiceScreen({super.key});

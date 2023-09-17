@@ -17,6 +17,7 @@ class AppAssets {
   static const String icPromotion = "$iconPath/ic_discount.svg";
   static const String icAddAddress = "$iconPath/ic_add_item.svg";
   static const String icScan = "$iconPath/ic_scan.svg";
+  static const String icScanQr = "$iconPath/ic_scan_qr.svg";
   static const String icEdit = "$iconPath/ic_edit.svg";
   static const String icEditBold = "$iconPath/ic_edit_bold.svg";
   static const String icAddRound = "$iconPath/ic_add_round.svg";
@@ -65,6 +66,7 @@ class AppAssets {
   static const String imgPaypal = "$imagePath/img_paypal.png";
   static const String imgVisa = "$imagePath/img_visa.png";
   static const String imgGooglePay = "$imagePath/img_google.png";
+  static const String imgZaloPay = "$imagePath/img_zalopay.png";
   static const String imgCashOnDelivery = "$imagePath/img_cash_on_delivery.png";
   static const String imgNotFound = "$imagePath/img_not_found.svg";
   static const String imgNoReview = "$imagePath/img_no_review.svg";

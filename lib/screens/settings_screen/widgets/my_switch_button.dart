@@ -1,4 +1,3 @@
-import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class MySwitchButton extends StatelessWidget {
@@ -17,8 +16,10 @@ class MySwitchButton extends StatelessWidget {
       scale: 0.8,
       child: Switch(
           value: value,
-          activeColor: AppColors.whiteColor,
-          activeTrackColor: AppColors.primaryColor,
+          activeColor: Theme.of(context).colorScheme.secondaryContainer,
+          activeTrackColor: Theme.of(context).colorScheme.onSecondaryContainer,
+          inactiveTrackColor: Theme.of(context).colorScheme.primaryContainer,
+          inactiveThumbColor: Theme.of(context).colorScheme.onPrimaryContainer,
           onChanged: onChanged),
     );
   }

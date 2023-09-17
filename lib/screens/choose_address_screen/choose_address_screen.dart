@@ -7,7 +7,6 @@ import 'package:ecommerce_app/common_widgets/my_outlined_button.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/constants/app_dimensions.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/models/shipping_address.dart';
 import 'package:ecommerce_app/screens/add_address_screen/add_address_screen.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +69,9 @@ class _ChooseAddressScreenState extends State<ChooseAddressScreen> {
                     const SizedBox(width: 10),
                     Text(
                       "Add New Address",
-                      style: AppStyles.labelLarge
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelLarge!
                           .copyWith(color: AppColors.primaryColor),
                     )
                   ],

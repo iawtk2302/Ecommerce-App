@@ -1,6 +1,5 @@
 import 'package:ecommerce_app/blocs/product_bloc/product_bloc.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,14 +23,14 @@ class ProductTile extends StatelessWidget {
               children: [
                 Text(
                   product.brand,
-                  style: AppStyles.headlineLarge,
+                  style: Theme.of(context).textTheme.headlineLarge,
                 ),
                 const SizedBox(
                   height: 4,
                 ),
                 Text(
                   product.name,
-                  style: AppStyles.bodyLarge,
+                  style: Theme.of(context).textTheme.bodyLarge,
                 ),
               ],
             ),
@@ -56,15 +55,32 @@ class ProductTile extends StatelessWidget {
                                 .read<ProductBloc>()
                                 .add(const DecreaseQuantity());
                           },
-                          child: const Icon(Icons.remove)),
-                      Text(currentState.quantity.toString()),
+                          child: Icon(
+                            Icons.remove,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
+                          )),
+                      Text(
+                        currentState.quantity.toString(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelMedium!
+                            .copyWith(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer),
+                      ),
                       GestureDetector(
                           onTap: () {
                             context
                                 .read<ProductBloc>()
                                 .add(const IncreaseQuantity());
                           },
-                          child: const Icon(Icons.add)),
+                          child: Icon(Icons.add,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onPrimaryContainer)),
                     ],
                   ),
                 );

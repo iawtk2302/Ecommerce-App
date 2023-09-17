@@ -2,7 +2,6 @@ import 'package:ecommerce_app/blocs/user_bloc/user_bloc.dart';
 import 'package:ecommerce_app/common_widgets/my_icon.dart';
 import 'package:ecommerce_app/constants/app_assets.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
-import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/common_widgets/primary_background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,14 +48,16 @@ class ProfileInformationCard extends StatelessWidget {
                       children: [
                         Text(
                           state.user.name,
-                          style: AppStyles.titleMedium
-                              .copyWith(fontWeight: FontWeight.bold),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.primaryColor),
                         ),
-                        Text(
-                          state.user.email,
-                          overflow: TextOverflow.ellipsis,
-                          style: AppStyles.bodyLarge,
-                        ),
+                        Text(state.user.email,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.bodyLarge),
                       ],
                     ),
                   )

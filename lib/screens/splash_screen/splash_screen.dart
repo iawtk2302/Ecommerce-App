@@ -46,7 +46,6 @@ class _SplashScreenState extends State<SplashScreen> {
             child: BlocListener<UserBloc, UserState>(
                 listener: (context, state) {
                   if (state is UserLoaded && firstTime) {
-                    print(state.user.toMap());
                     firstTime = false;
                     context.read<HomeBloc>().add(const LoadHome());
                     context

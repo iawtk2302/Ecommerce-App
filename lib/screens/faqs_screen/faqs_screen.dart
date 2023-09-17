@@ -28,30 +28,32 @@ class FAQsScreen extends StatelessWidget {
                 return const Center(child: CustomLoadingWidget());
               } else {
                 final List<FAQ> faqs = snapshot.data!;
-                return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: faqs.length,
-                    itemBuilder: (_, index) {
-                      final FAQ faq = faqs[index];
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: AppDimensions.defaultPadding),
-                        child: PrimaryBackground(
-                          child: ExpansionTile(
-                            shape: const RoundedRectangleBorder(),
-                            title: Text(faq.question),
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 8),
-                                child: Text(faq.answer,
-                                    style: AppStyles.bodyLarge),
-                              )
-                            ],
+                return Expanded(
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: faqs.length,
+                      itemBuilder: (_, index) {
+                        final FAQ faq = faqs[index];
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: AppDimensions.defaultPadding),
+                          child: PrimaryBackground(
+                            child: ExpansionTile(
+                              shape: const RoundedRectangleBorder(),
+                              title: Text(faq.question),
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 8),
+                                  child: Text(faq.answer,
+                                      style: AppStyles.bodyLarge),
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    });
+                        );
+                      }),
+                );
               }
             })
       ]),
