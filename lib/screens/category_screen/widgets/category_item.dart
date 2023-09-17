@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/models/category.dart';
 import 'package:ecommerce_app/repositories/category_repository.dart';
 import 'package:ecommerce_app/screens/category_product_screen/category_product_screen.dart';
