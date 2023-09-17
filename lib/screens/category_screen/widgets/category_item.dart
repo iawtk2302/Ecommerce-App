@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/models/category.dart';
+import 'package:ecommerce_app/repositories/category_repository.dart';
 import 'package:ecommerce_app/screens/category_product_screen/category_product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -61,10 +62,21 @@ class CategoryItem extends StatelessWidget {
                         .copyWith(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
-                  Text(
-                    "${category.productCount} Product",
-                    style: AppStyles.labelMedium.copyWith(fontSize: 11),
-                    textAlign: TextAlign.center,
+                  FutureBuilder<int>(
+                    future: CategoryRepository().getProductCount(category),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const SizedBox();
+                      } else if (snapshot.hasData) {
+                        return Text(
+                          "${snapshot.data} Product",
+                          style: AppStyles.labelMedium.copyWith(fontSize: 11),
+                          textAlign: TextAlign.center,
+                        );
+                      } else {
+                        return const SizedBox();
+                      }
+                    },
                   ),
                 ],
               ),

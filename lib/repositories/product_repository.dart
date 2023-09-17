@@ -38,6 +38,7 @@ class ProductRepository {
       } else {
         await productsRef
             .where('categoryId', isEqualTo: category.id)
+            .where('isDelete', isEqualTo: false)
             .get()
             .then((value) {
           products.addAll(value.docs
@@ -56,6 +57,7 @@ class ProductRepository {
       List<Product> products = [];
       await productsRef
           .orderBy("createdAt", descending: true)
+          .where('isDelete', isEqualTo: false)
           .limit(10)
           .get()
           .then((value) {
@@ -73,6 +75,7 @@ class ProductRepository {
       List<Product> products = [];
       await productsRef
           .orderBy("reviewCount", descending: true)
+          .where('isDelete', isEqualTo: false)
           .limit(10)
           .get()
           .then((value) {
@@ -88,7 +91,10 @@ class ProductRepository {
   Future<List<Product>> fetchAllProducts() async {
     try {
       List<Product> products = [];
-      await productsRef.get().then((value) {
+      await productsRef
+          .where('isDelete', isEqualTo: false)
+          .get()
+          .then((value) async {
         products.addAll(value.docs
             .map((e) => Product.fromMap(e.data() as Map<String, dynamic>)));
       });
