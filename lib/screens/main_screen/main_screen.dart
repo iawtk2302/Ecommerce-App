@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/blocs/auth_bloc/auth_bloc.dart';
 import 'package:ecommerce_app/constants/app_colors.dart';
 import 'package:ecommerce_app/screens/cart_screen/cart_screen.dart';
+import 'package:ecommerce_app/screens/chat_screen/chat_screen.dart';
 import 'package:ecommerce_app/screens/home_screen/home_screen.dart';
 import 'package:ecommerce_app/screens/main_screen/widgets/nav_bar.dart';
 import 'package:ecommerce_app/screens/notification_screen/notification_screen.dart';
@@ -37,11 +38,23 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    FirebaseMessaging.onMessageOpenedApp.listen((event) {
+    FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
+  }
+
+  void _handleMessage(RemoteMessage message) {
+    if (message.data['type'] == 'chat') {
+      setState(() {
+        currentIndex = 3;
+      });
+      Navigator.pushNamed(
+        context,
+        ChatScreen.routeName,
+      );
+    } else {
       setState(() {
         currentIndex = 2;
       });
-    });
+    }
   }
 
   @override

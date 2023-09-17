@@ -18,7 +18,6 @@ import 'package:ecommerce_app/blocs/search_filter_bloc/search_filter_bloc.dart';
 import 'package:ecommerce_app/blocs/show_notification/show_notification_bloc.dart';
 import 'package:ecommerce_app/blocs/user_bloc/user_bloc.dart';
 import 'package:ecommerce_app/config/app_routes.dart';
-import 'package:ecommerce_app/screens/push_data_screen.dart';
 import 'package:ecommerce_app/screens/splash_screen/splash_screen.dart';
 import 'package:ecommerce_app/services/local_notification_service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -39,8 +38,6 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
-  String? token = await messaging.getToken();
   runApp(MyApp(
     navigatorKey: navigatorKey,
   ));

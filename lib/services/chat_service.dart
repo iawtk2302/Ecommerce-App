@@ -9,6 +9,7 @@ import 'package:ecommerce_app/models/message.dart';
 import 'package:ecommerce_app/utils/chat_util.dart';
 import 'package:ecommerce_app/utils/firebase_constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -18,6 +19,7 @@ class ChatService {
   Future<void> sendTextMessage(String content) async {
     final String messageId =
         userId + DateTime.now().millisecondsSinceEpoch.toString();
+    final timestamp = DateTime.now();
     Message message = Message(
         id: messageId,
         senderId: userId,
@@ -26,17 +28,19 @@ class ChatService {
         audioUrl: '',
         isRead: false,
         type: MessageType.text,
-        timestamp: DateTime.now());
+        timestamp: timestamp);
     await chatRoomsRef
         .doc(chatRoomId)
         .collection('messages')
         .doc(messageId)
         .set(message.toMap());
+    await chatRoomsRef.doc(chatRoomId).update({'lastMessageTime': timestamp});
   }
 
   Future<void> sendImageMessage(List<XFile> images) async {
     final String info =
         userId + DateTime.now().millisecondsSinceEpoch.toString();
+    final timestamp = DateTime.now();
     for (int i = 0; i < images.length; i++) {
       final messageId = info + i.toString();
       final imageFile = File(images[i].path);
@@ -57,12 +61,15 @@ class ChatService {
             audioUrl: '',
             isRead: false,
             type: MessageType.image,
-            timestamp: DateTime.now());
+            timestamp: timestamp);
         await chatRoomsRef
             .doc(chatRoomId)
             .collection('messages')
             .doc(messageId)
             .set(message.toMap());
+        await chatRoomsRef
+            .doc(chatRoomId)
+            .update({'lastMessageTime': timestamp});
       } catch (e) {
         log(e.toString());
       }
@@ -72,6 +79,7 @@ class ChatService {
   Future<void> sendVoiceMessage(String filePath) async {
     final String messageId =
         userId + DateTime.now().millisecondsSinceEpoch.toString();
+    final timestamp = DateTime.now();
     try {
       final storageRef =
           FirebaseStorage.instance.ref().child('chat/chat_voice');
@@ -91,12 +99,13 @@ class ChatService {
           audioUrl: linkAudio,
           isRead: false,
           type: MessageType.voice,
-          timestamp: DateTime.now());
+          timestamp: timestamp);
       await chatRoomsRef
           .doc(chatRoomId)
           .collection('messages')
           .doc(messageId)
           .set(message.toMap());
+      await chatRoomsRef.doc(chatRoomId).update({'lastMessageTime': timestamp});
     } catch (e) {
       log(e.toString());
     }
@@ -115,10 +124,16 @@ class ChatService {
         await chatRoomsRef.where('id', isEqualTo: chatRoomId).get();
 
     if (existingRooms.docs.isEmpty) {
+      FirebaseMessaging messaging = FirebaseMessaging.instance;
+      String? token = await messaging.getToken();
       final ChatRoom roomData = ChatRoom(
           id: chatRoomId,
           name: name,
           imgUrl: imgUrl,
+          userId: userId,
+          userToken: token,
+          adminToken: null,
+          lastMessageTime: null,
           createdAt: DateTime.now());
 
       await chatRoomsRef.doc(chatRoomId).set(roomData.toMap());
