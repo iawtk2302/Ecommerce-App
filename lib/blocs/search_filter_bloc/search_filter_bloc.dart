@@ -166,7 +166,7 @@ class SearchFilterBloc extends Bloc<SearchFilterEvent, SearchFilterState> {
       case SortType.topSellers:
         {
           return products
-            ..sort((a, b) => a.reviewCount - b.reviewCount)
+            ..sort((a, b) => a.soldCount - b.soldCount)
             ..take(10).toList();
         }
       default:
@@ -175,35 +175,29 @@ class SearchFilterBloc extends Bloc<SearchFilterEvent, SearchFilterState> {
   }
 
   bool _isProductLaunchedToday(DateTime productLaunchDate) {
-    // Lấy ngày hôm nay
     DateTime today = DateTime.now();
 
-    // So sánh ngày ra mắt sản phẩm với ngày hôm nay
     if (productLaunchDate.year == today.year &&
         productLaunchDate.month == today.month &&
         productLaunchDate.day == today.day) {
-      return true; // Sản phẩm ra mắt trong ngày
+      return true;
     } else {
-      return false; // Sản phẩm không ra mắt trong ngày
+      return false;
     }
   }
 
   bool _isProductLaunchedThisWeek(DateTime productLaunchDate) {
-    // Lấy ngày hôm nay
     DateTime today = DateTime.now();
 
-    // Lấy ngày đầu tuần (ngày thứ 2)
     DateTime startOfWeek = today.subtract(Duration(days: today.weekday - 1));
 
-    // Lấy ngày cuối tuần (ngày chủ nhật)
     DateTime endOfWeek = startOfWeek.add(const Duration(days: 6));
 
-    // So sánh ngày ra mắt sản phẩm với khoảng thời gian trong tuần
     if (productLaunchDate.isAfter(startOfWeek) &&
         productLaunchDate.isBefore(endOfWeek)) {
-      return true; // Sản phẩm ra mắt trong tuần
+      return true;
     } else {
-      return false; // Sản phẩm không ra mắt trong tuần
+      return false;
     }
   }
 }
