@@ -11,5 +11,15 @@
   "viewAll": "View All",
   "profile": "Profile",
   "review": "review",
-  "addToCart": "Add to cart"
+  "addToCart": "Add to cart",
+  "personalDetails": "Personal Details",
+  "myOrders": "My Orders",
+  "myFavorites": "My Favorites",
+  "shippingAddress": "Shipping Address",
+  "myCards": "My Cards",
+  "eWallet": "E-Wallet",
+  "settings": "Settings",
+  "faqs": "FAQs",
+  "privacyPolicy": "Privacy Policy",
+  "support": "Support"
 }

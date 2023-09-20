@@ -59,6 +59,10 @@ class _MyCardsScreenState extends State<MyCardsScreen> {
                         thisPaymentInformation =
                             tempLst.isNotEmpty ? tempLst.first : null;
 
+                        if (thisPaymentMethod == PaymentMethods.zaloPay) {
+                          return const SizedBox();
+                        }
+
                         return BlocBuilder<PlaceOrderBloc, PlaceOrderState>(
                           builder: (context, state) {
                             return PaymentItemCard(

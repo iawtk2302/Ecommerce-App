@@ -11,21 +11,25 @@ import 'package:ecommerce_app/screens/settings_screen/settings_screen.dart';
 import 'package:ecommerce_app/screens/shipping_addresses_screen/shipping_addresses_screen.dart';
 import 'package:ecommerce_app/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsElement {
   final String title;
   final String assetPath;
   final Function(BuildContext) onTap;
+  final String Function(BuildContext) getTitle;
   SettingsElement({
     required this.title,
     required this.assetPath,
     required this.onTap,
+    required this.getTitle,
   });
 }
 
 final List<SettingsElement> settingsElements = [
   SettingsElement(
     title: "Personal Details",
+    getTitle: (context) => AppLocalizations.of(context)!.personalDetails,
     assetPath: AppAssets.icUser,
     onTap: (context) {
       Navigator.pushNamed(context, PersonalDetailsScreen.routeName);
@@ -33,6 +37,7 @@ final List<SettingsElement> settingsElements = [
   ),
   SettingsElement(
     title: "My Orders",
+    getTitle: (context) => AppLocalizations.of(context)!.myOrders,
     assetPath: AppAssets.icBagBold,
     onTap: (context) {
       Navigator.pushNamed(context, MyOrderScreen.routeName);
@@ -40,6 +45,7 @@ final List<SettingsElement> settingsElements = [
   ),
   SettingsElement(
     title: "My Favorites",
+    getTitle: (context) => AppLocalizations.of(context)!.myFavorites,
     assetPath: AppAssets.icHeartBold,
     onTap: (context) {
       Navigator.pushNamed(context, FavoriteScreen.routeName);
@@ -47,6 +53,7 @@ final List<SettingsElement> settingsElements = [
   ),
   SettingsElement(
     title: "Shipping Address",
+    getTitle: (context) => AppLocalizations.of(context)!.shippingAddress,
     assetPath: AppAssets.icTruck,
     onTap: (context) {
       Navigator.pushNamed(context, ShippingAddressesScreen.routeName);
@@ -54,6 +61,7 @@ final List<SettingsElement> settingsElements = [
   ),
   SettingsElement(
     title: "My Card",
+    getTitle: (context) => AppLocalizations.of(context)!.myCards,
     assetPath: AppAssets.icCard,
     onTap: (context) {
       Navigator.pushNamed(context, MyCardsScreen.routeName);
@@ -61,6 +69,7 @@ final List<SettingsElement> settingsElements = [
   ),
   SettingsElement(
     title: "E-Wallet",
+    getTitle: (context) => AppLocalizations.of(context)!.eWallet,
     assetPath: AppAssets.icWallet,
     onTap: (context) {
       Navigator.pushNamed(context, EWalletScreen.routeName);
@@ -68,6 +77,7 @@ final List<SettingsElement> settingsElements = [
   ),
   SettingsElement(
     title: "Settings",
+    getTitle: (context) => AppLocalizations.of(context)!.settings,
     assetPath: AppAssets.icSetting,
     onTap: (context) {
       Navigator.pushNamed(context, SettingsScreen.routeName);
@@ -78,12 +88,14 @@ final List<SettingsElement> settingsElements = [
 final List<SettingsElement> contactSettingsElements = [
   SettingsElement(
       title: "FAQs",
+      getTitle: (context) => AppLocalizations.of(context)!.faqs,
       assetPath: AppAssets.icInfo,
       onTap: (context) {
         Navigator.pushNamed(context, FAQsScreen.routeName);
       }),
   SettingsElement(
       title: "Privacy Policy",
+      getTitle: (context) => AppLocalizations.of(context)!.privacyPolicy,
       assetPath: AppAssets.icShieldTick,
       onTap: (context) {
         Utils().launchUrl(
@@ -91,6 +103,7 @@ final List<SettingsElement> contactSettingsElements = [
       }),
   SettingsElement(
       title: "Support",
+      getTitle: (context) => AppLocalizations.of(context)!.support,
       assetPath: AppAssets.icHeadphone,
       onTap: (context) {
         Navigator.pushNamed(context, ChatScreen.routeName);
