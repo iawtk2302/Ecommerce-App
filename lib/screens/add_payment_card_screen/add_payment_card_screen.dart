@@ -146,7 +146,10 @@ class _AddPaymentCardScreenState extends State<AddPaymentCardScreen> {
           cardType: cardType,
         );
         if (!mounted) return;
-        Utils.showSnackBar(context: context, message: "Add card successfully");
+        Utils.showSnackBarSuccess(
+            context: context,
+            message: "Your card is already add to your wallet.",
+            title: "Add card successfully");
 
         final bool hasPasscode = await PasscodeUtils().hasPasscode();
         if (!hasPasscode) {

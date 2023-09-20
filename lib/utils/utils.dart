@@ -28,8 +28,9 @@ class Utils {
   static void showSnackBar(
       {required BuildContext context, required String message}) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content:
-            Text(message, style: Theme.of(context).textTheme.labelMedium)));
+        content: Text(message,
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                color: Theme.of(context).colorScheme.onPrimaryContainer))));
   }
 
   static void showSnackBarSuccess(

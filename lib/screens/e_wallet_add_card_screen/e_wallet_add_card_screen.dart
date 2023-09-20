@@ -149,7 +149,10 @@ class _EWalletAddCardScreenState extends State<EWalletAddCardScreen> {
           cardType: cardType,
         );
         if (!mounted) return;
-        Utils.showSnackBar(context: context, message: "Add card successfully");
+        Utils.showSnackBarSuccess(
+            context: context,
+            message: "Your card is already add to your wallet.",
+            title: "Add card successfully");
         context.read<EWalletCardsBloc>().add(LoadEWalletCards());
 
         // require adding a passcode, if there is no passcode
