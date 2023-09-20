@@ -212,8 +212,8 @@ class FreeShippingPromotion extends Promotion {
       maximumDiscountValue: map['maximumDiscountValue']?.toDouble(),
       startTime: map['startTime'].toDate(),
       endTime: map['endTime'].toDate(),
-      quantity: map['quantity'] ?? 0,
-      usedQuantity: map['usedQuantity'] ?? 0,
+      quantity: map['quantity'] as int?,
+      usedQuantity: map['usedQuantity'] ?? "0",
       isDeleted: map['isDeleted'] ?? false,
     );
   }
@@ -278,7 +278,7 @@ class PercentagePromotion extends Promotion {
       maximumDiscountValue: map['maximumDiscountValue']?.toDouble(),
       startTime: map['startTime'].toDate(),
       endTime: map['endTime'].toDate(),
-      quantity: map['quantity'] ?? 0,
+      quantity: map['quantity'] as int?,
       usedQuantity: map['usedQuantity'] ?? 0,
       isDeleted: map['isDeleted'] ?? false,
       percentage: map['percentage'] as int,
@@ -380,7 +380,7 @@ class FixedAmountPromotion extends Promotion {
       maximumDiscountValue: map['maximumDiscountValue']?.toDouble(),
       startTime: map['startTime'].toDate(),
       endTime: map['endTime'].toDate(),
-      quantity: map['quantity'] ?? 0,
+      quantity: map['quantity'] as int?,
       usedQuantity: map['usedQuantity'] ?? 0,
       isDeleted: map['isDeleted'] ?? false,
       amount: map['amount'].toDouble(),
