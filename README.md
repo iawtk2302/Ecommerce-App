@@ -1,16 +1,32 @@
-# ecommerce_app
-
-A new Flutter project.
+# E-commerce App
 
 ## Getting Started
+This E-commerce App provides a platform for online shopping, including features such as product listing, shopping cart management, order placement,... It utilizes modern technologies for efficient performance and a user-friendly interface. The application is designed to be easy to navigate, providing users with a seamless shopping experience. The README file includes detailed information on how to install, run, and contribute to the project
 
-This project is a starting point for a Flutter application.
+<div style="display: flex; justify-content: space-around;">
+  <img src="assets/images/img_general_screenshot.png" style="width:24%">
+  <img src="assets/images/img_cart_screenshot.png" style="width:24%">
+  <img src="assets/images/img_notification_screenshot.png" style="width:24%">
+  <img src="assets/images/img_profile_screenshot.png" style="width:24%">
+</div>
 
-A few resources to get you started if this is your first Flutter project:
+## Installation
+1. Clone the repo
+   ```sh
+   git clone https://github.com/iawtk2302/Ecommerce-App
+   ```
+2. Get packages
+   ```sh
+   flutter pub get
+   ```
+4. Run the project
+   ```sh
+   flutter run
+   ```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Contributors
+* [Nguyễn Tuấn Khôi](https://github.com/iawtk2302)
+* [Nguyễn Tiến Vĩ](https://github.com/vinguyen1907)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Others
+Admin App: https://github.com/vinguyen1907/Admin-Ecommerce-App

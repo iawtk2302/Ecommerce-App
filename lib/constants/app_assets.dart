@@ -84,4 +84,5 @@ class AppAssets {
   static const String lottieTransactionProcess =
       "$lottiePath/lottie_transaction_process.json";
   static const String lottieAudio = "$lottiePath/lottie_audio.json";
+  static const String lottieAudio1 = "$lottiePath/lottie_audio1.json";
 }
