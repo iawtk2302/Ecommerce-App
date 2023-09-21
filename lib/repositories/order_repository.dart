@@ -57,6 +57,8 @@ class OrderRepository {
       order = order.copyWith(id: orderDoc.id);
       await orderDoc.set(order.toMap());
 
+      print(1);
+
       // this list is used to hold tasks
       // purpose: run these tasks concurrently and only finish when both of them finish
       List<Future> futures = [];
@@ -83,6 +85,7 @@ class OrderRepository {
           "soldCount": FieldValue.increment(item.quantity),
         });
       }
+      print(2);
 
       // add tracking list
       final trackingDoc =
@@ -94,21 +97,26 @@ class OrderRepository {
                   status: OrderStatus.pending,
                   createAt: Timestamp.fromDate(createdTime))
               .toMap());
+      print(3);
 
       // Update orders statistics
       futures.add(StatisticsRepository()
           .updateStatistics(orderValue: order.orderSummary.total));
+      print(4);
 
       // Update monthly sales
       futures.add(StatisticsRepository().updateMonthlySales(
           time: createdTime, orderValue: order.orderSummary.total));
+      print(5);
 
       // Update number of promotions if user used promotion in order
       if (promotion != null) {
+        print(promotion.id);
         batch.update(promotionsRef.doc(promotion.id), {
           "usedQuantity": FieldValue.increment(1),
         });
       }
+      print(6);
 
       // Update product statistics
       final soldCount = items.fold(
@@ -116,10 +124,15 @@ class OrderRepository {
       batch.update(productsStatisticsDocRef, {
         "soldQuantity": FieldValue.increment(soldCount),
       });
+      print(7);
 
       // wait for all tasks to complete
       futures.add(batch.commit());
+      print(8);
+
       await Future.wait(futures);
+      print(9);
+
       return orderDoc.id;
     } catch (e) {
       throw Exception(e);

@@ -33,7 +33,7 @@ class PromotionRepository {
           .doc(firebaseAuth.currentUser!.uid)
           .collection("promotions")
           .doc();
-      promotion = promotion.copyWith(id: doc.id);
+      promotion = promotion;
       await doc.set(promotion.toMap());
     } catch (e) {
       throw Exception(e);

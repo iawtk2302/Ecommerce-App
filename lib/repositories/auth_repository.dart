@@ -101,6 +101,7 @@ class AuthRepository {
   // }
 
   Future<void> logOut() async {
+    print("Sign out");
     await firebaseAuth.signOut();
   }
 }
