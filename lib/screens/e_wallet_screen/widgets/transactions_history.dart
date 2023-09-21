@@ -27,8 +27,9 @@ class TransactionsHistory extends StatelessWidget {
                 }),
           );
         } else if (state is EWalletTransactionsError) {
-          return const Center(
-            child: Text("Something went wrong."),
+          return Center(
+            // child: Text("Something went wrong."),
+            child: Text(state.message),
           );
         }
         return const SizedBox();

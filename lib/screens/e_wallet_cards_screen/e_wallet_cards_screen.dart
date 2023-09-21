@@ -62,8 +62,10 @@ class _EWalletCardsScreenState extends State<EWalletCardsScreen> {
                         onTap: () => _onSelectCard(card: card),
                         child: PrimaryBackground(
                           backgroundColor: isSelected
-                              ? Theme.of(context).colorScheme.primaryContainer
-                              : Theme.of(context).colorScheme.tertiaryContainer,
+                              ? Theme.of(context).colorScheme.tertiaryContainer
+                              : Theme.of(context)
+                                  .colorScheme
+                                  .secondaryContainer,
                           margin: const EdgeInsets.symmetric(
                               horizontal: AppDimensions.defaultPadding,
                               vertical: 10),
@@ -77,10 +79,10 @@ class _EWalletCardsScreenState extends State<EWalletCardsScreen> {
                                       color: isSelected
                                           ? Theme.of(context)
                                               .colorScheme
-                                              .onPrimaryContainer
+                                              .onTertiaryContainer
                                           : Theme.of(context)
                                               .colorScheme
-                                              .onTertiaryContainer),
+                                              .onSecondaryContainer),
                             ),
                           ),
                         ),

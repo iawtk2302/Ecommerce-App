@@ -191,6 +191,17 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                           Row(
                             children: [
                               Checkbox(
+                                  checkColor: Theme.of(context)
+                                      .colorScheme
+                                      .onPrimaryContainer,
+                                  activeColor: Theme.of(context)
+                                      .colorScheme
+                                      .primaryContainer,
+                                  side: BorderSide(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .primaryContainer,
+                                  ),
                                   value: setAsDefaultAddress,
                                   onChanged: (value) {
                                     if (value != null) {
@@ -199,7 +210,13 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                                       });
                                     }
                                   }),
-                              const Text("Use as default address.")
+                              Text("Use as default address.",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                        color: Theme.of(context).primaryColor,
+                                      ))
                             ],
                           )
                         ],

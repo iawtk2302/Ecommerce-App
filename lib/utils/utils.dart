@@ -27,8 +27,10 @@ class Utils {
 
   static void showSnackBar(
       {required BuildContext context, required String message}) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(message,
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                color: Theme.of(context).colorScheme.onPrimaryContainer))));
   }
 
   static void showSnackBarSuccess(
@@ -158,6 +160,7 @@ class Utils {
       required String passcode,
       required VoidCallback onTruePasscode}) async {
     await showModalBottomSheet(
+      backgroundColor: Theme.of(context).colorScheme.background,
       context: context,
       builder: (_) {
         return Padding(
@@ -174,10 +177,13 @@ class Utils {
               Pinput(
                 validator: (value) {
                   if (value != passcode) {
-                    return "Wrong passcode";
+                    return "Wrong passcode!";
                   }
                   return null;
                 },
+                errorTextStyle: AppStyles.labelMedium.copyWith(
+                    color: Theme.of(context).colorScheme.error,
+                    fontWeight: FontWeight.w500),
                 autofocus: true,
                 length: 6,
                 obscureText: true,
