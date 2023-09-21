@@ -38,7 +38,8 @@ class ProfileButton extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 10),
-            Text(element.title, style: Theme.of(context).textTheme.labelLarge),
+            Text(element.getTitle(context),
+                style: Theme.of(context).textTheme.labelLarge),
             const Spacer(),
             const MyIcon(
               icon: AppAssets.icChevronRight,

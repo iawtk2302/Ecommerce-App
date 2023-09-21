@@ -15,6 +15,7 @@ import 'package:ecommerce_app/screens/my_order_screen/widgets/write_review_botto
 import 'package:ecommerce_app/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OrderItemWidget extends StatelessWidget {
   final OrderModel order;
@@ -69,17 +70,17 @@ class OrderItemWidget extends StatelessWidget {
                       style: AppStyles.bodyLarge,
                     ),
                   Text(
-                    "Quantity: ${orderItem.quantity}",
+                    "${AppLocalizations.of(context)!.quantity}: ${orderItem.quantity}",
                     style: AppStyles.bodyMedium,
                   ),
                   Text(
-                    "Size: ${orderItem.size}",
+                    "${AppLocalizations.of(context)!.size}: ${orderItem.size}",
                     style: AppStyles.bodyMedium,
                   ),
                   Row(
                     children: [
-                      const Text(
-                        "Color: ",
+                      Text(
+                        "${AppLocalizations.of(context)!.color}: ",
                         style: AppStyles.bodyMedium,
                       ),
                       ColorDotWidget(color: orderItem.color.toColor())
@@ -100,7 +101,7 @@ class OrderItemWidget extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 12, vertical: 5),
                       onPressed: () => _onWriteReview(context),
-                      child: Text("Review",
+                      child: Text(AppLocalizations.of(context)!.review,
                           style: AppStyles.bodyMedium.copyWith(
                             color: AppColors.whiteColor,
                           ))),
@@ -109,7 +110,7 @@ class OrderItemWidget extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 12, vertical: 5),
                       onPressed: () => _onAddToCart(context),
-                      child: Text("Buy again",
+                      child: Text(AppLocalizations.of(context)!.buyAgain,
                           style: AppStyles.bodyMedium.copyWith(
                             color: AppColors.whiteColor,
                           ))),

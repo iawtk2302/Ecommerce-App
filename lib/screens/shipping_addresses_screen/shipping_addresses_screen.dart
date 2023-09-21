@@ -8,6 +8,7 @@ import 'package:ecommerce_app/screens/add_address_screen/add_address_screen.dart
 import 'package:ecommerce_app/screens/shipping_addresses_screen/widgets/adjustable_address_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ShippingAddressesScreen extends StatefulWidget {
   const ShippingAddressesScreen({super.key});
@@ -65,7 +66,7 @@ class _ShippingAddressesScreenState extends State<ShippingAddressesScreen> {
                     const MyIcon(icon: AppAssets.icAddRound),
                     const SizedBox(width: 10),
                     Text(
-                      "Add New Address",
+                      AppLocalizations.of(context)!.addNewAddress,
                       style: Theme.of(context).textTheme.labelLarge!,
                     )
                   ],

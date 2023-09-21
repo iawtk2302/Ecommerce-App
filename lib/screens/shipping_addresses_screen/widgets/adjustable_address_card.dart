@@ -7,6 +7,7 @@ import 'package:ecommerce_app/screens/place_order_screen/widgets/address_line.da
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AdjustableAddressCard extends StatelessWidget {
   const AdjustableAddressCard({
@@ -48,23 +49,34 @@ class AdjustableAddressCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AddressLine(label: "Street", content: address.street),
-                      AddressLine(label: "City", content: address.city),
                       AddressLine(
-                          label: "State/province/area", content: address.state),
+                          label: AppLocalizations.of(context)!.street,
+                          content: address.street),
                       AddressLine(
-                          label: "Phone number", content: address.phoneNumber),
-                      AddressLine(label: "Zip code", content: address.zipCode),
+                          label: AppLocalizations.of(context)!.city,
+                          content: address.city),
                       AddressLine(
-                          label: "Country calling code",
+                          label: AppLocalizations.of(context)!.state,
+                          content: address.state),
+                      AddressLine(
+                          label: AppLocalizations.of(context)!.phoneNumber,
+                          content: address.phoneNumber),
+                      AddressLine(
+                          label: AppLocalizations.of(context)!.zipCode,
+                          content: address.zipCode),
+                      AddressLine(
+                          label:
+                              AppLocalizations.of(context)!.countryCallingCode,
                           content: address.countryCallingCode),
-                      AddressLine(label: "Country", content: address.country),
+                      AddressLine(
+                          label: AppLocalizations.of(context)!.country,
+                          content: address.country),
                     ],
                   ),
                 ),
                 TextButton(
                     onPressed: () => _navigateToEditAddressScreen(context),
-                    child: const Text("Edit")),
+                    child: Text(AppLocalizations.of(context)!.edit)),
               ],
             )),
       ),

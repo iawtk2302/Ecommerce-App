@@ -11,6 +11,7 @@ import 'package:ecommerce_app/models/shipping_address.dart';
 import 'package:ecommerce_app/screens/add_address_screen/add_address_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChooseAddressScreen extends StatefulWidget {
   const ChooseAddressScreen({super.key});
@@ -68,7 +69,7 @@ class _ChooseAddressScreenState extends State<ChooseAddressScreen> {
                     const MyIcon(icon: AppAssets.icAddRound),
                     const SizedBox(width: 10),
                     Text(
-                      "Add New Address",
+                      AppLocalizations.of(context)!.addNewAddress,
                       style: Theme.of(context)
                           .textTheme
                           .labelLarge!
