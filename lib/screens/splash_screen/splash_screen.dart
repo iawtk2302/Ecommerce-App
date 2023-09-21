@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/blocs/auth_bloc/auth_bloc.dart';
+import 'package:ecommerce_app/blocs/cart_bloc/cart_bloc.dart';
 import 'package:ecommerce_app/blocs/home_bloc/home_bloc.dart';
 import 'package:ecommerce_app/blocs/place_order_bloc/place_order_bloc.dart';
 import 'package:ecommerce_app/blocs/user_bloc/user_bloc.dart';
@@ -48,6 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   if (state is UserLoaded && firstTime) {
                     firstTime = false;
                     context.read<HomeBloc>().add(const LoadHome());
+                    context.read<CartBloc>().add(LoadCart());
                     context
                         .read<PlaceOrderBloc>()
                         .add(UpdateAddress(state.user.defaultShippingAddress));

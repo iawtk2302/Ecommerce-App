@@ -173,6 +173,7 @@ class _MessageInputState extends State<MessageInput> {
 
   _chooseImage() {
     showModalBottomSheet(
+      backgroundColor: AppColors.whiteColor,
       context: context,
       builder: (context) {
         Size size = MediaQuery.of(context).size;

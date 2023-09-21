@@ -25,7 +25,7 @@ class _MainScreenState extends State<MainScreen> {
     const NotificationScreen(),
     const ProfileScreen()
   ];
-  // final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
   int currentIndex = 0;
 
   void onTap(int index) {
