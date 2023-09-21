@@ -1,4 +1,5 @@
 import 'package:credit_card_scanner/credit_card_scanner.dart';
+import 'package:ecommerce_app/blocs/payment_methods_bloc/payment_methods_bloc.dart';
 import 'package:ecommerce_app/common_widgets/loading_manager.dart';
 import 'package:ecommerce_app/common_widgets/my_app_bar.dart';
 import 'package:ecommerce_app/common_widgets/my_button.dart';
@@ -11,6 +12,7 @@ import 'package:ecommerce_app/screens/set_passcode_screen/set_passcode_screen.da
 import 'package:ecommerce_app/utils/passcode_utils.dart';
 import 'package:ecommerce_app/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 
 class AddPaymentCardScreen extends StatefulWidget {
@@ -64,6 +66,8 @@ class _AddPaymentCardScreenState extends State<AddPaymentCardScreen> {
               cvvCode: cvvCode,
               formKey: formKey,
               onCreditCardModelChange: (creditCardModel) {
+                print("Changed");
+                print(creditCardModel.cardHolderName);
                 setState(() {
                   cardNumber = creditCardModel.cardNumber;
                   expiryDate = creditCardModel.expiryDate;
@@ -146,10 +150,12 @@ class _AddPaymentCardScreenState extends State<AddPaymentCardScreen> {
           cardType: cardType,
         );
         if (!mounted) return;
+        context.read<PaymentMethodsBloc>().add(LoadPaymentMethods());
         Utils.showSnackBarSuccess(
             context: context,
             message: "Your card is already add to your wallet.",
             title: "Add card successfully");
+        Navigator.pop(context);
 
         final bool hasPasscode = await PasscodeUtils().hasPasscode();
         if (!hasPasscode) {
@@ -168,18 +174,22 @@ class _AddPaymentCardScreenState extends State<AddPaymentCardScreen> {
   }
 
   _onScanCard() async {
-    var cardDetails = await CardScanner.scanCard(
-      scanOptions: const CardScanOptions(
-        scanCardHolderName: true,
-      ),
-    );
+    try {
+      var cardDetails = await CardScanner.scanCard(
+        scanOptions: const CardScanOptions(),
+      );
+      print("Scanned card");
+      print(cardDetails == null);
 
-    if (cardDetails != null) {
-      setState(() {
-        cardNumber = cardDetails.cardNumber;
-        expiryDate = cardDetails.expiryDate;
-        cardHolderName = cardDetails.cardHolderName;
-      });
+      if (cardDetails != null) {
+        setState(() {
+          cardNumber = cardDetails.cardNumber;
+          expiryDate = cardDetails.expiryDate;
+          cardHolderName = cardDetails.cardHolderName;
+        });
+      }
+    } catch (e) {
+      print(e);
     }
   }
 }

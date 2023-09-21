@@ -88,10 +88,10 @@ class PaymentItemCard extends StatelessWidget {
                             color: isSelected
                                 ? Theme.of(context)
                                     .colorScheme
-                                    .onPrimaryContainer
+                                    .onTertiaryContainer
                                 : Theme.of(context)
                                     .colorScheme
-                                    .onTertiaryContainer),
+                                    .onSecondaryContainer),
                       ),
                   ],
                 ),

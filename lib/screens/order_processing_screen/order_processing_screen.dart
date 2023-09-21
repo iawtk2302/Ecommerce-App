@@ -71,7 +71,9 @@ class _OrderProcessingScreenState extends State<OrderProcessingScreen> {
                     Text("Order successfully",
                         style: Theme.of(context).textTheme.displayMedium),
                   if (state is OrderProcessingFailed)
-                    Text("Order failed. Please try again.",
+                    Text(
+                        // "Order failed. Please try again."
+                        state.message,
                         style: Theme.of(context).textTheme.displayMedium),
                   if (state is OrderProcessingAdding)
                     Text("Waiting...",
