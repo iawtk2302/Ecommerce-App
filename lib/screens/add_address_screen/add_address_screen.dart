@@ -17,6 +17,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddAddressScreen extends StatefulWidget {
   final ShippingAddress? address;
@@ -96,7 +97,8 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const ScreenNameSection(label: "Add New Address"),
+              ScreenNameSection(
+                  label: AppLocalizations.of(context)!.addNewAddress),
               Expanded(
                 child: SingleChildScrollView(
                   child: Padding(
@@ -189,6 +191,17 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                           Row(
                             children: [
                               Checkbox(
+                                  checkColor: Theme.of(context)
+                                      .colorScheme
+                                      .onPrimaryContainer,
+                                  activeColor: Theme.of(context)
+                                      .colorScheme
+                                      .primaryContainer,
+                                  side: BorderSide(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .primaryContainer,
+                                  ),
                                   value: setAsDefaultAddress,
                                   onChanged: (value) {
                                     if (value != null) {
@@ -197,7 +210,13 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                                       });
                                     }
                                   }),
-                              const Text("Use as default address.")
+                              Text("Use as default address.",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                        color: Theme.of(context).primaryColor,
+                                      ))
                             ],
                           )
                         ],

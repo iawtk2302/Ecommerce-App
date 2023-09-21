@@ -17,6 +17,7 @@ import 'package:ecommerce_app/utils/passcode_utils.dart';
 import 'package:ecommerce_app/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EWalletCardsScreen extends StatefulWidget {
   const EWalletCardsScreen({
@@ -61,8 +62,10 @@ class _EWalletCardsScreenState extends State<EWalletCardsScreen> {
                         onTap: () => _onSelectCard(card: card),
                         child: PrimaryBackground(
                           backgroundColor: isSelected
-                              ? Theme.of(context).colorScheme.primaryContainer
-                              : Theme.of(context).colorScheme.tertiaryContainer,
+                              ? Theme.of(context).colorScheme.tertiaryContainer
+                              : Theme.of(context)
+                                  .colorScheme
+                                  .secondaryContainer,
                           margin: const EdgeInsets.symmetric(
                               horizontal: AppDimensions.defaultPadding,
                               vertical: 10),
@@ -76,10 +79,10 @@ class _EWalletCardsScreenState extends State<EWalletCardsScreen> {
                                       color: isSelected
                                           ? Theme.of(context)
                                               .colorScheme
-                                              .onPrimaryContainer
+                                              .onTertiaryContainer
                                           : Theme.of(context)
                                               .colorScheme
-                                              .onTertiaryContainer),
+                                              .onSecondaryContainer),
                             ),
                           ),
                         ),
@@ -99,10 +102,11 @@ class _EWalletCardsScreenState extends State<EWalletCardsScreen> {
                   horizontal: AppDimensions.defaultPadding),
               backgroundColor: AppColors.greyColor,
               onPressed: () => _navigateToAddCardScreen(context),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Add New Card", style: AppStyles.labelLarge),
+                  Text(AppLocalizations.of(context)!.addNewCard,
+                      style: AppStyles.labelLarge),
                 ],
               )),
           const Spacer(),
@@ -114,7 +118,7 @@ class _EWalletCardsScreenState extends State<EWalletCardsScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Continue",
+                Text(AppLocalizations.of(context)!.continueButton,
                     style: Theme.of(context)
                         .textTheme
                         .labelLarge!

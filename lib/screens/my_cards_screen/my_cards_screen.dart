@@ -10,6 +10,7 @@ import 'package:ecommerce_app/repositories/payment_methods_repository.dart';
 import 'package:ecommerce_app/screens/payment_screen/widgets/payment_item_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyCardsScreen extends StatefulWidget {
   const MyCardsScreen({super.key});
@@ -35,7 +36,7 @@ class _MyCardsScreenState extends State<MyCardsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const ScreenNameSection(label: "My Cards"),
+            ScreenNameSection(label: AppLocalizations.of(context)!.myCards),
             BlocBuilder<PaymentMethodsBloc, PaymentMethodsState>(
               builder: (context, state) {
                 if (state is PaymentMethodsLoading) {
@@ -58,6 +59,10 @@ class _MyCardsScreenState extends State<MyCardsScreen> {
                             element.type == thisPaymentMethod.code);
                         thisPaymentInformation =
                             tempLst.isNotEmpty ? tempLst.first : null;
+
+                        if (thisPaymentMethod == PaymentMethods.zaloPay) {
+                          return const SizedBox();
+                        }
 
                         return BlocBuilder<PlaceOrderBloc, PlaceOrderState>(
                           builder: (context, state) {

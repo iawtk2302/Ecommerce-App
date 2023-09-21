@@ -6,6 +6,7 @@ import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/constants/default_top_up_amounts.dart';
 import 'package:ecommerce_app/screens/e_wallet_cards_screen/e_wallet_cards_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TopUpScreen extends StatefulWidget {
   const TopUpScreen({super.key});
@@ -32,7 +33,7 @@ class _TopUpScreenState extends State<TopUpScreen> {
       appBar: const MyAppBar(),
       body: Column(children: [
         const SizedBox(height: 20),
-        const Text("Enter the amount of top up"),
+        Text(AppLocalizations.of(context)!.enterTopUpAmount),
         const SizedBox(height: 20),
         Padding(
           padding: const EdgeInsets.symmetric(
@@ -104,7 +105,7 @@ class _TopUpScreenState extends State<TopUpScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Continue",
+                Text(AppLocalizations.of(context)!.continueButton,
                     style: Theme.of(context)
                         .textTheme
                         .labelLarge!

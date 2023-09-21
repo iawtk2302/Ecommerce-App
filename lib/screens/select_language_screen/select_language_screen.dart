@@ -7,6 +7,7 @@ import 'package:ecommerce_app/extensions/language_extension.dart';
 import 'package:ecommerce_app/common_widgets/primary_background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SelectLanguageScreen extends StatelessWidget {
   const SelectLanguageScreen({super.key});
@@ -18,7 +19,8 @@ class SelectLanguageScreen extends StatelessWidget {
     return Scaffold(
         appBar: const MyAppBar(),
         body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const ScreenNameSection(label: "Select Language"),
+          ScreenNameSection(
+              label: AppLocalizations.of(context)!.selectLanguage),
           BlocBuilder<LanguageBloc, LanguageState>(
             builder: (context, state) {
               return ListView.builder(
@@ -34,7 +36,7 @@ class SelectLanguageScreen extends StatelessWidget {
                           vertical: 10),
                       backgroundColor: isSelected
                           ? Theme.of(context).colorScheme.primaryContainer
-                          : Theme.of(context).colorScheme.tertiaryContainer,
+                          : Theme.of(context).colorScheme.secondaryContainer,
                       child: ListTile(
                         leading: ClipRRect(
                           borderRadius: AppDimensions.circleCorners,
@@ -57,7 +59,7 @@ class SelectLanguageScreen extends StatelessWidget {
                                           .onPrimaryContainer
                                       : Theme.of(context)
                                           .colorScheme
-                                          .onTertiaryContainer),
+                                          .onSecondaryContainer),
                         ),
                         onTap: () => _onSelectLanguage(context, language.code),
                       ),

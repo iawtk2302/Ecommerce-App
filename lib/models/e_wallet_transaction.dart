@@ -192,7 +192,7 @@ class PaymentTransaction extends EWalletTransaction {
     String? productImageUrl,
     String? size,
     Color? color,
-    int? quantity,
+    // int? quantity,
     double? amount,
     double? promotionAmount,
     double? shippingFee,

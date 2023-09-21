@@ -17,6 +17,7 @@ import 'package:ecommerce_app/screens/settings_screen/widgets/settings_button.da
 import 'package:ecommerce_app/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -43,14 +44,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const ScreenNameSection(label: "Settings"),
+          ScreenNameSection(label: AppLocalizations.of(context)!.settings),
           ProfileSectionBackground(
               margin: const EdgeInsets.symmetric(
                   horizontal: AppDimensions.defaultPadding),
               child: Column(
                 children: [
                   SettingButton(
-                      title: "Language",
+                      title: AppLocalizations.of(context)!.language,
                       iconAsset: AppAssets.icGlobal,
                       onPressed: _onNavigateToSelectLanguageScreen,
                       action: BlocBuilder<LanguageBloc, LanguageState>(
@@ -72,7 +73,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         },
                       )),
                   SettingButton(
-                      title: "Notification",
+                      title: AppLocalizations.of(context)!.notification,
                       iconAsset: AppAssets.icNotification,
                       action: MySwitchButton(
                         value: notificationMode,
@@ -81,7 +82,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   BlocBuilder<ThemeBloc, ThemeState>(
                     builder: (context, state) {
                       return SettingButton(
-                          title: "Dark mode",
+                          title: AppLocalizations.of(context)!.darkMode,
                           iconAsset: AppAssets.icMoon,
                           action: MySwitchButton(
                             value: state.themeMode == ThemeMode.dark,
@@ -90,10 +91,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ));
                     },
                   ),
-                  const SettingButton(
-                      title: "Help Center",
+                  SettingButton(
+                      title: AppLocalizations.of(context)!.helpCenter,
                       iconAsset: AppAssets.icInfo,
-                      action: SizedBox()),
+                      action: const SizedBox()),
                 ],
               )),
           const Spacer(),
@@ -111,7 +112,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ColorFilter.mode(AppColors.whiteColor, BlendMode.srcIn),
                 ),
                 const SizedBox(width: 10),
-                Text("Log out",
+                Text(AppLocalizations.of(context)!.logOut,
                     style: Theme.of(context)
                         .textTheme
                         .labelLarge!

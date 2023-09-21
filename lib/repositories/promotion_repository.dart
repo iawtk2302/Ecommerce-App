@@ -53,6 +53,7 @@ class PromotionRepository {
       promotions.removeWhere((element) =>
           element.quantity != null &&
           element.usedQuantity >= element.quantity!);
+      promotions.removeWhere((element) => element.isDeleted == true);
 
       return promotions;
     } catch (e) {

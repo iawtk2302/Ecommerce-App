@@ -14,6 +14,7 @@ import 'package:ecommerce_app/screens/my_order_screen/widgets/order_item_widget.
 import 'package:ecommerce_app/screens/order_tracking_screen/order_tracking_screen.dart';
 import 'package:ecommerce_app/screens/qr_scanner_screen/qr_scanner_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyOrderScreen extends StatefulWidget {
   const MyOrderScreen({super.key});
@@ -46,11 +47,12 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
             Wrap(
               alignment: WrapAlignment.spaceBetween,
               children: [
-                const ScreenNameSection(label: "My Order"),
+                ScreenNameSection(
+                    label: AppLocalizations.of(context)!.myOrders),
                 const Spacer(),
                 const SizedBox(width: 10),
                 MyOrderTabSelectionButton(
-                    label: "Ongoing",
+                    label: AppLocalizations.of(context)!.ongoing,
                     isSelected: _selection == MyOrderTabSelections.ongoing,
                     onPressed: () {
                       setState(() {
@@ -59,7 +61,7 @@ class _MyOrderScreenState extends State<MyOrderScreen> {
                     }),
                 const SizedBox(width: 10),
                 MyOrderTabSelectionButton(
-                    label: "Completed",
+                    label: AppLocalizations.of(context)!.completed,
                     isSelected: _selection == MyOrderTabSelections.completed,
                     onPressed: () {
                       setState(() {
