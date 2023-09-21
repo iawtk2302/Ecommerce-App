@@ -7,6 +7,7 @@ import 'package:ecommerce_app/constants/app_styles.dart';
 import 'package:ecommerce_app/models/promotion.dart';
 import 'package:ecommerce_app/repositories/promotion_repository.dart';
 import 'package:ecommerce_app/screens/home_screen/widgets/promotion_item.dart';
+import 'package:ecommerce_app/screens/promotion_screen/promotion_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -45,7 +46,8 @@ class ChoosePromotionScreen extends StatelessWidget {
                             style: AppStyles.bodyLarge),
                         TextButton(
                             onPressed: () {
-                              // TODO: Navigate to promotion screen
+                              Navigator.pushNamed(
+                                  context, PromotionScreen.routeName);
                             },
                             child: const Text("Explore now"))
                       ]),
