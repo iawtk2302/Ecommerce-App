@@ -52,7 +52,7 @@ dependencies:
   flutter_credit_card: ^3.0.7
   flutter_secure_storage: ^8.0.0
   pinput: ^3.0.0
-  credit_card_scanner: ^1.0.5
+  credit_card_scanner: ^1.0.4
   cached_network_image: ^3.2.3
   shimmer: ^3.0.0
   syncfusion_flutter_sliders: ^22.2.8

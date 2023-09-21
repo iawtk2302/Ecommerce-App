@@ -27,16 +27,19 @@ class BalanceWidget extends StatelessWidget {
               style: Theme.of(context).textTheme.titleSmall!.copyWith(
                   color: Theme.of(context).colorScheme.onPrimaryContainer)),
           const SizedBox(height: 10),
-          Row(
+          Wrap(
             children: [
               BlocBuilder<UserBloc, UserState>(
                 builder: (context, state) {
-                  return Text(
-                    "\$${(state is UserLoaded) ? state.user.eWalletBalance : 0}",
-                    style: TextStyle(
-                      fontSize: 38,
-                      fontWeight: FontWeight.w600,
-                      color: Theme.of(context).colorScheme.onPrimaryContainer,
+                  return Expanded(
+                    child: Text(
+                      "\$${(state is UserLoaded) ? state.user.eWalletBalance : 0}",
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 38,
+                        fontWeight: FontWeight.w600,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
                     ),
                   );
                 },

@@ -57,6 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
                         context, MainScreen.routeName);
                     // Navigator.pushNamedAndRemoveUntil(context,
                     //     MainScreen.routeName, (route) => route.isFirst);
+                  } else if (state is UserLoaded) {
                   } else if (state is UserError) {
                     Utils.showSnackBar(
                         context: context,
