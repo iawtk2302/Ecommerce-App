@@ -111,6 +111,7 @@ class OrderRepository {
 
       // Update number of promotions if user used promotion in order
       if (promotion != null) {
+        print(promotion.id);
         batch.update(promotionsRef.doc(promotion.id), {
           "usedQuantity": FieldValue.increment(1),
         });
