@@ -65,8 +65,9 @@ class PromotionItem extends StatelessWidget {
           errorWidget: (context, url, error) =>
               const Icon(Icons.error), // Error widget
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 8.0),
+        Container(
+          padding: const EdgeInsets.all(8),
+          width: width,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,6 +78,8 @@ class PromotionItem extends StatelessWidget {
               ),
               Text(
                 promotion.content,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
                 style: Theme.of(context)
                     .textTheme
                     .headlineLarge!

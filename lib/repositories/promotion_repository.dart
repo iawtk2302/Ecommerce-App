@@ -46,6 +46,7 @@ class PromotionRepository {
       final snapshot = await promotionsRef
           .where("endTime", isGreaterThan: DateTime.now())
           .get();
+      print(snapshot.docs.length);
       promotions.addAll(snapshot.docs
           .map((e) => Promotion.fromMap(e.data() as Map<String, dynamic>)));
       promotions
