@@ -14,6 +14,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
+  static const routeName = '/splash_screen';
+
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
@@ -27,12 +29,18 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
         body: BlocListener<AuthBloc, AuthState>(
             listener: (context, state) {
+              print(state);
+
               if (state is Unauthenticated) {
                 firstTime = true;
                 Utils().isAlreadyUsedOnboarding().then((value) {
                   if (value) {
-                    Navigator.pushNamedAndRemoveUntil(context,
-                        SignInScreen.routeName, (route) => route.isFirst);
+                    Navigator.pushNamed(
+                      context,
+                      SignInScreen.routeName,
+                      // (route) =>
+                      //     route.settings.name == SplashScreen.routeName
+                    );
                   } else {
                     Navigator.pushNamedAndRemoveUntil(context,
                         OnboardingScreen.routeName, (route) => route.isFirst);
@@ -46,6 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
             },
             child: BlocListener<UserBloc, UserState>(
                 listener: (context, state) {
+                  print(state);
                   if (state is UserLoaded && firstTime) {
                     firstTime = false;
                     context.read<HomeBloc>().add(const LoadHome());

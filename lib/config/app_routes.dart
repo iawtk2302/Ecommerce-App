@@ -44,12 +44,17 @@ import 'package:ecommerce_app/screens/shipping_addresses_screen/shipping_address
 import 'package:ecommerce_app/screens/sign_in_screen/sign_in_screen.dart';
 import 'package:ecommerce_app/screens/sign_up_screen/sign_up_screen.dart';
 import 'package:ecommerce_app/screens/sign_up_screen/sign_up_success_screen.dart';
+import 'package:ecommerce_app/screens/splash_screen/splash_screen.dart';
 import 'package:ecommerce_app/screens/top_up_screen/top_up_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
   Route? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case SplashScreen.routeName:
+        return MaterialPageRoute(
+          builder: (context) => const SplashScreen(),
+        );
       case OnboardingScreen.routeName:
         return MaterialPageRoute(
           builder: (context) => const OnboardingScreen(),
