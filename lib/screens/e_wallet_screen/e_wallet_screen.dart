@@ -8,6 +8,7 @@ import 'package:ecommerce_app/screens/e_wallet_screen/widgets/balance_widget.dar
 import 'package:ecommerce_app/screens/e_wallet_screen/widgets/transactions_history.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EWalletScreen extends StatefulWidget {
   const EWalletScreen({super.key});
@@ -32,17 +33,18 @@ class _EWalletScreenState extends State<EWalletScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const ScreenNameSection(label: "My E-Wallet"),
+          ScreenNameSection(label: AppLocalizations.of(context)!.myEWallet),
           const BalanceWidget(),
           const SizedBox(height: 5),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const SectionLabel(label: "Transaction History"),
+              SectionLabel(
+                  label: AppLocalizations.of(context)!.transactionHistory),
               TextButton(
                   onPressed: _navigateToAllTransactionScree,
-                  child: const Text(
-                    "See All",
+                  child: Text(
+                    AppLocalizations.of(context)!.seeAll,
                     style: AppStyles.labelMedium,
                   ))
             ],

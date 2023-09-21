@@ -13,6 +13,7 @@ import 'package:ecommerce_app/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PersonalDetailsScreen extends StatefulWidget {
   const PersonalDetailsScreen({super.key});
@@ -93,8 +94,8 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                           pickedImage: pickedImage,
                         ),
                         ProfileDetailsInformation(
-                          label: "Name",
-                          hintText: "Name",
+                          label: AppLocalizations.of(context)!.name,
+                          hintText: AppLocalizations.of(context)!.name,
                           controller: _nameController,
                         ),
                         const SizedBox(height: 10),
@@ -103,7 +104,7 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                             SizedBox(
                               width:
                                   MediaQuery.of(context).size.width * 0.4 - 60,
-                              child: Text("Gender",
+                              child: Text(AppLocalizations.of(context)!.gender,
                                   style: Theme.of(context)
                                       .textTheme
                                       .labelMedium!
@@ -184,8 +185,8 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                           ],
                         ),
                         ProfileDetailsInformation(
-                          label: "Age",
-                          hintText: "Age",
+                          label: AppLocalizations.of(context)!.age,
+                          hintText: AppLocalizations.of(context)!.age,
                           controller: _ageController,
                           keyboardType: TextInputType.number,
                           validator: (value) {
@@ -198,8 +199,8 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                           },
                         ),
                         ProfileDetailsInformation(
-                          label: "Email",
-                          hintText: "Email",
+                          label: AppLocalizations.of(context)!.email,
+                          hintText: AppLocalizations.of(context)!.email,
                           controller: _emailController,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -217,7 +218,7 @@ class _PersonalDetailsScreenState extends State<PersonalDetailsScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("Save",
+                              Text(AppLocalizations.of(context)!.save,
                                   style: Theme.of(context)
                                       .textTheme
                                       .labelLarge!

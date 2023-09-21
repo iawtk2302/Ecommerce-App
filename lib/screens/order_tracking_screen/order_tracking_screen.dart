@@ -10,6 +10,7 @@ import 'package:ecommerce_app/models/tracking_status.dart';
 import 'package:ecommerce_app/repositories/order_repository.dart';
 import 'package:ecommerce_app/screens/my_order_screen/widgets/order_item_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OrderTrackingScreen extends StatelessWidget {
   final OrderModel order;
@@ -74,9 +75,9 @@ class OrderTrackingScreen extends StatelessWidget {
             //         )),
             //   ],
             // ),
-            const SectionLabel(
-              label: "History",
-              margin: EdgeInsets.only(bottom: 8, top: 10),
+            SectionLabel(
+              label: AppLocalizations.of(context)!.history,
+              margin: const EdgeInsets.only(bottom: 8, top: 10),
             ),
             FutureBuilder<List<TrackingStatus>>(
               future: OrderRepository().fetchTrackingStatus(orderId: order.id),
