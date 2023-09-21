@@ -22,7 +22,7 @@ class PromotionScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const ScreenNameSection(label: "Discount Offer"),
+            const ScreenNameSection(label: "Promotion"),
             promotions.isEmpty
                 ? const Align(
                     alignment: Alignment.center,

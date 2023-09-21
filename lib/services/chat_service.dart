@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_app/constants/enums/message_type.dart';
 import 'package:ecommerce_app/models/chat_room.dart';
