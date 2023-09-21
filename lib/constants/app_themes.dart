@@ -10,6 +10,7 @@ class AppThemes {
     hintColor: AppColors.primaryHintColor,
     primaryColorDark: AppColors.darkTextColor,
     primaryColorLight: AppColors.lightTextColor,
+    primaryColor: AppColors.primaryColor,
     colorScheme: const ColorScheme.light(
       primaryContainer: AppColors.primaryColor,
       onPrimaryContainer: AppColors.lightTextColor,
@@ -21,7 +22,7 @@ class AppThemes {
       secondary: AppColors.whiteColor,
       surface: AppColors.primaryColor,
       background: AppColors.whiteColor,
-      error: AppColors.primaryColor,
+      error: AppColors.errorColor,
       onPrimary: AppColors.primaryColor,
       onSecondary: AppColors.primaryColor,
       onSurface: AppColors.primaryColor,
@@ -78,7 +79,8 @@ class AppThemes {
       titleSmall:
           AppStyles.titleSmall.copyWith(color: AppColors.lightTextColor),
     ),
-    colorScheme: const ColorScheme.light(
+    primaryColor: AppColors.whiteColor,
+    colorScheme: const ColorScheme.dark(
       primaryContainer: AppColors.whiteColor,
       onPrimaryContainer: AppColors.darkTextColor,
       secondaryContainer: AppColors.primaryColor,
@@ -89,7 +91,7 @@ class AppThemes {
       secondary: AppColors.primaryColor,
       surface: AppColors.primaryColor,
       background: AppColors.primaryColor,
-      error: AppColors.primaryColor,
+      error: AppColors.errorColor,
       onPrimary: AppColors.primaryColor,
       onSecondary: AppColors.primaryColor,
       onSurface: AppColors.primaryColor,

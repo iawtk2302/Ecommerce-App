@@ -42,8 +42,8 @@ class Product extends Equatable {
       averageRating: json['averageRating'].toDouble(),
       reviewCount: json['reviewCount'],
       imgUrl: json['imgUrl'],
-      soldCount: json['soldCount'],
-      stockCount: json['stockCount'],
+      soldCount: json['soldCount'] ?? 0,
+      stockCount: json['stockCount'] ?? 0,
       createdAt: json['createdAt'].toDate(),
     );
   }

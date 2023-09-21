@@ -67,6 +67,11 @@ class EWalletRepository {
             .orderBy("createdTime", descending: true)
             .limit(10)
             .get();
+        snapshot.docs.forEach((element) {
+          print(
+              EWalletTransaction.fromMap(element.data() as Map<String, dynamic>)
+                  .toMap());
+        });
       } else {
         snapshot = await usersRef
             .doc(firebaseAuth.currentUser!.uid)
